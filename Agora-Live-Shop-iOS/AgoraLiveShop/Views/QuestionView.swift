@@ -24,7 +24,7 @@ class QuestionView: UIView {
     
     weak var deleagte: QuestionViewDeleagte?
     
-    var width: CGFloat = ScreenWidth - 40
+    var width: CGFloat = max(ScreenWidth - 40, 300)
     var height: CGFloat = ScreenHeight
     
     var channelName: String!
@@ -77,6 +77,7 @@ class QuestionView: UIView {
             pastTime -= 1
             self.circleView.centerLabel.text = String(pastTime)
         } else {
+            self.circleView.centerLabel.text = "0"
             pastTime = answerTime
             timer?.invalidate()
         }

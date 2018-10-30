@@ -181,7 +181,7 @@ extension LiveRoomViewController {
         let questionView = QuestionView.newQuestionView(with: self.question!)
         questionView?.deleagte = self
 
-        questionView?.frame.origin = CGPoint(x: 20, y: ScreenHeight)
+        questionView?.frame.origin = CGPoint(x: (ScreenWidth - (questionView?.width)!) / 2, y: ScreenHeight)
         self.view.addSubview(questionView!)
         if isProductViewShow {
             if isFullViewMode {
