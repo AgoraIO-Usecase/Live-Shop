@@ -219,8 +219,8 @@ BOOL CAgoraHQDlg::OnInitDialog()
 
 	if (NULL == m_pDlgConfig){
 		m_pDlgConfig = new CDlgConfig;
-		m_pDlgConfig->Create(CDlgConfig::IDD);
 		m_pDlgConfig->pAgoraHQDlg = this;
+		m_pDlgConfig->Create(CDlgConfig::IDD);
 	}
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
