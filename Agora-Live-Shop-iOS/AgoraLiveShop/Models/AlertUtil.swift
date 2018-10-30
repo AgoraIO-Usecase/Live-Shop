@@ -8,6 +8,12 @@
 
 import UIKit
 
+/*-----------------------------------------------------------------------------
+
+   Show Alert Info
+
+ -----------------------------------------------------------------------------*/
+
 class AlertUtil: NSObject {
     static func showAlert(message: String) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)

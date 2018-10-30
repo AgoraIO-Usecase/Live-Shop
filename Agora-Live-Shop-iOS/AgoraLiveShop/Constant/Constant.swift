@@ -26,7 +26,9 @@ let isIPhoneX = ScreenHeight == 812 ? true : false
 
 let rightColor = UIColor(hex: 0x97D24A, alpha: 1)
 
-let wrongColor = UIColor(hex: 0xE9E9EC, alpha: 1)
+let noRightColor = UIColor(hex: 0xE9E9EC, alpha: 1)
+
+let wrongColor = UIColor(hex: 0xC42A29, alpha: 1)
 
 let selectedColor = UIColor(hex: 0x56C4F8, alpha: 1)
 

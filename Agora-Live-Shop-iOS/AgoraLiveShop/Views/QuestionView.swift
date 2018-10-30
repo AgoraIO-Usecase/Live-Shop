@@ -77,6 +77,7 @@ class QuestionView: UIView {
             pastTime -= 1
             self.circleView.centerLabel.text = String(pastTime)
         } else {
+            resetViewWithRightAnswers2()
             self.circleView.centerLabel.text = "0"
             pastTime = answerTime
             timer?.invalidate()
@@ -129,6 +130,7 @@ private extension QuestionView {
             answerButton.contentHorizontalAlignment = .left
             answerButton.setTitleColor(UIColor.black, for: .normal)
             answerButton.titleLabel?.numberOfLines = 0
+            answerButton.contentHorizontalAlignment = .center
             answerButton.isEnabled = enable
             answerButton.tag = index
             answerButton.addTarget(self, action: #selector(sendAnswer(_:)), for: .touchUpInside)
@@ -150,9 +152,9 @@ private extension QuestionView {
     
     // When a answer be chose, this func wil be called
     @objc func sendAnswer(_ button: UIButton) {
-        self.resetViewWithRightAnswers2()
-
-        self.stopCounting()
+        button.superview?.backgroundColor = selectedColor
+        myAnswer = button.tag
+        
         for button in buttons {
             button.isEnabled = false
         }
@@ -169,10 +171,20 @@ private extension QuestionView {
         
         for i in 0..<spreads.count - 1 {
             let ratio = totalAnswers == 0 ? 0.0 : Double(spreads["\(i)"]!) / Double(totalAnswers)
-            if i != question.result {
-                setBackground(color: wrongColor, of: answerViews[i], with: ratio, count: spreads["\(i)"]!)
+            if i == myAnswer {
+                if i != question.result {
+                    setBackground(color: wrongColor, of: answerViews[i], with: ratio, count: spreads["\(i)"]!)
+                    self.circleView.progressColor = wrongColor
+                } else {
+                    setBackground(color: rightColor, of: answerViews[i], with: ratio, count: spreads["\(i)"]!)
+                    self.circleView.progressColor = rightColor
+                }
             } else {
-                setBackground(color: rightColor, of: answerViews[i], with: ratio, count: spreads["\(i)"]!)
+                if i != question.result {
+                    setBackground(color: noRightColor, of: answerViews[i], with: ratio, count: spreads["\(i)"]!)
+                } else {
+                    setBackground(color: rightColor, of: answerViews[i], with: ratio, count: spreads["\(i)"]!)
+                }
             }
         }
     }

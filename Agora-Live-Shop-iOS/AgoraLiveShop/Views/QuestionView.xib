@@ -36,12 +36,12 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdX-kb-ayc">
-                    <rect key="frame" x="260" y="10" width="30" height="30"/>
+                    <rect key="frame" x="240" y="10" width="50" height="50"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="30" id="Dzp-Wc-E5l"/>
-                        <constraint firstAttribute="height" constant="30" id="MZj-EA-nvq"/>
+                        <constraint firstAttribute="width" constant="50" id="Dzp-Wc-E5l"/>
+                        <constraint firstAttribute="height" constant="50" id="MZj-EA-nvq"/>
                     </constraints>
-                    <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="10"/>
+                    <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="30"/>
                     <state key="normal" image="Cancel"/>
                     <connections>
                         <action selector="doCancelPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="5t1-4d-sMZ"/>
