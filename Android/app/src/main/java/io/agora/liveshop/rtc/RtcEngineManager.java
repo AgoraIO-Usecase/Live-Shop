@@ -44,7 +44,7 @@ public class RtcEngineManager {
         // The channel is set in live broadcasting mode. In this
         // mode, only broadcasters are eligible to send audio and
         // video streams, while audience can only receive streams.
-        // In this applications all users are audience. The audio
+        // In this application all users are audience. The audio
         // and video streams are received from another broadcasting
         // client.
         mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
