@@ -41,12 +41,16 @@ public class RtcEngineManager {
         // users in the same channel
         // mRtcEngine.enableAudioVolumeIndication(300, 3);
 
-        // We now only support audience mode of the live shop
+        // The channel is set in live broadcasting mode. In this
+        // mode, only broadcasters are eligible to send audio and
+        // video streams, while audience can only receive streams.
+        // In this applications all users are audience. The audio
+        // and video streams are received from another broadcasting
+        // client.
+        mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         mRtcEngine.setClientRole(Constants.CLIENT_ROLE_AUDIENCE);
 
-        mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         mRtcEngine.enableVideo();
-        mRtcEngine.enableLocalVideo(false);
     }
 
     public RtcEngine getRtcEngine() {

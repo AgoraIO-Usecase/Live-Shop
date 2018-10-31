@@ -1,16 +1,13 @@
 package io.agora.liveshop.activities;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -24,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import io.agora.liveshop.AgoraApplication;
 import io.agora.liveshop.R;
 import io.agora.liveshop.data.ChatMessage;
 import io.agora.liveshop.data.Product;
@@ -40,8 +36,9 @@ import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 
 public class LiveRoomActivity extends BaseActivity implements View.OnClickListener {
-    private static final String TAG = "LiveRoomActivity";
+    // For this sample, the broadcaster id is hard-coded as 1
     private static final int BROADCASTER_UID = 1;
+
     private static final int MSG_SEND = 1;
     private static final int MSG_FIRST_FRAME_DECODED = 2;
     private static final int MSG_PRODUCT_RECEIVED = 3;
@@ -61,15 +58,18 @@ public class LiveRoomActivity extends BaseActivity implements View.OnClickListen
 
     private boolean mBroadcasterRemoteViewInitialized = false;
 
+    // Not all callbacks are used, but they can be easily
+    // taken the advantage of to guarantee the proper behaviors
+    // performed.
     private IEventCallback mCallback = new IEventCallback() {
         @Override
         public void onJoinChannelSuccess(String channel, int uid, int elapsed) {
-            Log.i(TAG, "join success channel:" + channel+ " uid:" + uid);
+
         }
 
         @Override
         public void onUserJoined(int uid, int elapsed) {
-            Log.i(TAG, "user joined:" + uid);
+
         }
 
         @Override
@@ -79,12 +79,12 @@ public class LiveRoomActivity extends BaseActivity implements View.OnClickListen
 
         @Override
         public void onError(int err) {
-            Log.i(TAG, "Error:" + err);
+
         }
 
         @Override
         public void onLeaveChannel(IRtcEngineEventHandler.RtcStats stats) {
-            Log.i(TAG, "leave channel:" + stats.cpuAppUsage);
+
         }
 
         @Override
@@ -99,8 +99,12 @@ public class LiveRoomActivity extends BaseActivity implements View.OnClickListen
 
         @Override
         public void onFirstRemoteVideoDecoded(int uid, int width, int height, int elapsed) {
-            // It is the recommended timing to initialize the remote views,
-            // cause we will receive the user ids for them
+            // This is the recommended time to initialize the remote views,
+            // cause we need their ids to initialize remote views.
+            // Here we initialize the broadcaster remote view once, leaving other possible
+            // remote videos ignored (product video will be initialized when receiving the
+            // product SEI info in the onReceiveSEI callback).
+            // For simplicity, we use hard-coded id for the broadcaster.
             if (uid == BROADCASTER_UID && !mBroadcasterRemoteViewInitialized) {
                 Message.obtain(mHandler, MSG_FIRST_FRAME_DECODED, uid, elapsed).sendToTarget();
                 mBroadcasterRemoteViewInitialized = true;
@@ -109,8 +113,11 @@ public class LiveRoomActivity extends BaseActivity implements View.OnClickListen
 
         @Override
         public void onReceiveSEI(String info) {
-            Log.e(TAG, "SEI received:" + info);
-            parseJSONString(info);
+            // SEI information, embedded in video frames,  is used by
+            // the broadcaster to send instant messages to audience
+            // client. The information be analyzed by RTC sdk and returned here.
+            // It supports either product or quiz information for now.
+            parseSEIAndShow(info);
         }
 
         @Override
@@ -119,7 +126,7 @@ public class LiveRoomActivity extends BaseActivity implements View.OnClickListen
         }
     };
 
-    private void parseJSONString(String info) {
+    private void parseSEIAndShow(String info) {
         try {
             JSONObject object = new JSONObject(info);
             String type = object.getString("type");
