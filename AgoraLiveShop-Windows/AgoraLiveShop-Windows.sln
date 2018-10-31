@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AgoraHQ", "AgoraHQ\AgoraHQ.vcxproj", "{F386CC1B-F265-4D83-92E2-93722A8AB436}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdvertiseVideoSource", "AdvertiseVideoSource\AdvertiseVideoSource.vcxproj", "{8B82828B-6E77-4F6D-B224-4D81C7A9C46E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F386CC1B-F265-4D83-92E2-93722A8AB436}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F386CC1B-F265-4D83-92E2-93722A8AB436}.Debug|Win32.Build.0 = Debug|Win32
+		{F386CC1B-F265-4D83-92E2-93722A8AB436}.Debug|x64.ActiveCfg = Debug|Win32
+		{F386CC1B-F265-4D83-92E2-93722A8AB436}.Release|Win32.ActiveCfg = Release|Win32
+		{F386CC1B-F265-4D83-92E2-93722A8AB436}.Release|Win32.Build.0 = Release|Win32
+		{F386CC1B-F265-4D83-92E2-93722A8AB436}.Release|x64.ActiveCfg = Release|Win32
+		{8B82828B-6E77-4F6D-B224-4D81C7A9C46E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8B82828B-6E77-4F6D-B224-4D81C7A9C46E}.Debug|Win32.Build.0 = Debug|Win32
+		{8B82828B-6E77-4F6D-B224-4D81C7A9C46E}.Debug|x64.ActiveCfg = Debug|Win32
+		{8B82828B-6E77-4F6D-B224-4D81C7A9C46E}.Release|Win32.ActiveCfg = Release|Win32
+		{8B82828B-6E77-4F6D-B224-4D81C7A9C46E}.Release|Win32.Build.0 = Release|Win32
+		{8B82828B-6E77-4F6D-B224-4D81C7A9C46E}.Release|x64.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
