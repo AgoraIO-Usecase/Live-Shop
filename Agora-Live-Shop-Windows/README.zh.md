@@ -65,14 +65,14 @@ The MIT License (MIT).
 
 #如何集成声网sdk实现以上功能
 
-##集成声网sdk
+## 集成声网sdk
 
 SDK的集成可以参考
 [官网文档](!https://docs.agora.io/cn/?_ga=2.119862408.1634715518.1540813689-2048440635.1534656968)
 
 有两点需要注意：
 
-###本地生成token
+### 本地生成token
 
 **正常的流程：**
 
@@ -88,7 +88,7 @@ SDK的集成可以参考
 关于token的详细文档说明请参考：
 [官网token文档](!https://docs.agora.io/cn/Interactive%20Broadcast/token?platform=All%20Platforms)
 
-###使用SEI发送信息
+### 使用SEI发送信息
 
 * 该版本sdk是基于2.3.1的特殊版本sdk，主要是为了提供SEI发送题库和产品信息
 * 添加了两个回调函数
@@ -125,7 +125,7 @@ obs库的具体细节可以参考[obs studio的官网文档](!obsproject.com)
 
 **注意：** 在导播端的demo代码中所有注释**OBS for ExtCapture**的地方为obs相关代码开始的地方
 
-##关于双摄像头如何实现
+## 关于双摄像头如何实现
 
 声网sdk目前是单引擎实例，也就是意味着一个进程只能有一路视频。有些特殊情况要使用多录视频就必须使用到多进程。双摄像的就是基于此实现的，原理很简单：
 
@@ -154,7 +154,7 @@ obs库的具体细节可以参考[obs studio的官网文档](!obsproject.com)
 * 目前进程处理的命令队列最大为10(VIDEO\_SOURCE\_BLOCK\_NUM)，
 * 每个命令的最大值为1024(VIDEO\_SOURCE\_BLOCK\_SIZE)
 
-##sqlite3存储本地数据库
+## sqlite3存储本地数据库
 
 关于sqlite3的具体使用可以参考[sqlite3官网](!http://www.sqlite.org	)
 为了方便使用了开源的CPPSqlite3[github地址](!)。
@@ -163,13 +163,13 @@ sqlite3属于纯工具行库，再次不做详述。
 
 
 
-##project solution的一点说明
+## project solution的一点说明
 
-###AdvertiseVideoSource
+### AdvertiseVideoSource
 
 作为一个独立进程发送一个视频画面，由主进程发送通知来控制，也可以给主进程发送通知反馈。
 
-###AgoraLiveShop
+### AgoraLiveShop
 
 * AdvertiseVideo
 
