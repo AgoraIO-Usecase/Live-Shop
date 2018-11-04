@@ -12,7 +12,7 @@ This readme describes how to run the sample app.
 
 ## Introduction
 
-Built upon the Agora Video SDK v2.3.1 (**if you are interested in SEI feature, please use v2.3.1 special SEI version as SEI is currently unavaialble in official version**), the Agora Live Shop sample app is an open-source demo that integrates typical live shop feature into your apps.
+Built upon the Agora Video SDK v2.3.1 (**if you are interested in SEI feature, please use [v2.3.1 special SEI version](https://github.com/AgoraIO/Live-Shop-Use-Case/releases) as SEI is currently unavaialble in official version**), the Agora Live Shop sample app is an open-source demo that integrates typical live shop feature into your apps.
 
 This sample app allows you to:
 
