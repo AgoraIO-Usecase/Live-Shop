@@ -100,7 +100,7 @@ SDK的集成可以参考
 
 * [zlib下载地址](!http://gnuwin32.sourceforge.net/packages/zlib.htm)
 
-##使用liobs(obs studio)库
+## 使用liobs(obs studio)库
 
 obs库的具体细节可以参考[obs studio的官网文档](!obsproject.com)
 
