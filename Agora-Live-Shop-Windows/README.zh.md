@@ -63,7 +63,7 @@ CameraDeviceID=
 
 The MIT License (MIT).
 
-#如何集成声网sdk实现以上功能
+# 如何集成声网sdk实现以上功能
 
 ## 集成声网sdk
 
@@ -74,13 +74,13 @@ SDK的集成可以参考
 
 ### 本地生成token
 
-**正常的流程：**
+*正常的流程：*
 
 * 要由客户服务器生成token
 * 客户端向服务器请求token
 * 然后在joinChannel的时候使用请求的token。
 
-**目前为了方便简化流程**
+*目前为了方便简化流程*
 
 * 在本地客户端生成token(GenerateToken)，生成token会使用到开元库zlib。关于生成token代码，在vs2013中的AgoraHQ的AgoraObject下面的token。
 * 然后在joinChannel的时候使用请求的token。
