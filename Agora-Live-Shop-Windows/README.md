@@ -25,7 +25,7 @@ CameraDeviceName=
 CameraDeviceID=
 ```
 
-Finally, Open AgoraHQ.sln with your VC++ 2013(or higher) and build all solution and run.
+Finally, Open AgoraLiveShop-Windows.sln with your VC++ 2013(or higher) and build all solution and run.
 
 There is a Restart.bat script in the home directory. You need to copy the script to the execution directory during the actual running.
 
