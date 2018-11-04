@@ -51,25 +51,11 @@ CameraDeviceID=
 * VC++ 2013(或更高版本)
 * Windows7(或更高版本)
 
-## 联系我们
+## 如何集成声网sdk实现以上功能
 
-- 完整的 API 文档见 [文档中心](https://docs.agora.io/cn/)
-- 如果在集成中遇到问题，你可以到 [开发者社区](https://dev.agora.io/cn/) 提问
-- 如果有售前咨询问题，可以拨打 400 632 6626，或加入官方Q群 12742516 提问
-- 如果需要售后技术支持，你可以在 [Agora Dashboard](https://dashboard.agora.io) 提交工单
-- 如果发现了示例代码的bug，欢迎提交 [issue](https://github.com/AgoraIO/OpenLive-Windows/issues)
-
-## 代码许可
-
-The MIT License (MIT).
-
-# 如何集成声网sdk实现以上功能
-
-## 集成声网sdk
+### 集成声网sdk
 
 SDK的集成可以参考[官网文档](https://docs.agora.io/cn/?_ga=2.119862408.1634715518.1540813689-2048440635.1534656968)
-
-有两点需要注意：
 
 ### 本地生成token
 
@@ -89,7 +75,7 @@ SDK的集成可以参考[官网文档](https://docs.agora.io/cn/?_ga=2.119862408
 
 ### 使用SEI发送信息
 
-* 该版本sdk是基于2.3.1的特殊版本sdk，主要是为了提供SEI发送题库和产品信息
+* 该版本sdk是基于2.3.1的[特殊版本sdk](https://github.com/AgoraIO/Live-Shop-Use-Case/releases/download/release%2F1.0/Agora_Native_SDK_for_Windows.x86._v2.3.1_sei_FULL_20181024_1132.1.zip)，主要是为了提供SEI发送题库和产品信息
 * 添加了两个回调函数
 
     * onSendSEI： 导播端目前只用到onSendSEI
@@ -99,11 +85,11 @@ SDK的集成可以参考[官网文档](https://docs.agora.io/cn/?_ga=2.119862408
 
 * [zlib下载地址](http://gnuwin32.sourceforge.net/packages/zlib.htm)
 
-## 使用liobs(obs studio)库
+### 使用liobs(obs studio)库
 
 obs库的具体细节可以参考[obs studio的官网文档](obsproject.com)
 
-该obs库是基于开元的obs studio修改，增加了一个插件win-agora，该插件只是负责将obs的视频合图和音频混音的数据导出到一个共享的buffer，然后由agora sdk裸数据接口获得buffer中的数据复制到agora sdk的buffer中，可以利用obs的一些高级功能。
+该obs库是基于开源的obs studio修改，增加了一个插件win-agora，该插件只是负责将obs的视频合图和音频混音的数据导出到一个共享的buffer，然后由agora sdk裸数据接口获得buffer中的数据复制到agora sdk的buffer中，可以利用obs的一些高级功能。
 
 目前用到的obs的视频源包括：
 
@@ -124,7 +110,7 @@ obs库的具体细节可以参考[obs studio的官网文档](obsproject.com)
 
 **注意：** 在导播端的demo代码中所有注释**OBS for ExtCapture**的地方为obs相关代码开始的地方
 
-## 关于双摄像头如何实现
+### 关于双摄像头如何实现
 
 声网sdk目前是单引擎实例，也就是意味着一个进程只能有一路视频。有些特殊情况要使用多录视频就必须使用到多进程。双摄像的就是基于此实现的，原理很简单：
 
@@ -153,7 +139,7 @@ obs库的具体细节可以参考[obs studio的官网文档](obsproject.com)
 * 目前进程处理的命令队列最大为10(VIDEO\_SOURCE\_BLOCK\_NUM)，
 * 每个命令的最大值为1024(VIDEO\_SOURCE\_BLOCK\_SIZE)
 
-## sqlite3存储本地数据库
+### sqlite3存储本地数据库
 
 * 关于sqlite3的具体使用可以参考 [sqlite3官网](http://www.sqlite.org	)
 * 为了方便使用了开源的CPPSqlite3 [github地址]()。
@@ -185,4 +171,19 @@ obs库的具体细节可以参考[obs studio的官网文档](obsproject.com)
 * *obs-studio*
 
     obs studio使用的部分。
+
+
+
+## 联系我们
+
+- 完整的 API 文档见 [文档中心](https://docs.agora.io/cn/)
+- 如果在集成中遇到问题，你可以到 [开发者社区](https://dev.agora.io/cn/) 提问
+- 如果有售前咨询问题，可以拨打 400 632 6626，或加入官方Q群 12742516 提问
+- 如果需要售后技术支持，你可以在 [Agora Dashboard](https://dashboard.agora.io) 提交工单
+- 如果发现了示例代码的bug，欢迎提交 [issue](https://github.com/AgoraIO/OpenLive-Windows/issues)
+
+## 代码许可
+
+The MIT License (MIT).
+
 
