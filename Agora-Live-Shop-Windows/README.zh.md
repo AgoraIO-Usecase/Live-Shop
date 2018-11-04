@@ -67,8 +67,7 @@ The MIT License (MIT).
 
 ## 集成声网sdk
 
-SDK的集成可以参考
-[官网文档](https://docs.agora.io/cn/?_ga=2.119862408.1634715518.1540813689-2048440635.1534656968)
+SDK的集成可以参考[官网文档](https://docs.agora.io/cn/?_ga=2.119862408.1634715518.1540813689-2048440635.1534656968)
 
 有两点需要注意：
 
@@ -102,7 +101,7 @@ SDK的集成可以参考
 
 ## 使用liobs(obs studio)库
 
-obs库的具体细节可以参考[obs studio的官网文档](!obsproject.com)
+obs库的具体细节可以参考[obs studio的官网文档](obsproject.com)
 
 该obs库是基于开元的obs studio修改，增加了一个插件win-agora，该插件只是负责将obs的视频合图和音频混音的数据导出到一个共享的buffer，然后由agora sdk裸数据接口获得buffer中的数据复制到agora sdk的buffer中，可以利用obs的一些高级功能。
 
