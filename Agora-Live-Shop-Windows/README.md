@@ -1,6 +1,6 @@
 #  Agora Live Shop
 
-*其他语言版本： [简体中文](README.en.md)*
+*其他语言版本： [简体中文](README.zh.md)*
 
 This demo is written in **C++**
 
