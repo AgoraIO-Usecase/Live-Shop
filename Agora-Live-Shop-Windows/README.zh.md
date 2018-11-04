@@ -1,4 +1,4 @@
-# Agora Live Shop
+# AgoraLiveShop
 
 *Read this in other languages: [English](README.md)*
 
@@ -13,7 +13,6 @@
 
 在这个示例项目中包含了以下功能：
 
-* 角色:主持人导播
 * 通过sei发送直播题目和产品广告
 * 直播主讲，yy伴侣实现视频特效
 * 双摄像头，有一个可以作为产品广告
@@ -44,7 +43,7 @@ CameraDeviceID=
 
 ```
 
-最后使用 VC++2013 打开 AgoraHQ.sln，编译整个解决方案即可运行，
+最后使用 VC++2013 打开 AgoraLiveShop-Windows.sln，编译整个解决方案即可运行，
 
 在程序主目录下有一个restart.bat脚本，需要将restart.bat copy到执行目录下.
 
@@ -87,6 +86,7 @@ SDK的集成可以参考
 * 然后在joinChannel的时候使用请求的token。
 
 关于token的详细文档说明请参考：
+[官网token文档](!https://docs.agora.io/cn/Interactive%20Broadcast/token?platform=All%20Platforms)
 
 ###使用SEI发送信息
 
@@ -98,9 +98,7 @@ SDK的集成可以参考
   
     **注意**onSendSEI的info只有1024个字节，所以发送的消息长度注意控制。
 
-[官网token文档](!https://docs.agora.io/cn/Interactive%20Broadcast/token?platform=All%20Platforms)
-
-[zlib下载地址](!http://gnuwin32.sourceforge.net/packages/zlib.htm)
+* [zlib下载地址](!http://gnuwin32.sourceforge.net/packages/zlib.htm)
 
 ##使用liobs(obs studio)库
 
@@ -136,7 +134,7 @@ obs库的具体细节可以参考[obs studio的官网文档](!obsproject.com)
 * 另一个进程(AdvertiseVideoSource.exe)负责发送产品广告，不需要发送音频也不需要接收任何人的音视频。
 * 主进程启动产品广告进程的时候，可以给产品广告进程传送一些初始化参数信息比如appid等
 
-***如何在自己的程序中使用demo的代码**
+**如何在自己的程序中使用demo的代码**
 
 * 将两个进程通信依赖的公共代码拷贝到自己的代码下，配置好相关路径。
 * 将AdvertiseVideoSource整个project添加到自己的代码下
@@ -171,7 +169,7 @@ sqlite3属于纯工具行库，再次不做详述。
 
 作为一个独立进程发送一个视频画面，由主进程发送通知来控制，也可以给主进程发送通知反馈。
 
-###AgoraHQ
+###AgoraLiveShop
 
 * AdvertiseVideo
 
