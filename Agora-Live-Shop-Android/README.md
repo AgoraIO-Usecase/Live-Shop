@@ -56,3 +56,4 @@ NOTE: Agora recommends using a real device instead of an emulator.
 - You can report issues about this demo at [issue](https://github.com/AgoraIO/Live-Shop-Use-Case/issues).
 
 ## License
+The MIT License (MIT).
