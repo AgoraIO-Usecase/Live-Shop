@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home -->
+    <dimen name="bottom_bar_height">64dp</dimen>
+    <dimen name="bottom_bar_icon_margin">8dp</dimen>
+    <dimen name="top_menu_height">24dp</dimen>
+    <dimen name="top_menu_margin">24dp</dimen>
+    <dimen name="top_btn_height">48dp</dimen>
+    <dimen name="top_btn_bg_selected_stroke">3dp</dimen>
+    <dimen name="content_padding">8dp</dimen>
+    <dimen name="real_live_margin">8dp</dimen>
+    <dimen name="bose_layout_height">248dp</dimen>
+    <dimen name="bose_bottom_bar_height">54dp</dimen>
+    <dimen name="bose_title_text_size">20dp</dimen>
+
+    <!-- Live Room -->
+    <dimen name="live_top_bar_height">60dp</dimen>
+    <dimen name="live_back_btn_size">32dp</dimen>
+    <dimen name="live_follow_btn_image_size">24dp</dimen>
+    <dimen name="live_top_bar_margin">18dp</dimen>
+    <dimen name="live_bottom_bar_margin">28dp</dimen>
+    <dimen name="live_bottom_edit_margin">12dp</dimen>
+    <dimen name="live_bottom_edit_padding_vertical">4dp</dimen>
+    <dimen name="live_bottom_edit_padding_horizontal">10dp</dimen>
+    <dimen name="live_chat_layout_height">240dp</dimen>
+    <dimen name="live_chat_message_list_height">150dp</dimen>
+
+    <dimen name="live_product_layout_width">340dp</dimen>
+    <dimen name="live_product_layout_height">120dp</dimen>
+    <dimen name="live_product_layout_padding">8dp</dimen>
+    <dimen name="live_product_icon_width">75dp</dimen>
+    <dimen name="live_product_icon_height">104dp</dimen>
+    <dimen name="live_product_small_text">10dp</dimen>
+    <dimen name="live_product_big_view_margin">36dp</dimen>
+
+    <dimen name="quiz_layout_margin_horizontal">8dp</dimen>
+    <dimen name="quiz_layout_margin_bottom">10dp</dimen>
+    <dimen name="quiz_layout_padding">30dp</dimen>
+    <dimen name="quiz_close_size">24dp</dimen>
+    <dimen name="quiz_close_margin">20dp</dimen>
+    <dimen name="quiz_content_margin">12dp</dimen>
+    <dimen name="quiz_option_width">280dp</dimen>
+    <dimen name="quiz_option_height">44dp</dimen>
+    <dimen name="quiz_option_margin">8dp</dimen>
+    <dimen name="quiz_option_name_size">18dp</dimen>
+    <dimen name="quiz_option_chosen_size">12dp</dimen>
+    <dimen name="quiz_option_chosen_margin_right">15dp</dimen>
+</resources>

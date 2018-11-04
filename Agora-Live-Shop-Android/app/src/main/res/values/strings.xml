@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [<!ENTITY nbsp "&#160;"><!-- non-breaking space, U+00A0 -->]>
+
+<resources>
+    <string name="app_name">AgoraLiveShop</string>
+    <string name="agora_app_id">"319294c67d174c878cc7922551e6e773"</string>
+
+    <!-- Home -->
+    <string name="bottom_btn_shop_text">Shop</string>
+    <string name="bottom_btn_profile_text">Profile</string>
+    <string name="bottom_btn_cart_text">My Cart</string>
+    <string name="top_bar_live_text">&nbsp;&nbsp;LIVE</string>
+    <string name="top_bar_play_text">&nbsp;&nbsp;PLAY</string>
+    <string name="top_bar_spin_text">&nbsp;&nbsp;SPIN</string>
+    <string name="product_name_bose">Bose Headphones</string>
+    <string name="product_live_time_1">&nbsp;&nbsp;13:05&nbsp;&nbsp;</string>
+    <string name="product_live_time_2">&nbsp;&nbsp;11:25&nbsp;&nbsp;</string>
+    <string name="product_bose_text">Bose Headphones</string>
+
+    <!-- real_time_live Room -->
+    <string name="live_follow_btn_text">&nbsp;Follow</string>
+    <string name="product_dialog_original_price_title">Original Price</string>
+    <string name="product_dialog_group_deal_title">Group Deal</string>
+    <string name="toast_text_empty_message">Cannot send empty message</string>
+    <string name="quiz_title">Trivia Quiz</string>
+</resources>
