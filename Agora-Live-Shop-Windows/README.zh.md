@@ -170,19 +170,19 @@ obs库的具体细节可以参考[obs studio的官网文档](obsproject.com)
 
 ### AgoraLiveShop
 
-* AdvertiseVideo
+* *AdvertiseVideo*
 
     专门负责支持主进程和AdvertiseVideoSource进程通信的一些功能的类。CAgoraHQDlg会用到这些控制主进程和子进程的通信。
-* AgoraObject
+* *AgoraObject*
 
     对agora sdk的一些封装和扩展，包括IRtcEngine的封装、裸数据接口(ExtendObserverForObsStudio)和IRtcEngineEventHandler的实现，以及token和设备管理的实现。
-* Dlg
+* *Dlg*
 
     MFC对话框的实现。
-* LocalQuestionAndAdvertiseData
+* *LocalQuestionAndAdvertiseData*
 
     本地存储题库和产品广告的实现，发送的产品广告信息和题目信息都由这部分获取。AgoraHQ.db存储在exe运行目录下，需要使用sqlite DB Brower存储数据。
-* obs-studio
+* *obs-studio*
 
     obs studio使用的部分。
 
