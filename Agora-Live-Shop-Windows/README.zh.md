@@ -68,7 +68,7 @@ The MIT License (MIT).
 ## 集成声网sdk
 
 SDK的集成可以参考
-[官网文档] (!https://docs.agora.io/cn/?_ga=2.119862408.1634715518.1540813689-2048440635.1534656968)
+[官网文档](https://docs.agora.io/cn/?_ga=2.119862408.1634715518.1540813689-2048440635.1534656968)
 
 有两点需要注意：
 
@@ -86,7 +86,7 @@ SDK的集成可以参考
 * 然后在joinChannel的时候使用请求的token。
 
 关于token的详细文档说明请参考：
-[官网token文档] (!https://docs.agora.io/cn/Interactive%20Broadcast/token?platform=All%20Platforms)
+[官网token文档](https://docs.agora.io/cn/Interactive%20Broadcast/token?platform=All%20Platforms)
 
 ### 使用SEI发送信息
 
@@ -98,7 +98,7 @@ SDK的集成可以参考
   
     **注意**onSendSEI的info只有1024个字节，所以发送的消息长度注意控制。
 
-* [zlib下载地址] (!http://gnuwin32.sourceforge.net/packages/zlib.htm)
+* [zlib下载地址](http://gnuwin32.sourceforge.net/packages/zlib.htm)
 
 ## 使用liobs(obs studio)库
 
@@ -121,7 +121,7 @@ obs库的具体细节可以参考[obs studio的官网文档](!obsproject.com)
 * 调用AgoraObject::EnableExtendAudioCapture和AgoraObject::EnableExtendVideooCapture，参数为TRUE,注册声网裸数据接口。参数为FALSE，注销裸数据接口。
 * 通过AgoraOutputHandler::SetEncoderCallback注册obs的视频和音频回调函数，最终obs的合图和混音数据都会通过注册的回调函数提供给agora sdk。
 
-[裸数据官网文档] (!https://docs.agora.io/cn/Interactive%20Broadcast/rawdata_windows?platform=Windows)
+[裸数据官网文档](https://docs.agora.io/cn/Interactive%20Broadcast/rawdata_windows?platform=Windows)
 
 **注意：** 在导播端的demo代码中所有注释**OBS for ExtCapture**的地方为obs相关代码开始的地方
 
@@ -156,8 +156,8 @@ obs库的具体细节可以参考[obs studio的官网文档](!obsproject.com)
 
 ## sqlite3存储本地数据库
 
-* 关于sqlite3的具体使用可以参考 [sqlite3官网] (!http://www.sqlite.org	)
-* 为了方便使用了开源的CPPSqlite3 [github地址] (!)。
+* 关于sqlite3的具体使用可以参考 [sqlite3官网](http://www.sqlite.org	)
+* 为了方便使用了开源的CPPSqlite3 [github地址]()。
 * 主要在HQDataBase.h和cpp文件中时间。
 * sqlite3属于纯工具行库，再次不做详述。
 
