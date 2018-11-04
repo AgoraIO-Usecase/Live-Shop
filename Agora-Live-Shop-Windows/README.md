@@ -1,24 +1,8 @@
-#  AgoraHQ
+#  Agora Live Shop
 
 *其他语言版本： [简体中文](README.en.md)*
 
-The AgoraHQ Windows Sample App is an open-source demo that will help you get live video chat integrated directly into your windows applications using the Agora Video SDK. This part is the function of HQ Three
-- Update the Language pack
-- fix the crash when the number of choose less than four
-- add operation navigation
-- add update config restart
-
-With this sample app, you can:
-- Role: host guide broadcast
-- Media section: Live Speaker; yy partner to achieve video effects
-- Signaling part: control the answer
-
 This demo is written in **C++**
-
-Agora Video SDK supports iOS / NodeJs / Windows etc. You can find demos of these platform here:
-
-- [OpenLive-Nodejs](https://github.com/AgoraIO/HQ/tree/master/AgoraHQ-Server-Nodejs)
-- [OpenLive-iOS](https://github.com/AgoraIO/HQ/tree/master/AgoraHQ-iOS-Swift)
 
 ## Running the App
 First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. 
