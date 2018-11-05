@@ -37,11 +37,13 @@ NOTE: Agora recommends using a real device instead of an emulator.
    * Download the Agora Video SDK v2.3.1 with SEI support from [Here](https://github.com/AgoraIO/Live-Shop-Use-Case/releases).
    * Unzip the downloaded SDK package and:
 
-         - copy ***.jar** under **/libs** to **app/libs**
-         - copy **libs**/**arm64-v8a**/**x86**/**armeabi-v7a** to **app/src/main/jniLibs**.
+   1) copy ***.jar** under **/libs** to **app/libs**.
+     
+   2) copy **libs**/**arm64-v8a**/**x86**/**armeabi-v7a** to **app/src/main/jniLibs**.
+     
    * Add the following command line to the dependency property of **app**/**build.gradle**. 
 
-             implementation fileTree(dir: 'libs', include: ['*.jar'])
+       implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 ### 6. Open your project using Android Studio.
 ### 7. Connect your Android device to your computer.
