@@ -45,7 +45,7 @@ Android（以及iOS）平台的App作为电商品台的客户端，可以提供�
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 ### 6. 用Android Studio打开项目.
-### 7. 连接您的Android到电脑.
+### 7. 将您的Android设备连接到电脑.
 ### 8. 构建并运行您的应用.
 
    注：您也可以使用 `Gradle` 来构建和运行代码。 
