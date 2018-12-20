@@ -112,10 +112,16 @@ std::string CQuestionsModule::getCurrentQuestionJson()
 	resultJS.AddMember("total", count, allocator);
 
 	rapidjson::Value spread(kObjectType);
-	spread.AddMember("0", question.m_vecSpread[0], allocator);
+	int size = question.m_vecSpread.size();
+	for (int i = 0; i < size; i++){
+		char szNum[2] = { 0 };
+		sprintf_s(szNum, "%d", i);
+		spread.AddMember(szNum, question.m_vecSpread[i], allocator);
+	}
+/*	spread.AddMember("0", question.m_vecSpread[0], allocator);
 	spread.AddMember("1", question.m_vecSpread[1], allocator);
 	spread.AddMember("2", question.m_vecSpread[2], allocator);
-	spread.AddMember("3", question.m_vecSpread[3], allocator);
+	spread.AddMember("3", question.m_vecSpread[3], allocator);*/
 	spread.AddMember("-1", question.no_answer, allocator);
 	resultJS.AddMember("spread", spread, allocator);
 	
