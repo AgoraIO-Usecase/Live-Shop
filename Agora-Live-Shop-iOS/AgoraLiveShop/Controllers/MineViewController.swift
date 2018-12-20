@@ -9,15 +9,11 @@
 import UIKit
 
 class MineViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func doBackPressed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-    
 }

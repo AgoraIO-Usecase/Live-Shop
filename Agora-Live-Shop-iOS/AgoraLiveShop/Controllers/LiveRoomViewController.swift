@@ -11,9 +11,10 @@ import AgoraRtcEngineKit
 
 class LiveRoomViewController: UIViewController {
     
-    @IBOutlet weak var chatTextField: UITextField!
-    @IBOutlet weak var hostContainView: UIView!  // view to show the host
-
+    @IBOutlet weak var rtmpView: UIView!
+    @IBOutlet weak var leftVideoView: UIView!
+    @IBOutlet weak var rightVideoView: UIView!
+    
     var hostView: UIView?
     var productView: ProductDisplayView?
     var questionView: QuestionView?
@@ -34,7 +35,6 @@ class LiveRoomViewController: UIViewController {
     
     var mediaManager: MediaManager!
     
-    var channelName: String!
     
     let chatViewHight: CGFloat = 200
 
@@ -60,10 +60,6 @@ class LiveRoomViewController: UIViewController {
             showProductView()
         }
     }
-    
-    @IBAction func doBackPressed(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
 }
 
 // MARK: Media
@@ -85,21 +81,20 @@ extension LiveRoomViewController: MediaManagerDelegate {
 
     }
     
-    func mediaManager(_ manager: MediaManager, didJoinedOfUid uid: UInt) {
-        if uid == winHostUid {
-            let hostView = UIView(frame: hostContainView.frame)
-            hostContainView.addSubview(hostView)
-            mediaManager.setupRemoteVideo(withUid: uid, toView: hostView, withStreamType: .high)
-            
-            self.hostView = hostView
-        } else {
-            mediaManager.muteRemoteVideoStream(uid, mute: true)
-            mediaManager.muteRemoteAudioStream(uid, mute: true)
+    func mediaManager(_ manager: MediaManager, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
+        switch uid {
+        case 666:
+            rtmpView.isHidden = false
+            mediaManager.setupRemoteVideo(withUid: uid, toView: rtmpView, withStreamType: .high)
+        case 1:
+            rightVideoView.isHidden = false
+            mediaManager.setupRemoteVideo(withUid: uid, toView: rightVideoView, withStreamType: .high)
+        case 2:
+            leftVideoView.isHidden = false
+            mediaManager.setupRemoteVideo(withUid: uid, toView: leftVideoView, withStreamType: .high)
+        default:
+            break
         }
-    }
-    
-    func mediaManagerDidLeaveChannel(_ manager: MediaManager) {
-        
     }
     
     func mediaManager(_ manager: MediaManager, didReceiveSEI sei: NSDictionary, type: SeiType) {
@@ -112,25 +107,21 @@ extension LiveRoomViewController: MediaManagerDelegate {
     }
     
     func mediaManager(_ manager: MediaManager, didOfflineOfUid uid: UInt) {
-        if uid == winHostUid {
-            hostView?.removeFromSuperview()
+        switch uid {
+        case 666:
+            rtmpView.isHidden = true
+        case 1:
+            rightVideoView.isHidden = true
+        case 2:
+            leftVideoView.isHidden = true
+        default:
+            break
         }
     }
 }
 
 extension LiveRoomViewController {
     func initLiveView() {
-        chatTextField.layer.borderWidth = 1
-        chatTextField.layer.borderColor = UIColor.white.cgColor
-        
-        addGestureRecognizer()
-    }
-    
-    func addGestureRecognizer() {
-        let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        view.addGestureRecognizer(doubleTapGestureRecognizer)
-        view.isUserInteractionEnabled = true
     }
     
     // When double tap the product host view this method will be called

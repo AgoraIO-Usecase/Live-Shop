@@ -18,11 +18,11 @@ import AgoraRtcEngineKit
 @objc protocol MediaManagerDelegate: NSObjectProtocol {
     @objc optional func mediaMangaer(_ manager: MediaManager, didJoinChannel channel: String, withUid uid: UInt)
     @objc optional func mediaManagerDidLeaveChannel(_ manager: MediaManager)
-    @objc optional func mediaManager(_ manager: MediaManager, didJoinedOfUid uid: UInt)
-    
     @objc optional func mediaManager(_ manager: MediaManager, didReceiveSEI sei: NSDictionary, type: SeiType)
-    
+   
+    @objc optional func mediaManager(_ manager: MediaManager, didJoinedOfUid uid: UInt)
     @objc optional func mediaManager(_ manager: MediaManager, didOfflineOfUid uid: UInt)
+    @objc optional func mediaManager(_ manager: MediaManager, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int)
 }
 
 class MediaManager: NSObject {
@@ -109,11 +109,15 @@ extension MediaManager: AgoraRtcEngineDelegate {
         self.delegate?.mediaManager?(self, didJoinedOfUid: uid)
     }
     
+    func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
+        self.delegate?.mediaManager?(self, firstRemoteVideoDecodedOfUid: uid, size: size, elapsed: elapsed)
+    }
+    
     func rtcEngine(_ engine: AgoraRtcEngineKit, didReceiveSEI sei: String) {
         let data = sei.data(using: String.Encoding.utf8)
         do {
             let jsonData: NSDictionary = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! NSDictionary
-            print(jsonData)
+            print("didReceiveSEI: \(jsonData)")
             if jsonData["type"] as! String == "prod" {
                 let prodData = jsonData["product"] as! NSDictionary
                 delegate?.mediaManager?(self, didReceiveSEI: prodData, type: .prod)

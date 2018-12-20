@@ -31,9 +31,7 @@ class ProductDisplayView: UIView {
                      variants += value
                 }
             }
-//            for（index, value) in values do {
-//                variants += value + ","
-//            }
+
             view.variantsLabel.text = variants
             view.detaileLabel.text = "Product Detaile  ·  \(product.sold) sold"
             view.originalLabel.text = String(product.price)
