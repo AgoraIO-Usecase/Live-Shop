@@ -215,6 +215,8 @@ bool CHQDataBase::sqlGetHQQuestionById(int index, CQuestions* pQuestion)
 		pQuestion->content = query.getStringField(i++);
 		pQuestion->cs_content = utf8toCString(pQuestion->content.c_str());
 		pQuestion->total_option = query.getInt64Field(i + 5);
+		pQuestion->timeout = query.getIntField(i + 4);
+		int result = query.getIntField(i + 6);
 		if (pQuestion->total_option > 4)
 			pQuestion->total_option = 4;
 		for (int j = 0; j < pQuestion->total_option; j++){
@@ -222,9 +224,7 @@ bool CHQDataBase::sqlGetHQQuestionById(int index, CQuestions* pQuestion)
 			pQuestion->m_vecCSOptions.push_back(utf8toCString(pQuestion->m_vecOptions[j].c_str()));
 		}
 
-		pQuestion->timeout = query.getIntField(i++);
 		pQuestion->total_option = pQuestion->total_option;
-		int result = query.getIntField(i++);
 		pQuestion->result = result % 4;
 		
 		for (size_t i = 0; i < pQuestion->total_option; i++){
