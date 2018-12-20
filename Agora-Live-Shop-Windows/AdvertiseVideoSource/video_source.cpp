@@ -105,6 +105,8 @@ bool AgoraVideoSource::initialize()
 	
 	cameraManager.Create(m_rtcEngine.get());
 
+	rep.setLocalVideoMirrorMode(agora::rtc::VIDEO_MIRROR_MODE_ENABLED);
+
 	m_rtcEngine->setChannelProfile(agora::rtc::CHANNEL_PROFILE_LIVE_BROADCASTING);
 	m_rtcEngine->setClientRole(agora::rtc::CLIENT_ROLE_BROADCASTER);
     return true;
@@ -208,14 +210,10 @@ void AgoraVideoSource::onMessage(unsigned int msg, char* payload, unsigned int l
         rep.enableLocalVideo(false);
     }
 	else if (msg == AGORA_IPC_SET_CAMERA_ID){
-		//agora::rtc::RtcEngineParameters rep(m_rtcEngine.get());
-		//rep.enableLocalVideo(true);
 		CameraIdCmd* cmd = (CameraIdCmd*)payload;
 		cameraManager.SetCurDevice(cmd->cameraid);
 	}
     else if (msg == AGORA_IPC_START_VS_PREVIEW) {
-		//agora::rtc::RtcEngineParameters rep(m_rtcEngine.get());
-		//rep.enableLocalVideo(true);
 		LocalVideoCmd* cmd = (LocalVideoCmd*)payload;
 		this->startPreview(cmd->view);
     }

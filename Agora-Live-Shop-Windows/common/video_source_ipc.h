@@ -9,7 +9,7 @@
 */
 
 /**
- * the file define classes used to deliver command and event between node ADDON and video source process.
+ * the file define classes used to deliver command and event between main process and video source process.
  */
 
 #ifndef AGORA_VIDEO_SOURCE_IPC_H
@@ -24,7 +24,7 @@
 #include <memory>
 
 /**
- * AgoraIpcMsg define the message type transferred between node ADDON and vidoe source process
+ * AgoraIpcMsg define the message type transferred between main processand video source process
  */
 enum AgoraIpcMsg
 {
@@ -38,47 +38,47 @@ enum AgoraIpcMsg
     AGORA_IPC_JOIN,
     /** To notify Video Sink that Video Source is ready*/
     AGORA_IPC_SOURCE_READY,
-    /** Video source ==> node ADDON join success event */
+    /** Video source ==> main processjoin success event */
     AGORA_IPC_JOIN_SUCCESS,
-    /** Node ADDON ==> video source to begin capture screen */
+    /** main process==> video source to begin capture screen */
     AGORA_IPC_CAPTURE_SCREEN,
-    /** Node ADDON ==> video source to update screen sharing area*/
+    /** main process==> video source to update screen sharing area*/
     AGORA_IPC_UPDATE_CAPTURE_SCREEN,
-    /** Node ADDON ==> video source to stop capture screen */
+    /** main process==> video source to stop capture screen */
     AGORA_IPC_STOP_CAPTURE_SCREEN,
-    /** Node ADDON ==> video source to start video */
+    /** main process==> video source to start video */
     AGORA_IPC_START_CAMERA,
-    /** Node ADDON ==> video source to update channelKey */
+    /** main process==> video source to update channelKey */
     AGORA_IPC_RENEW_TOKEN,
-    /** Node ADDON ==> video source to set channel profile */
+    /** main process==> video source to set channel profile */
     AGORA_IPC_SET_CHANNEL_PROFILE,
-    /** Node ADDON ==> video source to set video profile */
+    /** main process==> video source to set video profile */
     AGORA_IPC_SET_VIDEO_RPOFILE,
-    /** Node ADDON ==> video source to leave channel */
+    /** main process==> video source to leave channel */
     AGORA_IPC_LEAVE_CHANNEL,
     /** video source render is ready */
     AGORA_IPC_RENDER_READY,
-    /**  Node ADDON ==> video source, To start transfer local video of video source.*/
+    /**  main process==> video source, To start transfer local video of video source.*/
     AGORA_IPC_START_VS_PREVIEW,
-    /** video source ==> Node ADDON, local video preview complete.*/
+    /** video source ==> main process, local video preview complete.*/
     AGORA_IPC_START_VS_PREVIEW_COMPLETE,
-    /** Node ADDON ==> video source, to stop transfer local video of video source. */
+    /** main process==> video source, to stop transfer local video of video source. */
     AGORA_IPC_STOP_VS_PREVIEW,
-    /** video source ==> Node ADDON, local video preview stopped.*/
+    /** video source ==> main process, local video preview stopped.*/
     AGORA_IPC_STOP_VS_PREVIEW_COMPLETE,
-    /** Node ADDON ==> video source, to enable interoperability with the Agora Web SDK*/
+    /** main process==> video source, to enable interoperability with the Agora Web SDK*/
     AGORA_IPC_ENABLE_WEB_SDK_INTEROPERABILITY,
-    /** Node ADDON ==> video source, to enable dual stream with the Agora Web SDK*/
+    /** main process==> video source, to enable dual stream with the Agora Web SDK*/
     AGORA_IPC_ENABLE_DUAL_STREAM_MODE,
     AGORA_IPC_SET_LOGFILE,
-    /** Node ADDON ==> video source, to set rtc parameters*/
+    /** main process==> video source, to set rtc parameters*/
     AGORA_IPC_SET_PARAMETER,
 	//setupLocaVideo
 	AGORA_IPC_SET_CAMERA_ID
 };
 
 /**
- * Screen capture parameters when ADDON ask video source to start screen sharing.
+ * Screen capture parameters when main process ask ask video source to start screen sharing.
  */
 struct CaptureScreenCmd
 {
@@ -95,14 +95,14 @@ struct CaptureScreenCmd
     {}
 };
 
-#define MAX_TOKEN_LEN 128
+#define MAX_TOKEN_LEN 214
 #define MAX_CNAME_LEN 256
 #define MAX_CHAN_INFO 512
 #define MAX_PERMISSION_KEY 128
 
 
 /**
- * Join channel parameters when ADDON ask video source to join channel
+ * Join channel parameters when main process ask video source to join channel
  */
 struct JoinChannelCmd
 {
@@ -120,7 +120,7 @@ struct JoinChannelCmd
 };
 
 /**
- * video profile parameters when ADDON ask video source to set video profile
+ * video profile parameters when main process ask ask video source to set video profile
  */
 struct VideoProfileCmd
 {
@@ -137,7 +137,7 @@ struct VideoProfileCmd
 };
 
 /**
- * channel profile parameters whne ADDON ask video source to set channel profile
+ * channel profile parameters whne main process ask ask video source to set channel profile
  */
 struct ChannelProfileCmd
 {

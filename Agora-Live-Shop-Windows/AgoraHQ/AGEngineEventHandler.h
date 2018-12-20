@@ -55,7 +55,7 @@ public:
 
 	virtual void onSendSEI(char** info, int* len);
 	virtual void onReceiveSEI(const char* info, int len);
-
+	virtual void onStreamInjectedStatus(const char* url, uid_t uid, int status);
 private:
 	HWND		m_hMainWnd;
 	std::string m_strSEI;

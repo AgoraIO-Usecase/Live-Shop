@@ -1664,6 +1664,7 @@ public:
 
  All methods in this interface class have default (empty) implementations. Therefore, the application can only inherit some required events. In the callback functions, avoid time-consuming tasks or calling blocking APIs, such as the SendMessage method, otherwise, the SDK may not work properly.
  */
+
 class IRtcEngineEventHandler
 {
 public:

@@ -426,6 +426,16 @@ void CAGEngineEventHandler::onReceiveSEI(const char* info, int len)
 	if (m_hMainWnd != NULL)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_RECEIVE_SEI), 0, 0);
 }
+
+void CAGEngineEventHandler::onStreamInjectedStatus(const char* url, uid_t uid, int status)
+{
+	OutputDebugStringA(__FUNCTION__);
+	OutputDebugStringA("\r\n");
+	if (m_hMainWnd != NULL)
+		::PostMessage(m_hMainWnd, WM_MSGID(EID_INJECTURL_STATUS), 0, 0);
+	
+}
+
 void CAgoraVideoSourceEventHandler::onVideoSourceJoinedChannel(agora::rtc::uid_t uid)
 {
 
@@ -443,3 +453,4 @@ void CAgoraVideoSourceEventHandler::onVideoSourceExit()
 {
 
 }
+

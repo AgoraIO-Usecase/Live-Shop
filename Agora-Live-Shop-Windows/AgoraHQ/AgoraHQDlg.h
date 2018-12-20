@@ -70,6 +70,8 @@ public:
 	afx_msg void OnBnClickedButtonJoinchannel();
 	afx_msg void OnBnClickedButtonInvitemedia();
 	afx_msg void OnBnClickedButtonSettimebonus();
+	afx_msg void OnBnClickedButtonAddInjectUrl();
+	afx_msg void OnBnClickedButtonDeleteInjectUrl();
 
 	LRESULT onJoinChannelSuccess(WPARAM wParam,LPARAM lParam);
 	LRESULT onWarning(WPARAM wParam,LPARAM lParam);
@@ -87,6 +89,9 @@ public:
 
 	LRESULT onEIDReceiveSEI(WPARAM wParam, LPARAM lParam);
 	LRESULT onEIDSendSEI(WPARAM wParam, LPARAM lParam);
+	LRESULT onEIDAddInjectUrlStatus(WPARAM wParam, LPARAM lParam);
+	LRESULT onEIDDeleteInjectUrlStatus(WPARAM wParam, LPARAM lParam);
+	LRESULT onInjectUrlStatus(WPARAM wParam, LPARAM lParam);
 
 	LRESULT onInviteRemoteAudience(WPARAM wParam,LPARAM lParam);
 	//LRESULT onInviteCallBackAccept(WPARAM wParam, LPARAM lParam);
@@ -109,6 +114,8 @@ private:
 	CStatic m_ctlAdvertise;//广告商品
 	CStatic m_ctlAnswerArea;
 	CStatic m_ctlSdkVersion;
+
+	CEdit m_edtInject;
 	
 
 	CImageList	m_imgNetQuality;
@@ -318,7 +325,7 @@ private:
 	// product advertise
 	std::unique_ptr<AgoraVideoSource> m_videoSourceSink;     // communicate with advertiseVideoSource process
 	CAgoraVideoSourceEventHandler m_videoSourceEventHandler;
-	void InitAgoraVideoSource();
+	void InitAgoraVideoSource();//init agora video source
 public:
 	int SetVideoSourceCamera(const char* cameraId);
 	int SetVideoSourceVideoProfile(int profile);

@@ -19,9 +19,6 @@
     <Filter Include="AdvertiseVideo">
       <UniqueIdentifier>{a324c691-6887-48d3-8853-32453522326b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AgoraObject\ExtendObserver">
-      <UniqueIdentifier>{506c1992-0996-4f95-8f99-d83fef2e5c18}</UniqueIdentifier>
-    </Filter>
     <Filter Include="LocalQuestionAndAdvertiseData">
       <UniqueIdentifier>{4c3bbcf8-503d-475a-88a6-d9be64d6ce49}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,12 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="AgoraObject\ExtendObserverForObsStudio">
+      <UniqueIdentifier>{506c1992-0996-4f95-8f99-d83fef2e5c18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AgoraObject\token">
+      <UniqueIdentifier>{19ab4fe5-d42e-4ba3-9ca5-6e235835ffa8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -148,19 +151,19 @@
       <Filter>obs-studio</Filter>
     </ClInclude>
     <ClInclude Include="ExtendObserver\AudioPlayPackageQueue.h">
-      <Filter>AgoraObject\ExtendObserver</Filter>
+      <Filter>AgoraObject\ExtendObserverForObsStudio</Filter>
     </ClInclude>
     <ClInclude Include="ExtendObserver\BufferQueue.h">
-      <Filter>AgoraObject\ExtendObserver</Filter>
+      <Filter>AgoraObject\ExtendObserverForObsStudio</Filter>
     </ClInclude>
     <ClInclude Include="ExtendObserver\ExtendAudioFrameObserver.h">
-      <Filter>AgoraObject\ExtendObserver</Filter>
+      <Filter>AgoraObject\ExtendObserverForObsStudio</Filter>
     </ClInclude>
     <ClInclude Include="ExtendObserver\ExtendVideoFrameObserver.h">
-      <Filter>AgoraObject\ExtendObserver</Filter>
+      <Filter>AgoraObject\ExtendObserverForObsStudio</Filter>
     </ClInclude>
     <ClInclude Include="ExtendObserver\VideoPackageQueue.h">
-      <Filter>AgoraObject\ExtendObserver</Filter>
+      <Filter>AgoraObject\ExtendObserverForObsStudio</Filter>
     </ClInclude>
     <ClInclude Include="DlgColorKey.h">
       <Filter>Header Files</Filter>
@@ -175,7 +178,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExtendObserver\CicleBuffer.hpp">
-      <Filter>AgoraObject\ExtendObserver</Filter>
+      <Filter>AgoraObject\ExtendObserverForObsStudio</Filter>
     </ClInclude>
     <ClInclude Include="agora_video_source.h">
       <Filter>AdvertiseVideo</Filter>
@@ -203,6 +206,12 @@
     </ClInclude>
     <ClInclude Include="Questions.h">
       <Filter>LocalQuestionAndAdvertiseData</Filter>
+    </ClInclude>
+    <ClInclude Include="token\AccessToken.h">
+      <Filter>AgoraObject\token</Filter>
+    </ClInclude>
+    <ClInclude Include="token\SimpleTokenBuilder.h">
+      <Filter>AgoraObject\token</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -288,19 +297,19 @@
       <Filter>obs-studio</Filter>
     </ClCompile>
     <ClCompile Include="ExtendObserver\AudioPlayPackageQueue.cpp">
-      <Filter>AgoraObject\ExtendObserver</Filter>
+      <Filter>AgoraObject\ExtendObserverForObsStudio</Filter>
     </ClCompile>
     <ClCompile Include="ExtendObserver\BufferQueue.cpp">
-      <Filter>AgoraObject\ExtendObserver</Filter>
+      <Filter>AgoraObject\ExtendObserverForObsStudio</Filter>
     </ClCompile>
     <ClCompile Include="ExtendObserver\ExtendAudioFrameObserver.cpp">
-      <Filter>AgoraObject\ExtendObserver</Filter>
+      <Filter>AgoraObject\ExtendObserverForObsStudio</Filter>
     </ClCompile>
     <ClCompile Include="ExtendObserver\ExtendVideoFrameObserver.cpp">
-      <Filter>AgoraObject\ExtendObserver</Filter>
+      <Filter>AgoraObject\ExtendObserverForObsStudio</Filter>
     </ClCompile>
     <ClCompile Include="ExtendObserver\VideoPackageQueue.cpp">
-      <Filter>AgoraObject\ExtendObserver</Filter>
+      <Filter>AgoraObject\ExtendObserverForObsStudio</Filter>
     </ClCompile>
     <ClCompile Include="DlgColorKey.cpp">
       <Filter>Source Files</Filter>
@@ -312,7 +321,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ExtendObserver\CicleBuffer.cpp">
-      <Filter>AgoraObject\ExtendObserver</Filter>
+      <Filter>AgoraObject\ExtendObserverForObsStudio</Filter>
     </ClCompile>
     <ClCompile Include="agora_video_source.cpp">
       <Filter>AdvertiseVideo</Filter>

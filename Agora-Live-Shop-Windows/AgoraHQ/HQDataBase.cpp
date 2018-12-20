@@ -24,7 +24,8 @@ const std::string selectQuestionsCount =
 
 const std::string selectQuestionsById =
     "SELECT * FROM questionsTable where id=?";
-
+const std::string selectTotlOptions =
+    "SELECT total FROM questionsTable where id=?";
 // advertise
 const std::string createProductAdvertise =
     "CREATE TABLE IF NOT EXISTS productAdvertiseTable"
@@ -213,7 +214,9 @@ bool CHQDataBase::sqlGetHQQuestionById(int index, CQuestions* pQuestion)
 		pQuestion->id = index;
 		pQuestion->content = query.getStringField(i++);
 		pQuestion->cs_content = utf8toCString(pQuestion->content.c_str());
-
+		pQuestion->total_option = query.getInt64Field(i + 5);
+		if (pQuestion->total_option > 4)
+			pQuestion->total_option = 4;
 		for (int j = 0; j < pQuestion->total_option; j++){
 			pQuestion->m_vecOptions.push_back(query.getStringField(i++));
 			pQuestion->m_vecCSOptions.push_back(utf8toCString(pQuestion->m_vecOptions[j].c_str()));

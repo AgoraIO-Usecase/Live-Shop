@@ -1,4 +1,7 @@
 #pragma once
+/**
+ * push obs video into agora sdk
+*/
 #include "../SDK/include/IAgoraMediaEngine.h"
 #include "VideoPackageQueue.h"
 

@@ -252,4 +252,6 @@ typedef struct _AGE_LASTMILE_QUALITY
 
 #define EID_SEND_SEI                            0x00000024
 #define EID_RECEIVE_SEI                         0x00000025
+#define EID_INJECTURL_STATUS                    0x00000026
+#define EID_DELINJECTURL_STATUS                    0x00000027
 #endif

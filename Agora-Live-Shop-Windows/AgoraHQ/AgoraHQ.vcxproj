@@ -62,13 +62,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;DL_OPENGL="libobs-opengl.dll";DL_D3D11="libobs-d3d11.dll";_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)AgoraHQ\curl\include;$(SolutionDir)AgoraHQ;$(SolutionDir)obs-studio\include;$(SolutionDir)AgoraHQ\obs-studio;$(SolutionDir)Common</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)AgoraHQ\curl\include;$(SolutionDir)AgoraHQ;$(SolutionDir)obs-studio\include;$(SolutionDir)AgoraHQ\obs-studio;$(SolutionDir)Common;$(SolutionDir)AgoraHQ\token</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)AgoraHQ\curl\lib;$(SolutionDir)/obs-studio/lib;$(SolutionDir)3rd/sqlite</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Rpcrt4.lib;sqlite3.lib</AdditionalDependencies>
+      <AdditionalDependencies>Rpcrt4.lib;sqlite3.lib;zlib.lib</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -99,7 +99,7 @@ xcopy "$(SolutionDir)obs-sdk\obs-plugins\*.*" "$(SolutionDir)obs-studio\rundir\$
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;DL_OPENGL="libobs-opengl.dll";DL_D3D11="libobs-d3d11.dll";_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)AgoraHQ\curl\include;$(SolutionDir)obs-studio\include;$(SolutionDir)AgoraHQ\obs-studio;$(SolutionDir)AgoraHQ;$(SolutionDir)Common</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)AgoraHQ\curl\include;$(SolutionDir)obs-studio\include;$(SolutionDir)AgoraHQ\obs-studio;$(SolutionDir)AgoraHQ;$(SolutionDir)Common;$(SolutionDir)AgoraHQ\token</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -107,7 +107,7 @@ xcopy "$(SolutionDir)obs-sdk\obs-plugins\*.*" "$(SolutionDir)obs-studio\rundir\$
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)AgoraHQ\curl\lib;$(SolutionDir)/obs-studio/lib;$(SolutionDir)3rd/sqlite</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Rpcrt4.lib;sqlite3.lib</AdditionalDependencies>
+      <AdditionalDependencies>Rpcrt4.lib;sqlite3.lib;zlib.lib</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -184,6 +184,8 @@ xcopy "$(SolutionDir)obs-sdk\obs-plugins\*.*" "$(SolutionDir)obs-studio\rundir\$
     <ClInclude Include="sqlite3\CppSQLite3.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="token\AccessToken.h" />
+    <ClInclude Include="token\SimpleTokenBuilder.h" />
     <ClInclude Include="UrlServiceCallback.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>

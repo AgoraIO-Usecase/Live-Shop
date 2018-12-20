@@ -148,8 +148,6 @@ void CDlgConfig::OnBnClickedButtonConfigSave()
 		gHQConfig.setAdvertiseCameraDeviceID(strDeviceIdUtf8);
 		if (pAgoraHQDlg) 
 			pAgoraHQDlg->SetVideoSourceCamera(strDeviceIdUtf8.c_str());
-
-
 	}
 
 	if (IDOK == AfxMessageBox(_T("Whether to reboot the HQ Broadcast program£¨Y-Yes£»N-No£©"), MB_OKCANCEL)){

@@ -19,14 +19,13 @@
 #include "ImagePropertiesDlg.h"
 #include "FFmpegSourceDlg.h"
 #include "DShowCameraDlg.h"
-
 #include <sstream>
 #include <util/lexer.h>
-
 #include "OBSFilterDlg.h"
 #include "ChromaFilterDlg.h"
 #define SERVICE_PATH "service.json"
 //OBS end
+#include "SimpleTokenBuilder.h"//agora token
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -66,6 +65,24 @@ END_MESSAGE_MAP()
 // CAgoraHQDlg 对话框
 
 
+std::string GetnerateToken(uid_t uid)
+{
+	std::string appid = gHQConfig.getAppId();
+	std::string certificate = gHQConfig.getAppCertificateId();
+	std::string channel = gHQConfig.getChannelName();
+	uint32_t expireTimestamp = 0;
+
+	agora::tools::SimpleTokenBuilder builder(appid, certificate, channel, uid);
+
+	builder.initPrivileges(agora::tools::Role::Role_Publisher);
+	builder.setPrivilege(agora::tools::AccessToken::Privileges::kJoinChannel, expireTimestamp);
+	builder.setPrivilege(agora::tools::AccessToken::Privileges::kPublishAudioStream, expireTimestamp);
+	builder.setPrivilege(agora::tools::AccessToken::Privileges::kPublishVideoStream, expireTimestamp);
+	builder.setPrivilege(agora::tools::AccessToken::Privileges::kPublishDataStream, expireTimestamp);
+
+	std::string result = builder.buildToken();
+	return result;
+}
 CAgoraHQDlg::CAgoraHQDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CAgoraHQDlg::IDD, pParent),
 	m_pDlgAnswer(NULL),
@@ -115,6 +132,7 @@ void CAgoraHQDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_INVITEMEDIA, m_btnInviteRemote);
 	DDX_Control(pDX, IDC_STATIC_SDKVersion, m_ctlSdkVersion);
 	DDX_Control(pDX, IDC_BUTTON_SetTimeBonus, m_btnSetTimeBonus);
+	DDX_Control(pDX, IDC_EDIT_INJECT, m_edtInject); // inject URL
 	// OBS for ExtCapture
 	DDX_Control(pDX, IDC_CHECK_OBS, m_chkOBS);
 	DDX_Control(pDX, IDC_BUTTON_OBS_IMAGE, m_btnOBSImage);
@@ -146,12 +164,15 @@ BEGIN_MESSAGE_MAP(CAgoraHQDlg, CDialogEx)
 	ON_MESSAGE(WM_MSGID(EID_CONNECTION_LOST), onConnectionLost)
 	ON_BN_CLICKED(IDC_BUTTON_INVITEMEDIA, &CAgoraHQDlg::OnBnClickedButtonInvitemedia)
 	ON_BN_CLICKED(IDC_BUTTON_SetTimeBonus, &CAgoraHQDlg::OnBnClickedButtonSettimebonus)
+	ON_BN_CLICKED(IDC_BUTTON_ADD_INJECTURL, &CAgoraHQDlg::OnBnClickedButtonAddInjectUrl)
+	ON_BN_CLICKED(IDC_BUTTON_DELETE_INJECTURL, &CAgoraHQDlg::OnBnClickedButtonDeleteInjectUrl)
 	ON_MESSAGE(WM_URL_MSG(URL_INVITE_STATS_SUCCESS), onHttpInviteStatusSuccess)
-
 	ON_MESSAGE(WM_MSGID(EID_SEND_SEI), onEIDSendSEI)
 	ON_MESSAGE(WM_MSGID(EID_RECEIVE_SEI), onEIDReceiveSEI)
-	
-	
+	ON_MESSAGE(WM_MSGID(EID_INJECTURL_STATUS), onEIDSendSEI)
+	ON_MESSAGE(WM_MSGID(EID_INJECTURL_STATUS), onEIDAddInjectUrlStatus)
+	ON_MESSAGE(WM_MSGID(EID_DELINJECTURL_STATUS), onEIDDeleteInjectUrlStatus)
+
 	// OBS for ExtCapture
 	ON_BN_CLICKED(IDC_BUTTON_OBS_IMAGE, &CAgoraHQDlg::OnBnClickedButtonObsImage)
 	ON_BN_CLICKED(IDC_BUTTON_OBS_CAMERA, &CAgoraHQDlg::OnBnClickedButtonObsCamera)
@@ -221,6 +242,7 @@ BOOL CAgoraHQDlg::OnInitDialog()
 		m_pDlgConfig = new CDlgConfig;
 		m_pDlgConfig->pAgoraHQDlg = this;
 		m_pDlgConfig->Create(CDlgConfig::IDD);
+		
 	}
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -383,9 +405,9 @@ void CAgoraHQDlg::OnBnClickedButtonHqConfig()
 	
 	if (NULL == m_pDlgConfig){
 		m_pDlgConfig = new CDlgConfig;
+		m_pDlgConfig->pAgoraHQDlg = this;
 		m_pDlgConfig->Create(CDlgConfig::IDD);
 	}
-	m_pDlgConfig->pAgoraHQDlg = this;
 	m_pDlgConfig->CenterWindow();
 	m_pDlgConfig->ShowWindow(SW_SHOW);
 }
@@ -394,6 +416,25 @@ void CAgoraHQDlg::OnBnClickedButtonHqConfig()
 void CAgoraHQDlg::OnBnClickedButtonMediaParam()
 {
 	
+}
+// generate token
+std::string GenerateToken(uid_t uid)
+{
+	std::string appid = gHQConfig.getAppId();
+	std::string certificate = gHQConfig.getAppCertificateId();
+	std::string channel = gHQConfig.getChannelName();
+	uint32_t expireTimestamp = 0;
+
+	agora::tools::SimpleTokenBuilder builder(appid, certificate, channel, uid);
+
+	builder.initPrivileges(agora::tools::Role::Role_Publisher);
+	builder.setPrivilege(agora::tools::AccessToken::Privileges::kJoinChannel, expireTimestamp);
+	builder.setPrivilege(agora::tools::AccessToken::Privileges::kPublishAudioStream, expireTimestamp);
+	builder.setPrivilege(agora::tools::AccessToken::Privileges::kPublishVideoStream, expireTimestamp);
+	builder.setPrivilege(agora::tools::AccessToken::Privileges::kPublishDataStream, expireTimestamp);
+
+	std::string result = builder.buildToken();
+	return result;
 }
 
 void CAgoraHQDlg::OnBnClickedButtonJoinchannel()
@@ -448,21 +489,22 @@ void CAgoraHQDlg::JoinChannel_Agora()
 	std::string strAppCertificateEnable = gHQConfig.getAppCertEnable();
 	//advertise
 	m_advertiseUid = str2int(gHQConfig.getAdvertiseUid());
-	std::string token = m_lpAgoraObject->getDynamicMediaChannelKey(s2cs(strAppCertificateEnable));
+	
 	m_videoSourceSink->startPreview();
-	m_videoSourceSink->join(token.c_str(), m_strChannelName.c_str(), NULL, m_advertiseUid);
 	
 	if ("0" == strAppCertificateEnable || "" == strAppCertificateEnable){
 		m_lpAgoraObject->JoinChannel(s2cs(m_strChannelName), m_uId);
+		m_videoSourceSink->join("", m_strChannelName.c_str(), NULL, m_advertiseUid);
 	}
 	else if ("1" == strAppCertificateEnable){
-
-		CStringA strMediaChannelKey = m_lpAgoraObject->getDynamicMediaChannelKey(s2cs(m_strChannelName));
-		m_lpAgoraObject->JoinChannel(s2cs(m_strChannelName), m_uId, strMediaChannelKey);
+		std::string token = GenerateToken(m_uId);
+		m_lpAgoraObject->JoinChannel(s2cs(m_strChannelName), m_uId, token.c_str());
+		std::string advertiseToken = GenerateToken(m_advertiseUid);
+		m_videoSourceSink->join(advertiseToken.c_str(), m_strChannelName.c_str(), NULL, m_advertiseUid);
+	
 	}
 
 	SetWindowText(s2cs(m_strChannelName));
-	//m_pDlgAnswer->joinchannel();//原来是hhtp发送request请求
 }
 
 void CAgoraHQDlg::LeaveChannel_Agora()
@@ -546,6 +588,9 @@ void CAgoraHQDlg::initAgoraMediaRtc()
 	m_lpAgoraObject->EnableLastmileTest(TRUE);
 	m_lpAgoraObject->EnableLocalMirrorImage(FALSE);
 	m_lpAgoraObject->EnableLoopBack(TRUE);
+	agora::rtc::RtcEngineParameters rep(m_lpAgoraObject->GetEngine());
+	rep.setLocalVideoMirrorMode(agora::rtc::VIDEO_MIRROR_MODE_ENABLED);
+
 	m_btnJoinChannel.EnableWindow(TRUE);
 }
 
@@ -2644,14 +2689,18 @@ void CAgoraHQDlg::JoinChannel_OBS()
 	if (!agoraOutputHandler->StartAgora(agoraService)){
 
 	}
-
+	
+	m_advertiseUid = str2int(gHQConfig.getAdvertiseUid());
+	m_videoSourceSink->startPreview();
 	if ("0" == strAppCertificateEnable || "" == strAppCertificateEnable){
-
 		m_lpAgoraObject->JoinChannel(s2cs(m_strChannelName), m_uId);
+		m_videoSourceSink->join("", m_strChannelName.c_str(), NULL, m_advertiseUid);
 	}
 	else if ("1" == strAppCertificateEnable){
-		CStringA strMediaChannelKey = m_lpAgoraObject->getDynamicMediaChannelKey(s2cs(m_strChannelName));
-		m_lpAgoraObject->JoinChannel(s2cs(m_strChannelName), m_uId, strMediaChannelKey);
+		std::string token = GetnerateToken(m_uId);
+		m_lpAgoraObject->JoinChannel(s2cs(m_strChannelName), m_uId, token.c_str());
+		std::string advertiseToken = GetnerateToken(m_uId);
+		m_videoSourceSink->join(advertiseToken.c_str(), m_strChannelName.c_str(), NULL, m_advertiseUid);
 	}
 	//m_pDlgAnswer->joinchannel();
 }
@@ -2752,7 +2801,7 @@ void CAgoraHQDlg::obsAudioCallback(struct encoder_frame* data, int planes, void*
 	DWORD dwBytesWritten = 0;
 }
 
-//advertise
+// product advertise
 void CAgoraHQDlg::InitAgoraVideoSource()
 {
 	std::string token = gHQConfig.getAppCertificateId();	
@@ -2773,12 +2822,59 @@ int CAgoraHQDlg::SetVideoSourceVideoProfile(int profile)
 
 LRESULT CAgoraHQDlg::onEIDReceiveSEI(WPARAM wParam, LPARAM lParam)
 {
-	AfxMessageBox(_T("onEIDReceiveSEI"));
 	return 0; 
 }
 
 LRESULT CAgoraHQDlg::onEIDSendSEI(WPARAM wParam, LPARAM lParam)
 {
-	AfxMessageBox(_T("onEIDSendSEI"));
+	return 0;
+}
+
+LRESULT CAgoraHQDlg::onInjectUrlStatus(WPARAM wParam, LPARAM lParam)
+{
+	AfxMessageBox(_T("Add InjectUrl success"));
+	return 0;
+}
+
+void CAgoraHQDlg::OnBnClickedButtonAddInjectUrl()
+{
+	CString strInject;
+	m_edtInject.GetWindowText(strInject);
+	strInject.Trim();
+	if (strInject.IsEmpty()){
+		return;
+	}
+
+	char szUtf8[MAX_PATH] = { 0 };
+	WideCharToMultiByte(CP_UTF8, 0, strInject.GetBuffer(0), -1, szUtf8, MAX_PATH, 0, NULL);
+
+	InjectStreamConfig config;
+	config.width = 640;
+	config.height = 480;
+	CAgoraObject::GetEngine()->addInjectStreamUrl(szUtf8, config);
+}
+
+void CAgoraHQDlg::OnBnClickedButtonDeleteInjectUrl()
+{
+	CString strInject;
+	m_edtInject.GetWindowText(strInject);
+	strInject.Trim();
+	if (strInject.IsEmpty()){
+		return;
+	}
+
+	char szUtf8[MAX_PATH] = { 0 };
+	WideCharToMultiByte(CP_UTF8, 0, strInject.GetBuffer(0), -1, szUtf8, MAX_PATH, 0, NULL);
+	CAgoraObject::GetEngine()->removeInjectStreamUrl(szUtf8);
+}
+
+LRESULT CAgoraHQDlg::onEIDAddInjectUrlStatus(WPARAM wParam, LPARAM lParam)
+{
+	AfxMessageBox(_T("Add Inject Url Success."));
+	return 0;
+}
+LRESULT CAgoraHQDlg::onEIDDeleteInjectUrlStatus(WPARAM wParam, LPARAM lParam)
+{
+	AfxMessageBox(_T("Remove Inject Url Success."));
 	return 0;
 }

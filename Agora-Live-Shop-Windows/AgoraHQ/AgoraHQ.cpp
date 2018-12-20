@@ -940,74 +940,6 @@ static bool MakeUserProfileDirs()
 
 	return true;
 }
-// 
-// 
-// static uint64_t convert_log_name(const char *name)
-// {
-// 	BaseLexer  lex;
-// 	std::string     year, month, day, hour, minute, second;
-// 
-// 	lexer_start(lex, name);
-// 
-// 	if (!get_token(lex, year, BASETOKEN_DIGIT)) return 0;
-// 	if (!expect_token(lex, "-", BASETOKEN_OTHER)) return 0;
-// 	if (!get_token(lex, month, BASETOKEN_DIGIT)) return 0;
-// 	if (!expect_token(lex, "-", BASETOKEN_OTHER)) return 0;
-// 	if (!get_token(lex, day, BASETOKEN_DIGIT)) return 0;
-// 	if (!get_token(lex, hour, BASETOKEN_DIGIT)) return 0;
-// 	if (!expect_token(lex, "-", BASETOKEN_OTHER)) return 0;
-// 	if (!get_token(lex, minute, BASETOKEN_DIGIT)) return 0;
-// 	if (!expect_token(lex, "-", BASETOKEN_OTHER)) return 0;
-// 	if (!get_token(lex, second, BASETOKEN_DIGIT)) return 0;
-// 
-// 	stringstream timestring;
-// 	timestring << year << month << day << hour << minute << second;
-// 	return std::stoull(timestring.str());
-// }
-// 
-// 
-// static void delete_oldest_file(const char *location)
-// {
-// 	BPtr<char>       logDir(GetConfigPathPtr(location));
-// 	std::string           oldestLog;
-// 	uint64_t         oldest_ts = (uint64_t)-1;
-// 	struct os_dirent *entry;
-// 
-// 	unsigned int maxLogs = (unsigned int)config_get_uint(
-// 		theApp.GlobalConfig(), "General", "MaxLogs");
-// 
-// 	os_dir_t *dir = os_opendir(logDir);
-// 	if (dir) {
-// 		unsigned int count = 0;
-// 
-// 		while ((entry = os_readdir(dir)) != NULL) {
-// 			if (entry->directory || *entry->d_name == '.')
-// 				continue;
-// 
-// 			uint64_t ts = convert_log_name(entry->d_name);
-// 
-// 			if (ts) {
-// 				if (ts < oldest_ts) {
-// 					oldestLog = entry->d_name;
-// 					oldest_ts = ts;
-// 				}
-// 
-// 				count++;
-// 			}
-// 		}
-// 
-// 		os_closedir(dir);
-// 
-// 		if (count > maxLogs) {
-// 			std::stringstream delPath;
-// 
-// 			delPath << logDir << "/" << oldestLog;
-// 			os_unlink(delPath.str().c_str());
-// 		}
-// 	}
-// }
-
-
 
 static auto ProfilerNameStoreRelease = [](profiler_name_store_t *store)
 {
@@ -1033,7 +965,7 @@ void CAgoraHQApp::OBSAppInit()
 
 	if (!InitGlobalConfig())
 		throw "Failed to initialize global config";
-	//可以不处理locale
+	//locale
 	// 	if (!InitLocale())
 	// 		throw "Failed to load locale;
 	const char *lang = config_get_string(globalConfig, "General",

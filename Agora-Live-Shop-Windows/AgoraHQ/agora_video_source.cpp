@@ -9,13 +9,9 @@
 */
 #include "stdafx.h"
 #include "agora_video_source.h"
-//#include "node_async_queue.h"
-//#include "node_video_stream_channel.h"
 #include "video_source_ipc.h"
 #include "process_win.h"
 #include "node_event.h"
-//#include "node_video_render.h"
-//#include "node_napi_api.h"
 #ifdef _WIN32
 #include <Rpc.h>
 #include <RpcDce.h>
@@ -419,15 +415,5 @@ namespace agora{
             }
 			return error;
         }
-
-    /*    void AgoraVideoSourceSink::deliverFrame(const char* payload , int len)
-        {
-            if (len > (int)m_backBuf.size())
-                return;
-            char* pBack = m_backBuf.data();
-            memcpy(pBack, payload, len);
-            auto *p = getNodeVideoFrameTransporter();
-            p->deliverVideoSourceFrame(pBack, len);
-        }*/
     }
 }
