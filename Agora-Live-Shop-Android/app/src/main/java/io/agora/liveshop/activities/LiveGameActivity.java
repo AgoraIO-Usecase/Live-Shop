@@ -2,12 +2,15 @@ package io.agora.liveshop.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -310,6 +313,19 @@ public class LiveGameActivity extends BaseActivity {
 
     @OnClick(R.id.btn_left)
     public void onBtnLeftClicked() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(R.layout.dialog_guess);
+        dialog.setCancelable(false);
+        ImageView close = dialog.findViewById(R.id.close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     @OnClick(R.id.btn_right)
