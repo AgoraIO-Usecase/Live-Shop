@@ -1,8 +1,11 @@
 package io.agora.liveshop.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.widget.Button;
@@ -315,13 +318,23 @@ public class LiveGameActivity extends BaseActivity {
 
     @OnClick(R.id.btn_send)
     public void onBtnSendClicked() {
-        TextView textView = new TextView(this);
-        textView.setText(edtInput.getText().toString());
-        gameContainer.addView(textView);
-        textView.animate()
-                .translationX(1000f)
-                .translationY(100f)
-                .setDuration(10000);
+        String content = edtInput.getText().toString();
+        edtInput.setText(null);
+        if (!TextUtils.isEmpty(content)) {
+            final TextView textView = new TextView(this);
+            textView.setText(content);
+            gameContainer.addView(textView);
+            textView.animate()
+                    .translationX(1200f)
+                    .translationY(0f)
+                    .setDuration(4000)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            gameContainer.removeView(textView);
+                        }
+                    });
+        }
     }
 
     @OnClick(R.id.commentator_left)
