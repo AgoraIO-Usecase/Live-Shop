@@ -31,8 +31,6 @@ import io.agora.liveshop.data.Quiz;
 import io.agora.liveshop.data.QuizResult;
 import io.agora.liveshop.rtc.IEventCallback;
 import io.agora.liveshop.rtc.RtcEngineManager;
-import io.agora.liveshop.widgets.ProductDialog;
-import io.agora.liveshop.widgets.QuizDialog;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
@@ -90,8 +88,6 @@ public class LiveGameActivity extends BaseActivity {
     @BindView(R.id.commentator_right)
     CircleImageView commentatorRight;
 
-    private ProductDialog mProductDialog;
-    private QuizDialog mQuizDialog;
     private Handler mHandler;
 
     private RtcEngine mRtcEngine;
@@ -303,19 +299,6 @@ public class LiveGameActivity extends BaseActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-
-        if (mProductDialog != null && mProductDialog.isShowing()) {
-            mProductDialog.dismiss();
-        }
-
-        if (mQuizDialog != null && mQuizDialog.isShowing()) {
-            mQuizDialog.dismiss();
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         mRtcEngineManager.removeEventCallback(mCallback);
@@ -332,6 +315,13 @@ public class LiveGameActivity extends BaseActivity {
 
     @OnClick(R.id.btn_send)
     public void onBtnSendClicked() {
+        TextView textView = new TextView(this);
+        textView.setText(edtInput.getText().toString());
+        gameContainer.addView(textView);
+        textView.animate()
+                .translationX(1000f)
+                .translationY(100f)
+                .setDuration(10000);
     }
 
     @OnClick(R.id.commentator_left)

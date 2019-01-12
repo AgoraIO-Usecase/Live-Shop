@@ -258,9 +258,11 @@
             android:layout_width="252dp"
             android:layout_height="36dp"
             android:background="@drawable/bg_input"
+            android:hint="Type sth…"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textSize="16dp" />
+            android:textColor="#99b2c1"
+            android:textSize="14dp" />
 
         <Button
             android:id="@+id/btn_send"
