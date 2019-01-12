@@ -3,11 +3,11 @@ package io.agora.liveshop.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +41,7 @@ import io.agora.liveshop.data.Quiz;
 import io.agora.liveshop.data.QuizResult;
 import io.agora.liveshop.rtc.IEventCallback;
 import io.agora.liveshop.rtc.RtcEngineManager;
+import io.agora.liveshop.utils.Converts;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
@@ -102,7 +104,7 @@ public class LiveGameActivity extends BaseActivity {
     private RtcEngine mRtcEngine;
     private RtcEngineManager mRtcEngineManager;
 
-    private LayoutInflater mInflater;
+    private Context mContext;
 
     // Not all callbacks are used, but they can be easily
     // taken the advantage of to guarantee the proper behaviors
@@ -255,7 +257,7 @@ public class LiveGameActivity extends BaseActivity {
         setContentView(R.layout.activity_live_game);
         ButterKnife.bind(this);
 
-        mInflater = LayoutInflater.from(this);
+        mContext = this;
 
         mHandler = new Handler(getMainLooper()) {
             @Override
@@ -288,6 +290,35 @@ public class LiveGameActivity extends BaseActivity {
                         break;
                     case MSG_QUIZ_RECEIVED:
                         Quiz quiz = (Quiz) msg.obj;
+                        final Dialog dialog = new Dialog(mContext);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        dialog.setContentView(R.layout.dialog_guess);
+                        dialog.setCancelable(false);
+                        ImageView close = dialog.findViewById(R.id.close);
+                        TextView content = dialog.findViewById(R.id.quiz_stem);
+                        Button btnNo = dialog.findViewById(R.id.btn_guess_no);
+                        Button btnYes = dialog.findViewById(R.id.btn_guess_yes);
+                        close.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        content.setText(quiz.getContent());
+                        btnNo.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        btnYes.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.show();
                         break;
                 }
             }
@@ -345,6 +376,7 @@ public class LiveGameActivity extends BaseActivity {
                     }
                     String formattedNumber = formatter.format(myNumber);
                     moneyLeft.setText(formattedNumber);
+                    Toast.makeText(mContext, "Submitted Successfully!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -382,6 +414,7 @@ public class LiveGameActivity extends BaseActivity {
                     }
                     String formattedNumber = formatter.format(myNumber);
                     moneyRight.setText(formattedNumber);
+                    Toast.makeText(mContext, "Submitted Successfully!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -410,24 +443,31 @@ public class LiveGameActivity extends BaseActivity {
         }
     }
 
+    private boolean isLeftAdd = true;
+
     @OnClick(R.id.commentator_left)
     public void onCommentatorLeftClicked() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setContentView(R.layout.dialog_guess);
-        dialog.setCancelable(false);
-        ImageView close = dialog.findViewById(R.id.close);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) supportLeft.getLayoutParams();
+        float width = Converts.convertPxToDp(mContext, params.width);
+        float result = isLeftAdd ? width + 50 : width - 50;
+        params.width = (int) Converts.convertDpToPx(mContext, result);
+        supportLeft.requestLayout();
+        int value = Integer.parseInt(supportLeft.getText().toString()) + (isLeftAdd ? 1 : -1);
+        supportLeft.setText("" + value);
+        isLeftAdd = !isLeftAdd;
     }
+
+    private boolean isRightAdd = true;
 
     @OnClick(R.id.commentator_right)
     public void onCommentatorRightClicked() {
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) supportLeft.getLayoutParams();
+        float width = Converts.convertPxToDp(mContext, params.width);
+        float result = isRightAdd ? width - 50 : width + 50;
+        params.width = (int) Converts.convertDpToPx(mContext, result);
+        supportLeft.requestLayout();
+        int value = Integer.parseInt(supportRight.getText().toString()) + (isRightAdd ? 1 : -1);
+        supportRight.setText("" + value);
+        isRightAdd = !isRightAdd;
     }
 }
