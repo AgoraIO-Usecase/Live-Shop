@@ -62,8 +62,6 @@ public class LiveGameActivity extends BaseActivity {
     RelativeLayout gameContainer;
     @BindView(R.id.txt_0)
     TextView txt0;
-    @BindView(R.id.txt_1)
-    TextView txt1;
     @BindView(R.id.team_left)
     ImageView teamLeft;
     @BindView(R.id.money_left)
@@ -310,12 +308,14 @@ public class LiveGameActivity extends BaseActivity {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
+                                Toast.makeText(mContext, "You are wrong!!!", Toast.LENGTH_SHORT).show();
                             }
                         });
                         btnYes.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
+                                Toast.makeText(mContext, "You are right!!!", Toast.LENGTH_SHORT).show();
                             }
                         });
                         dialog.show();
