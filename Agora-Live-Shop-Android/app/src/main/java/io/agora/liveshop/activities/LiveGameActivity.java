@@ -3,8 +3,15 @@ package io.agora.liveshop.activities;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.SurfaceView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +21,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.agora.liveshop.R;
 import io.agora.liveshop.data.Product;
 import io.agora.liveshop.data.Quiz;
@@ -38,9 +49,46 @@ public class LiveGameActivity extends BaseActivity {
 
     private static final String DEFAULT_ROOM = "hh12345";
 
-    private RelativeLayout mGameContainer;
-    private RelativeLayout mLeftContainer;
-    private RelativeLayout mRightContainer;
+    @BindView(R.id.game_container)
+    RelativeLayout gameContainer;
+    @BindView(R.id.txt_0)
+    TextView txt0;
+    @BindView(R.id.txt_1)
+    TextView txt1;
+    @BindView(R.id.team_left)
+    ImageView teamLeft;
+    @BindView(R.id.money_left)
+    TextView moneyLeft;
+    @BindView(R.id.money_right)
+    TextView moneyRight;
+    @BindView(R.id.team_right)
+    ImageView teamRight;
+    @BindView(R.id.ll_0)
+    RelativeLayout ll0;
+    @BindView(R.id.btn_left)
+    Button btnLeft;
+    @BindView(R.id.btn_right)
+    Button btnRight;
+    @BindView(R.id.ll_1)
+    LinearLayout ll1;
+    @BindView(R.id.left_container)
+    RelativeLayout leftContainer;
+    @BindView(R.id.right_container)
+    RelativeLayout rightContainer;
+    @BindView(R.id.support_left)
+    TextView supportLeft;
+    @BindView(R.id.support_right)
+    TextView supportRight;
+    @BindView(R.id.fl_0)
+    FrameLayout fl0;
+    @BindView(R.id.edt_input)
+    EditText edtInput;
+    @BindView(R.id.btn_send)
+    Button btnSend;
+    @BindView(R.id.commentator_left)
+    CircleImageView commentatorLeft;
+    @BindView(R.id.commentator_right)
+    CircleImageView commentatorRight;
 
     private ProductDialog mProductDialog;
     private QuizDialog mQuizDialog;
@@ -48,6 +96,8 @@ public class LiveGameActivity extends BaseActivity {
 
     private RtcEngine mRtcEngine;
     private RtcEngineManager mRtcEngineManager;
+
+    private LayoutInflater mInflater;
 
     // Not all callbacks are used, but they can be easily
     // taken the advantage of to guarantee the proper behaviors
@@ -198,7 +248,9 @@ public class LiveGameActivity extends BaseActivity {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_live_game);
-        initUI();
+        ButterKnife.bind(this);
+
+        mInflater = LayoutInflater.from(this);
 
         mHandler = new Handler(getMainLooper()) {
             @Override
@@ -208,54 +260,33 @@ public class LiveGameActivity extends BaseActivity {
                         int uid = msg.arg1;
                         mRtcEngine = mRtcEngineManager.getRtcEngine();
                         if (uid == BROADCASTER_UID_1) {
-                            if (mLeftContainer.getChildCount() >= 1) return;
+                            if (leftContainer.getChildCount() >= 1) return;
                             SurfaceView surface = RtcEngine.CreateRendererView(getBaseContext());
                             surface.setZOrderMediaOverlay(true);
-                            mLeftContainer.addView(surface);
+                            leftContainer.addView(surface);
                             mRtcEngine.setupRemoteVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, uid));
                         } else if (uid == BROADCASTER_UID_2) {
-                            if (mRightContainer.getChildCount() >= 1) return;
+                            if (rightContainer.getChildCount() >= 1) return;
                             SurfaceView surface = RtcEngine.CreateRendererView(getBaseContext());
                             surface.setZOrderMediaOverlay(true);
-                            mRightContainer.addView(surface);
+                            rightContainer.addView(surface);
                             mRtcEngine.setupRemoteVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, uid));
                         } else if (uid == BROADCASTER_UID_STREAM) {
-                            if (mGameContainer.getChildCount() >= 1) return;
+                            if (gameContainer.getChildCount() >= 1) return;
                             SurfaceView surface = RtcEngine.CreateRendererView(getBaseContext());
                             surface.setZOrderMediaOverlay(true);
-                            mGameContainer.addView(surface);
+                            gameContainer.addView(surface);
                             mRtcEngine.setupRemoteVideo(new VideoCanvas(surface, VideoCanvas.RENDER_MODE_HIDDEN, uid));
                         }
                         break;
                     case MSG_PRODUCT_RECEIVED:
-                        Product product = (Product) msg.obj;
-                        if (mProductDialog != null && mProductDialog.isShowing()) {
-                            mProductDialog.dismiss();
-                        }
-
-                        mProductDialog = new ProductDialog(LiveGameActivity.this,
-                                findViewById(R.id.product_dialog_layout), mRtcEngine);
-                        mProductDialog.show(product);
                         break;
                     case MSG_QUIZ_RECEIVED:
                         Quiz quiz = (Quiz) msg.obj;
-                        if (mQuizDialog != null && mQuizDialog.isShowing()) {
-                            mQuizDialog.dismiss();
-                        }
-
-                        mQuizDialog = new QuizDialog(LiveGameActivity.this,
-                                findViewById(R.id.quiz_dialog_layout));
-                        mQuizDialog.show(quiz);
                         break;
                 }
             }
         };
-    }
-
-    private void initUI() {
-        mGameContainer = findViewById(R.id.game_container);
-        mLeftContainer = findViewById(R.id.left_container);
-        mRightContainer = findViewById(R.id.right_container);
     }
 
     @Override
@@ -289,5 +320,25 @@ public class LiveGameActivity extends BaseActivity {
         super.onDestroy();
         mRtcEngineManager.removeEventCallback(mCallback);
         mRtcEngineManager.leaveChannel();
+    }
+
+    @OnClick(R.id.btn_left)
+    public void onBtnLeftClicked() {
+    }
+
+    @OnClick(R.id.btn_right)
+    public void onBtnRightClicked() {
+    }
+
+    @OnClick(R.id.btn_send)
+    public void onBtnSendClicked() {
+    }
+
+    @OnClick(R.id.commentator_left)
+    public void onCommentatorLeftClicked() {
+    }
+
+    @OnClick(R.id.commentator_right)
+    public void onCommentatorRightClicked() {
     }
 }
