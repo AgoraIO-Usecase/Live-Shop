@@ -23,6 +23,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -316,13 +319,33 @@ public class LiveGameActivity extends BaseActivity {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setContentView(R.layout.dialog_guess);
+        dialog.setContentView(R.layout.dialog_bet);
         dialog.setCancelable(false);
-        ImageView close = dialog.findViewById(R.id.close);
-        close.setOnClickListener(new View.OnClickListener() {
+        final EditText input = dialog.findViewById(R.id.bet_input);
+        Button btnCancel = dialog.findViewById(R.id.btn_bet_cancel);
+        Button btnGo = dialog.findViewById(R.id.btn_bet_go);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+            }
+        });
+        btnGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sum = input.getText().toString();
+                if (!TextUtils.isEmpty(sum)) {
+                    dialog.dismiss();
+                    NumberFormat formatter = new DecimalFormat("\u0024 #,###");
+                    double myNumber = 0;
+                    try {
+                        myNumber = formatter.parse(moneyLeft.getText().toString()).doubleValue() + Double.parseDouble(sum);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String formattedNumber = formatter.format(myNumber);
+                    moneyLeft.setText(formattedNumber);
+                }
             }
         });
         dialog.show();
@@ -330,6 +353,40 @@ public class LiveGameActivity extends BaseActivity {
 
     @OnClick(R.id.btn_right)
     public void onBtnRightClicked() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(R.layout.dialog_bet);
+        dialog.setCancelable(false);
+        final EditText input = dialog.findViewById(R.id.bet_input);
+        Button btnCancel = dialog.findViewById(R.id.btn_bet_cancel);
+        Button btnGo = dialog.findViewById(R.id.btn_bet_go);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btnGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sum = input.getText().toString();
+                if (!TextUtils.isEmpty(sum)) {
+                    dialog.dismiss();
+                    NumberFormat formatter = new DecimalFormat("\u0024 #,###");
+                    double myNumber = 0;
+                    try {
+                        myNumber = formatter.parse(moneyRight.getText().toString()).doubleValue() + Double.parseDouble(sum);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String formattedNumber = formatter.format(myNumber);
+                    moneyRight.setText(formattedNumber);
+                }
+            }
+        });
+        dialog.show();
+
     }
 
     @OnClick(R.id.btn_send)
@@ -355,6 +412,19 @@ public class LiveGameActivity extends BaseActivity {
 
     @OnClick(R.id.commentator_left)
     public void onCommentatorLeftClicked() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(R.layout.dialog_guess);
+        dialog.setCancelable(false);
+        ImageView close = dialog.findViewById(R.id.close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     @OnClick(R.id.commentator_right)
