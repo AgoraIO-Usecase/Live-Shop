@@ -8,6 +8,7 @@
 
 import UIKit
 
+// MARK: Barrage
 protocol BarrageProtocol: NSObjectProtocol {
     func barrageDidLeaveScreen(_ barrage: Barrage)
 }
@@ -75,6 +76,7 @@ class Barrage: NSObject {
     }
 }
 
+// MARK: BarrageView
 class BarrageView: UILabel {
     init(frame: CGRect, text: String, font: UIFont) {
         super.init(frame: frame)
@@ -89,6 +91,7 @@ class BarrageView: UILabel {
     }
 }
 
+// MARK: BarrageViewController
 protocol BarrageVCDelegate: NSObjectProtocol {
     func barrageVCDidTapView(_ vc: BarrageViewController)
 }
