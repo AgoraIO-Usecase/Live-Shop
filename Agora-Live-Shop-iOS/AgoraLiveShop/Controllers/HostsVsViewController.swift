@@ -18,19 +18,39 @@ class HostsVsViewController: UIViewController {
     @IBOutlet weak var leftLabel: UILabel!
     @IBOutlet weak var rightLabel: UILabel!
     
-    var leftAmount: Int = 1647 {
+    private var leftTaped: Bool = false {
+        didSet {
+            if leftTaped {
+                leftAmount += 1
+            } else {
+                leftAmount -= 1
+            }
+        }
+    }
+    
+    private var rightTaped: Bool = false {
+        didSet {
+            if rightTaped {
+                rightAmount += 1
+            } else {
+                rightAmount -= 1
+            }
+        }
+    }
+    
+    private var leftAmount: Int = 16 {
         didSet {
             updateWidth()
         }
     }
     
-    var rightAmount: Int = 1309 {
+    private var rightAmount: Int = 13 {
         didSet {
            updateWidth()
         }
     }
     
-    var isFirstLayout: Bool = false
+    private var isFirstLayout: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,9 +73,9 @@ class HostsVsViewController: UIViewController {
         }
         
         if point.x > CGFloat(senderView.bounds.width * 0.5) {
-            rightAmount += 1
+            rightTaped = !rightTaped
         } else {
-            leftAmount += 1
+            leftTaped = !leftTaped
         }
     }
 }
