@@ -2,8 +2,8 @@
 //  CommonExtensions.swift
 //  OpenVideoCall
 //
-//  Created by ZhangJi on 22/08/2017.
-//  Copyright © 2017 ZhangJi. All rights reserved.
+//  Created by Zhang Ji on 22/08/2017.
+//  Copyright © 2017 Agora.io. All rights reserved.
 //
 
 import UIKit

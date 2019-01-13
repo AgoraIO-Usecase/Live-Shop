@@ -2,46 +2,55 @@
 //  LiveRoomViewController.swift
 //  AgoraLiveShop
 //
-//  Created by ZhangJi on 2018/9/30.
-//  Copyright © 2018 ZhangJi. All rights reserved.
+//  Created by Zhang Ji on 2018/9/30.
+//  Copyright © 2018 Agora.io. All rights reserved.
 //
 
 import UIKit
 import AgoraRtcEngineKit
+
+enum Team {
+    case warriors, memphis
+}
 
 class LiveRoomViewController: UIViewController {
     
     @IBOutlet weak var rtmpView: UIView!
     @IBOutlet weak var leftVideoView: UIView!
     @IBOutlet weak var rightVideoView: UIView!
+    @IBOutlet weak var inputTextField: UITextField!
+    @IBOutlet weak var warriorsAmountLabel: UILabel!
+    @IBOutlet weak var memphisAmountLabel: UILabel!
     
-    var hostView: UIView?
-    var productView: ProductDisplayView?
-    var questionView: QuestionView?
+    @IBOutlet weak var resultLabel: UILabel!
+    @IBOutlet weak var resultLabelWidth: NSLayoutConstraint!
     
-    var fullView: UIView?
+    weak var barrageVC: BarrageViewController?
     
-    var isQuestionViewShow: Bool {
-        return self.questionView != nil
+    var amountVC: AmountViewController?
+    var questionVC: QuestionViewController?
+    
+    var warriorsAmount: Int = 0 {
+        didSet {
+            let value = String.intConvertedToDollarsString(value: warriorsAmount)
+            warriorsAmountLabel.text = value
+        }
     }
     
-    var isProductViewShow: Bool {
-        return self.productView != nil
-    }
-    
-    var isFullViewMode: Bool {
-        return fullView != nil
+    var memphisAmount: Int = 0 {
+        didSet {
+            let value = String.intConvertedToDollarsString(value: memphisAmount)
+            memphisAmountLabel.text = value
+        }
     }
     
     var mediaManager: MediaManager!
-    
-    
     let chatViewHight: CGFloat = 200
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        initLiveView()
+        initViews()
+        addKeyboradObserver()
         loadMedia()
     }
     
@@ -49,36 +58,41 @@ class LiveRoomViewController: UIViewController {
         mediaManager.leaveMediaChannel()
     }
     
-    var question: Question? {
-        didSet {
-            self.showQuestionView()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else {
+            return
+        }
+        
+        switch identifier {
+        case "BarrageViewController":
+            let barrageVC = segue.destination as! BarrageViewController
+            barrageVC.deleage = self
+            self.barrageVC = barrageVC
+        default:
+            break
         }
     }
     
-    var product: Product? {
-        didSet {
-            showProductView()
-        }
+    @IBAction func doWarriorsPressed(_ sender: UIButton) {
+        amountViewShow(for: .warriors)
+    }
+    
+    @IBAction func doMemphisPressed(_ sender: UIButton) {
+       amountViewShow(for: .memphis)
     }
 }
 
 // MARK: Media
-extension LiveRoomViewController {
+private extension LiveRoomViewController {
     func loadMedia() {
         mediaManager = MediaManager.shared()
         mediaManager.delegate = self
-        let code = mediaManager.joinMediaChannel("hh12345")
-        if code == 0 {
-            print("Join media channel success")
-        } else {
-            print("Join media channel failed with code: \(code)")
-        }
+        mediaManager.joinMediaChannel("hh12345")
     }
 }
 
 extension LiveRoomViewController: MediaManagerDelegate {
     func mediaMangaer(_ manager: MediaManager, didJoinChannel channel: String, withUid uid: UInt) {
-
     }
     
     func mediaManager(_ manager: MediaManager, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
@@ -98,12 +112,10 @@ extension LiveRoomViewController: MediaManagerDelegate {
     }
     
     func mediaManager(_ manager: MediaManager, didReceiveSEI sei: NSDictionary, type: SeiType) {
-        switch type {
-        case .prod:
-            self.product = Product(product: sei)
-        case .quiz:
-            self.question = Question(question: sei)
+        guard type == .quiz else {
+            return
         }
+        questionViewShow(Question(question: sei))
     }
     
     func mediaManager(_ manager: MediaManager, didOfflineOfUid uid: UInt) {
@@ -120,146 +132,153 @@ extension LiveRoomViewController: MediaManagerDelegate {
     }
 }
 
-extension LiveRoomViewController {
-    func initLiveView() {
+private extension LiveRoomViewController {
+    func initViews() {
+        warriorsAmount = 100002
+        memphisAmount = 95005
     }
     
-    // When double tap the product host view this method will be called
-    @objc func handleDoubleTap(_ sender: UITapGestureRecognizer) {
-        if !isProductViewShow {
-            // If no product showing, do nothing
+    func amountViewShow(for team: Team) {
+        let amountVC = AmountViewController.create(for: team)
+        amountVC.delegate = self
+        self.view.addSubview(amountVC.view)
+        self.amountVC = amountVC
+    }
+    
+    func amountViewHidden() {
+        guard let amountVC = self.amountVC else {
             return
         }
-        if isFullViewMode {
-            // If is in full view mode, transform the product host view to samll
-            let location = sender.location(in: self.view)
-            if (fullView?.frame.contains(location))! {
-                let transformFrame = productView?.prodLiveView.convert((productView?.prodLiveView.bounds)!, to: self.view)
-                
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.fullView?.frame = transformFrame!
-                }) { (_) in
-                    self.mediaManager.setupRemoteVideo(withUid: self.product!.streamId, toView: (self.productView?.prodLiveView)!, withStreamType: .low)
-                    self.fullView?.removeFromSuperview()
-                    self.fullView = nil
-                }
-            }
-        } else {
-            // If is in small view mode, transform the product host view to full screen
-            let location = sender.location(in: productView)
-            if (productView?.prodLiveView.frame.contains(location))! {
-                let transformFrame = productView?.prodLiveView.convert((productView?.prodLiveView.bounds)!, to: self.view)
-                
-                let fullView = UIView(frame: transformFrame!)
-                self.mediaManager.setupRemoteVideo(withUid: self.product!.streamId, toView: fullView, withStreamType: .high)
-                self.view.addSubview(fullView)
-
-                UIView.animate(withDuration: 0.3) {
-                    fullView.frame = CGRect(x: 20, y: 100, width: ScreenWidth - 40, height: ScreenHeight - 160)
-                }
-
-                self.fullView = fullView
-            }
-        }
+        amountVC.view.removeFromSuperview()
+        self.amountVC = nil
     }
     
-    // This method used to show question View, when the question info received
-    func showQuestionView() {
-        if isQuestionViewShow {
-            self.questionView?.removeFromSuperview()
-        }
-        
-        let questionView = QuestionView.newQuestionView(with: self.question!)
-        questionView?.deleagte = self
-
-        questionView?.frame.origin = CGPoint(x: (ScreenWidth - (questionView?.width)!) / 2, y: ScreenHeight)
-        self.view.addSubview(questionView!)
-        if isProductViewShow {
-            if isFullViewMode {
-                self.fullView?.removeFromSuperview()
-                self.fullView = nil
-            }
-            UIView.animate(withDuration: 0.4, animations: {
-                questionView?.transform = CGAffineTransform(translationX: 0, y: -((questionView?.height)! + 10))
-                self.productView?.transform = CGAffineTransform(translationX: 0, y: -((questionView?.height)! + (self.productView?.frame.height)! + 12))
-            }) { (_) in
-                questionView?.startCounting()
-            }
-        } else {
-            UIView.animate(withDuration: 0.4, animations: {
-                questionView?.transform = CGAffineTransform(translationX: 0, y: -((questionView?.height)! + 10))
-            }) { (_) in
-                questionView?.startCounting()
-            }
-        }
-        
-        self.questionView = questionView
+    func questionViewShow(_ question: Question) {
+        let questionVC = QuestionViewController.create(with: question)
+        questionVC.delegate = self
+        self.view.addSubview(questionVC.view)
+        self.questionVC = questionVC
     }
     
-    // This method used to show product View, when the product info received
-    func showProductView() {
-        if isProductViewShow {
-            if isFullViewMode {
-                self.fullView?.removeFromSuperview()
-                self.fullView = nil
-            }
-            self.productView?.removeFromSuperview()
+    func questionViewHidden() {
+        guard let questionVC = self.questionVC else {
+            return
         }
-        
-        let productView = ProductDisplayView.newProductDisplayView(with: self.product!)
-        let productWidth = max(ScreenWidth * 0.8, 300)
-        productView?.frame = CGRect(x: (ScreenWidth - productWidth) / 2, y: ScreenHeight, width: productWidth, height: 120)
-        
-        if isQuestionViewShow {
-            self.view.insertSubview(productView!, belowSubview: self.questionView!)
-            UIView.animate(withDuration: 0.5) {
-                productView?.transform = CGAffineTransform(translationX: 0, y: -((self.questionView?.height)! + (productView?.frame.height)! + 12))
-            }
-        } else {
-            self.view.addSubview(productView!)
-            UIView.animate(withDuration: 0.5) {
-                productView?.transform = CGAffineTransform(translationX: 0, y: -((productView?.frame.height)! + self.chatViewHight))
-            }
-        }
-        mediaManager.muteRemoteVideoStream(self.product!.streamId, mute: false)
-        mediaManager.setupRemoteVideo(withUid: self.product!.streamId, toView: (productView?.prodLiveView)!, withStreamType: .low)
-        
-        self.productView = productView
+        questionVC.view.removeFromSuperview()
+        self.questionVC = nil
     }
     
-    // This method used to close question View
-    func closeQuestionView() {
-        if isProductViewShow {
-            UIView.animate(withDuration: 0.5, animations: {
-                self.questionView?.transform = .identity
-                self.productView?.transform = CGAffineTransform(translationX: 0, y: -((self.productView?.frame.height)! + self.chatViewHight))
-            }, completion: { (_) in
-                self.questionView?.removeFromSuperview()
-                self.questionView = nil
-            })
-        } else {
-            UIView.animate(withDuration: 0.5, animations: {
-                self.questionView?.transform = .identity
-            }, completion: { (_) in
-                self.questionView?.removeFromSuperview()
-                self.questionView = nil
+    func resultLabelShow(result: Result) {
+        let content = result.content
+        let rect = content.rect(font: resultLabel.font)
+        resultLabel.text = content
+        
+        resultLabelWidth.constant = rect.width + 37
+        resultLabel.isHidden = false
+        resultLabel.alpha = 0
+        
+        UIView.animate(withDuration: 0.5, animations: { [unowned self] in
+            self.resultLabel.alpha = 1
+        }) { (finish) in
+            guard finish else {
+                return
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2, execute: {
+                self.resultLabelHidden()
             })
         }
     }
     
-    // This method used to close product View
-    func closeProductView() {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.productView?.transform = .identity
-        }) { (_) in
-            self.productView?.removeFromSuperview()
-            self.productView = nil
+    func resultLabelHidden() {
+        UIView.animate(withDuration: 0.5, animations: { [unowned self] in
+            self.resultLabel.alpha = 0
+        }) { (finish) in
+            guard finish else {
+                return
+            }
+            self.resultLabel.isHidden = true
+        }
+    }
+    
+    func addKeyboradObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardFrameWillChange(notification:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    @objc func keyboardFrameWillChange(notification: NSNotification) {
+        if let _ = self.amountVC {
+            return
+        }
+        
+        guard let userInfo = notification.userInfo,
+        let endKeyboardFrameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+        let durationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
+            return
+        }
+        
+        let endKeyboardFrame = endKeyboardFrameValue.cgRectValue
+        let duration = durationValue.doubleValue
+        
+        let isShowing: Bool = endKeyboardFrame.maxY > ScreenHeight ? false : true
+        
+        UIView.animate(withDuration: duration) { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            if isShowing {
+                let offsetY = strongSelf.inputTextField.frame.maxY - endKeyboardFrame.minY
+                strongSelf.inputTextField.transform = CGAffineTransform(translationX: 0, y: -offsetY)
+            } else {
+                strongSelf.inputTextField.transform = .identity
+            }
         }
     }
 }
 
-extension LiveRoomViewController: QuestionViewDeleagte {
-    func questionViewDidClosed(_ questionView: QuestionView) {
-        self.closeQuestionView()
+extension LiveRoomViewController: BarrageVCDelegate {
+    func barrageVCDidTapView(_ vc: BarrageViewController) {
+        if inputTextField.isEditing {
+            inputTextField.resignFirstResponder()
+        } else {
+            inputTextField.becomeFirstResponder()
+        }
+    }
+}
+
+extension LiveRoomViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let text = textField.text, text.count > 0 {
+            textField.text = nil
+            barrageVC?.wantToLauchABarrage(text: text)
+        }
+        
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension LiveRoomViewController: AmountVCDelegate {
+    func amountVCViewWillMiss(_ vc: AmountViewController) {
+        amountViewHidden()
+    }
+    
+    func amountVC(_ vc: AmountViewController, didInput amount: Int, team: Team) {
+        switch team {
+        case .warriors: warriorsAmount += amount
+        case .memphis:  memphisAmount += amount
+        }
+    }
+}
+
+extension LiveRoomViewController: QuestionVCDelegate {
+    func questionVC(_ vc: QuestionViewController, didSelect result: Result) {
+        resultLabelShow(result: result)
+    }
+    
+    func questionVCViewWiilDismiss(_ vc: QuestionViewController) {
+        questionViewHidden()
     }
 }

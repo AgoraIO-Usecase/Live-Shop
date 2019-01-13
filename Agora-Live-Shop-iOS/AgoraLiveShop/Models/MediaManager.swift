@@ -2,8 +2,8 @@
 //  MediaManager.swift
 //  AgoraLiveShop
 //
-//  Created by ZhangJi on 2018/10/9.
-//  Copyright © 2018 ZhangJi. All rights reserved.
+//  Created by Zhang Ji on 2018/10/9.
+//  Copyright © 2018 Agora.io. All rights reserved.
 //
 
 
@@ -39,7 +39,6 @@ class MediaManager: NSObject {
     private static let manager = MediaManager()
     
     private var agoraKit: AgoraRtcEngineKit!
-    
 }
 
 extension MediaManager {
@@ -47,7 +46,7 @@ extension MediaManager {
         return manager
     }
     
-    public func joinMediaChannel(_ channel: String) -> Int32{
+    @discardableResult public func joinMediaChannel(_ channel: String) -> Int32{
         agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
         agoraKit.enableVideo()
         agoraKit.setChannelProfile(channelProfile)

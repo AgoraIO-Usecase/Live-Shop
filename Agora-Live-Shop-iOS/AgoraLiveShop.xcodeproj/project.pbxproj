@@ -21,19 +21,22 @@
 		0F30852A216C68DD002A1D28 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F308529216C68DD002A1D28 /* libc++.tbd */; };
 		0F30852C216C68E5002A1D28 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F30852B216C68E5002A1D28 /* libresolv.tbd */; };
 		0F30852E216C77C3002A1D28 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F30852D216C77C3002A1D28 /* KeyCenter.swift */; };
-		0F308532216C8131002A1D28 /* CircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F308530216C8130002A1D28 /* CircleProgressView.m */; };
 		0F308536216C8B52002A1D28 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F308534216C8B52002A1D28 /* Constant.swift */; };
 		0F308539216C8B78002A1D28 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F308538216C8B78002A1D28 /* CommonExtensions.swift */; };
-		0F30853D216CB4E6002A1D28 /* LiveShopObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F30853C216CB4E6002A1D28 /* LiveShopObjects.swift */; };
+		0F30853D216CB4E6002A1D28 /* Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F30853C216CB4E6002A1D28 /* Objects.swift */; };
 		0F7354962160A24F008D4DF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7354952160A24F008D4DF7 /* AppDelegate.swift */; };
 		0F73549B2160A24F008D4DF7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F7354992160A24F008D4DF7 /* Main.storyboard */; };
 		0F73549D2160A252008D4DF7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F73549C2160A252008D4DF7 /* Assets.xcassets */; };
 		0F7354A02160A252008D4DF7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F73549E2160A252008D4DF7 /* LaunchScreen.storyboard */; };
 		0F7354AB2160BC7B008D4DF7 /* LiveRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7354AA2160BC7B008D4DF7 /* LiveRoomViewController.swift */; };
-		0FE46923216B0D3800DCBF82 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE46921216B0D3800DCBF82 /* QuestionView.swift */; };
-		0FE46924216B0D3800DCBF82 /* QuestionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE46922216B0D3800DCBF82 /* QuestionView.xib */; };
-		A7EE1F0521CA2BF5002D0166 /* ProductDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7EE1F0321CA2BF5002D0166 /* ProductDisplayView.xib */; };
-		A7EE1F0621CA2BF5002D0166 /* ProductDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EE1F0421CA2BF5002D0166 /* ProductDisplayView.swift */; };
+		A7EAFE9A21E9C3E1005DDA16 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EAFE9621E9C3E1005DDA16 /* UIColor+Hex.m */; };
+		A7EAFE9B21E9C3E1005DDA16 /* UIView+ExProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EAFE9921E9C3E1005DDA16 /* UIView+ExProperty.m */; };
+		A7FD7C7121E9EF3B005ACFD9 /* ResultAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD7C7021E9EF3B005ACFD9 /* ResultAlertViewController.swift */; };
+		A7FD7C7321EAE9E4005ACFD9 /* BarrageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD7C7221EAE9E4005ACFD9 /* BarrageViewController.swift */; };
+		A7FD7C8521EB1A7B005ACFD9 /* HostsVsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD7C8421EB1A7B005ACFD9 /* HostsVsViewController.swift */; };
+		A7FD7C8721EB1FE1005ACFD9 /* AmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD7C8621EB1FE1005ACFD9 /* AmountViewController.swift */; };
+		A7FD7C8921EB31C8005ACFD9 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD7C8821EB31C8005ACFD9 /* QuestionViewController.swift */; };
+		A7FD7C8B21EB4EC5005ACFD9 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD7C8A21EB4EC5005ACFD9 /* StringExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,11 +55,9 @@
 		0F30852B216C68E5002A1D28 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		0F30852D216C77C3002A1D28 /* KeyCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCenter.swift; sourceTree = "<group>"; };
 		0F30852F216C812E002A1D28 /* AgoraLiveShop-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AgoraLiveShop-Bridging-Header.h"; sourceTree = "<group>"; };
-		0F308530216C8130002A1D28 /* CircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleProgressView.m; sourceTree = "<group>"; };
-		0F308531216C8131002A1D28 /* CircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleProgressView.h; sourceTree = "<group>"; };
 		0F308534216C8B52002A1D28 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		0F308538216C8B78002A1D28 /* CommonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtensions.swift; sourceTree = "<group>"; };
-		0F30853C216CB4E6002A1D28 /* LiveShopObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveShopObjects.swift; sourceTree = "<group>"; };
+		0F30853C216CB4E6002A1D28 /* Objects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Objects.swift; sourceTree = "<group>"; };
 		0F7354922160A24F008D4DF7 /* AgoraLiveShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgoraLiveShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7354952160A24F008D4DF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F73549A2160A24F008D4DF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -64,10 +65,16 @@
 		0F73549F2160A252008D4DF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F7354A12160A252008D4DF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F7354AA2160BC7B008D4DF7 /* LiveRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRoomViewController.swift; sourceTree = "<group>"; };
-		0FE46921216B0D3800DCBF82 /* QuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
-		0FE46922216B0D3800DCBF82 /* QuestionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionView.xib; sourceTree = "<group>"; };
-		A7EE1F0321CA2BF5002D0166 /* ProductDisplayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductDisplayView.xib; sourceTree = "<group>"; };
-		A7EE1F0421CA2BF5002D0166 /* ProductDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDisplayView.swift; sourceTree = "<group>"; };
+		A7EAFE9621E9C3E1005DDA16 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		A7EAFE9721E9C3E1005DDA16 /* UIView+ExProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ExProperty.h"; sourceTree = "<group>"; };
+		A7EAFE9821E9C3E1005DDA16 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		A7EAFE9921E9C3E1005DDA16 /* UIView+ExProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ExProperty.m"; sourceTree = "<group>"; };
+		A7FD7C7021E9EF3B005ACFD9 /* ResultAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAlertViewController.swift; sourceTree = "<group>"; };
+		A7FD7C7221EAE9E4005ACFD9 /* BarrageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrageViewController.swift; sourceTree = "<group>"; };
+		A7FD7C8421EB1A7B005ACFD9 /* HostsVsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostsVsViewController.swift; sourceTree = "<group>"; };
+		A7FD7C8621EB1FE1005ACFD9 /* AmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountViewController.swift; sourceTree = "<group>"; };
+		A7FD7C8821EB31C8005ACFD9 /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
+		A7FD7C8A21EB4EC5005ACFD9 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,12 +102,7 @@
 		0F276A8D216778FA00691F9C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A7EE1F0421CA2BF5002D0166 /* ProductDisplayView.swift */,
-				A7EE1F0321CA2BF5002D0166 /* ProductDisplayView.xib */,
-				0FE46921216B0D3800DCBF82 /* QuestionView.swift */,
-				0FE46922216B0D3800DCBF82 /* QuestionView.xib */,
-				0F308531216C8131002A1D28 /* CircleProgressView.h */,
-				0F308530216C8130002A1D28 /* CircleProgressView.m */,
+				0F7354992160A24F008D4DF7 /* Main.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -109,8 +111,9 @@
 			isa = PBXGroup;
 			children = (
 				0F0D7CFF21801BD300DCBADC /* AlertUtil.swift */,
+				0F30853C216CB4E6002A1D28 /* Objects.swift */,
 				0F308514216C67E5002A1D28 /* MediaManager.swift */,
-				0F30853C216CB4E6002A1D28 /* LiveShopObjects.swift */,
+				A7FD7C8A21EB4EC5005ACFD9 /* StringExtension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -164,15 +167,11 @@
 			isa = PBXGroup;
 			children = (
 				0F7354A92160B7B5008D4DF7 /* Controllers */,
-				0F308533216C8B52002A1D28 /* Constant */,
-				0F308513216C67C8002A1D28 /* Models */,
 				0F276A8D216778FA00691F9C /* Views */,
-				0F7354952160A24F008D4DF7 /* AppDelegate.swift */,
-				0F30852F216C812E002A1D28 /* AgoraLiveShop-Bridging-Header.h */,
-				0F7354992160A24F008D4DF7 /* Main.storyboard */,
-				0F73549C2160A252008D4DF7 /* Assets.xcassets */,
-				0F73549E2160A252008D4DF7 /* LaunchScreen.storyboard */,
-				0F7354A12160A252008D4DF7 /* Info.plist */,
+				0F308513216C67C8002A1D28 /* Models */,
+				0F308533216C8B52002A1D28 /* Constant */,
+				A7EAFE9521E9C3C7005DDA16 /* Others */,
+				A7FD7C7421EAED0F005ACFD9 /* Supports Files */,
 			);
 			path = AgoraLiveShop;
 			sourceTree = "<group>";
@@ -181,8 +180,36 @@
 			isa = PBXGroup;
 			children = (
 				0F7354AA2160BC7B008D4DF7 /* LiveRoomViewController.swift */,
+				A7FD7C7021E9EF3B005ACFD9 /* ResultAlertViewController.swift */,
+				A7FD7C7221EAE9E4005ACFD9 /* BarrageViewController.swift */,
+				A7FD7C8421EB1A7B005ACFD9 /* HostsVsViewController.swift */,
+				A7FD7C8621EB1FE1005ACFD9 /* AmountViewController.swift */,
+				A7FD7C8821EB31C8005ACFD9 /* QuestionViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		A7EAFE9521E9C3C7005DDA16 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				A7EAFE9821E9C3E1005DDA16 /* UIColor+Hex.h */,
+				A7EAFE9621E9C3E1005DDA16 /* UIColor+Hex.m */,
+				A7EAFE9721E9C3E1005DDA16 /* UIView+ExProperty.h */,
+				A7EAFE9921E9C3E1005DDA16 /* UIView+ExProperty.m */,
+			);
+			name = Others;
+			sourceTree = "<group>";
+		};
+		A7FD7C7421EAED0F005ACFD9 /* Supports Files */ = {
+			isa = PBXGroup;
+			children = (
+				0F7354952160A24F008D4DF7 /* AppDelegate.swift */,
+				0F73549C2160A252008D4DF7 /* Assets.xcassets */,
+				0F73549E2160A252008D4DF7 /* LaunchScreen.storyboard */,
+				0F30852F216C812E002A1D28 /* AgoraLiveShop-Bridging-Header.h */,
+				0F7354A12160A252008D4DF7 /* Info.plist */,
+			);
+			name = "Supports Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,7 +240,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1000;
-				ORGANIZATIONNAME = ZhangJi;
+				ORGANIZATIONNAME = Agora.io;
 				TargetAttributes = {
 					0F7354912160A24F008D4DF7 = {
 						CreatedOnToolsVersion = 10.0;
@@ -245,9 +272,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FE46924216B0D3800DCBF82 /* QuestionView.xib in Resources */,
 				0F7354A02160A252008D4DF7 /* LaunchScreen.storyboard in Resources */,
-				A7EE1F0521CA2BF5002D0166 /* ProductDisplayView.xib in Resources */,
 				0F73549D2160A252008D4DF7 /* Assets.xcassets in Resources */,
 				0F73549B2160A24F008D4DF7 /* Main.storyboard in Resources */,
 			);
@@ -261,15 +286,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F308539216C8B78002A1D28 /* CommonExtensions.swift in Sources */,
-				0FE46923216B0D3800DCBF82 /* QuestionView.swift in Sources */,
-				0F308532216C8131002A1D28 /* CircleProgressView.m in Sources */,
+				A7EAFE9A21E9C3E1005DDA16 /* UIColor+Hex.m in Sources */,
+				A7EAFE9B21E9C3E1005DDA16 /* UIView+ExProperty.m in Sources */,
+				A7FD7C7121E9EF3B005ACFD9 /* ResultAlertViewController.swift in Sources */,
 				0F308536216C8B52002A1D28 /* Constant.swift in Sources */,
+				A7FD7C8721EB1FE1005ACFD9 /* AmountViewController.swift in Sources */,
+				A7FD7C8921EB31C8005ACFD9 /* QuestionViewController.swift in Sources */,
+				A7FD7C7321EAE9E4005ACFD9 /* BarrageViewController.swift in Sources */,
 				0F0D7D0021801BD300DCBADC /* AlertUtil.swift in Sources */,
-				A7EE1F0621CA2BF5002D0166 /* ProductDisplayView.swift in Sources */,
 				0F7354AB2160BC7B008D4DF7 /* LiveRoomViewController.swift in Sources */,
+				A7FD7C8521EB1A7B005ACFD9 /* HostsVsViewController.swift in Sources */,
 				0F7354962160A24F008D4DF7 /* AppDelegate.swift in Sources */,
 				0F30852E216C77C3002A1D28 /* KeyCenter.swift in Sources */,
-				0F30853D216CB4E6002A1D28 /* LiveShopObjects.swift in Sources */,
+				A7FD7C8B21EB4EC5005ACFD9 /* StringExtension.swift in Sources */,
+				0F30853D216CB4E6002A1D28 /* Objects.swift in Sources */,
 				0F308515216C67E5002A1D28 /* MediaManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

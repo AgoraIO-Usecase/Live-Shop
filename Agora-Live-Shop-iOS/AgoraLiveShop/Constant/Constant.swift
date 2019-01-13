@@ -2,8 +2,8 @@
 //  Constant.swift
 //  AgoraHQ
 //
-//  Created by ZhangJi on 08/01/2018.
-//  Copyright © 2018 ZhangJi. All rights reserved.
+//  Created by Zhang Ji on 08/01/2018.
+//  Copyright © 2018 Agora.io. All rights reserved.
 //
 
 import UIKit
