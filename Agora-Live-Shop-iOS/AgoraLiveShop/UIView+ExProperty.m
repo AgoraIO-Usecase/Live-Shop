@@ -180,17 +180,5 @@
         self.layer.masksToBounds = masksToBounds;
     }
 }
-
-//- (void)setLayerBackgroundColor:(NSColor *)layerBackgroundColor {
-//    self.wantsLayer = true;
-//    self.layer.backgroundColor = layerBackgroundColor.CGColor;
-//}
-
-//- (void)updateLayer {
-//
-//    self.layer.backgroundColor = self.layer.backgroundColor;
-//}
-
-
 @end
 #endif

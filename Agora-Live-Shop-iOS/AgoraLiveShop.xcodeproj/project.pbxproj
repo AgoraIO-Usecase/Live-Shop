@@ -31,7 +31,6 @@
 		0F7354AB2160BC7B008D4DF7 /* LiveRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7354AA2160BC7B008D4DF7 /* LiveRoomViewController.swift */; };
 		A7EAFE9A21E9C3E1005DDA16 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EAFE9621E9C3E1005DDA16 /* UIColor+Hex.m */; };
 		A7EAFE9B21E9C3E1005DDA16 /* UIView+ExProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EAFE9921E9C3E1005DDA16 /* UIView+ExProperty.m */; };
-		A7FD7C7121E9EF3B005ACFD9 /* ResultAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD7C7021E9EF3B005ACFD9 /* ResultAlertViewController.swift */; };
 		A7FD7C7321EAE9E4005ACFD9 /* BarrageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD7C7221EAE9E4005ACFD9 /* BarrageViewController.swift */; };
 		A7FD7C8521EB1A7B005ACFD9 /* HostsVsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD7C8421EB1A7B005ACFD9 /* HostsVsViewController.swift */; };
 		A7FD7C8721EB1FE1005ACFD9 /* AmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FD7C8621EB1FE1005ACFD9 /* AmountViewController.swift */; };
@@ -69,7 +68,6 @@
 		A7EAFE9721E9C3E1005DDA16 /* UIView+ExProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ExProperty.h"; sourceTree = "<group>"; };
 		A7EAFE9821E9C3E1005DDA16 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		A7EAFE9921E9C3E1005DDA16 /* UIView+ExProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ExProperty.m"; sourceTree = "<group>"; };
-		A7FD7C7021E9EF3B005ACFD9 /* ResultAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAlertViewController.swift; sourceTree = "<group>"; };
 		A7FD7C7221EAE9E4005ACFD9 /* BarrageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrageViewController.swift; sourceTree = "<group>"; };
 		A7FD7C8421EB1A7B005ACFD9 /* HostsVsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostsVsViewController.swift; sourceTree = "<group>"; };
 		A7FD7C8621EB1FE1005ACFD9 /* AmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +110,6 @@
 			children = (
 				0F0D7CFF21801BD300DCBADC /* AlertUtil.swift */,
 				0F30853C216CB4E6002A1D28 /* Objects.swift */,
-				0F308514216C67E5002A1D28 /* MediaManager.swift */,
 				A7FD7C8A21EB4EC5005ACFD9 /* StringExtension.swift */,
 			);
 			path = Models;
@@ -180,11 +177,11 @@
 			isa = PBXGroup;
 			children = (
 				0F7354AA2160BC7B008D4DF7 /* LiveRoomViewController.swift */,
-				A7FD7C7021E9EF3B005ACFD9 /* ResultAlertViewController.swift */,
 				A7FD7C7221EAE9E4005ACFD9 /* BarrageViewController.swift */,
 				A7FD7C8421EB1A7B005ACFD9 /* HostsVsViewController.swift */,
 				A7FD7C8621EB1FE1005ACFD9 /* AmountViewController.swift */,
 				A7FD7C8821EB31C8005ACFD9 /* QuestionViewController.swift */,
+				0F308514216C67E5002A1D28 /* MediaManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -288,7 +285,6 @@
 				0F308539216C8B78002A1D28 /* CommonExtensions.swift in Sources */,
 				A7EAFE9A21E9C3E1005DDA16 /* UIColor+Hex.m in Sources */,
 				A7EAFE9B21E9C3E1005DDA16 /* UIView+ExProperty.m in Sources */,
-				A7FD7C7121E9EF3B005ACFD9 /* ResultAlertViewController.swift in Sources */,
 				0F308536216C8B52002A1D28 /* Constant.swift in Sources */,
 				A7FD7C8721EB1FE1005ACFD9 /* AmountViewController.swift in Sources */,
 				A7FD7C8921EB31C8005ACFD9 /* QuestionViewController.swift in Sources */,

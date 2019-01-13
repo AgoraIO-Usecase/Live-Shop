@@ -116,7 +116,6 @@ extension MediaManager: AgoraRtcEngineDelegate {
         let data = sei.data(using: String.Encoding.utf8)
         do {
             let jsonData: NSDictionary = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! NSDictionary
-            print("didReceiveSEI: \(jsonData)")
             if jsonData["type"] as! String == "prod" {
                 let prodData = jsonData["product"] as! NSDictionary
                 delegate?.mediaManager?(self, didReceiveSEI: prodData, type: .prod)

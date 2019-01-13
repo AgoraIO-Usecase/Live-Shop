@@ -13,6 +13,7 @@ protocol BarrageProtocol: NSObjectProtocol {
 }
 
 class Barrage: NSObject {
+    
     weak var delegate: BarrageProtocol?
     
     var id: Int = 0

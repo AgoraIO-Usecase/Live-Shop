@@ -126,7 +126,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholderColorString" value="#8EA9B9"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholderColorString" value="#8EA9B9-Type sth..."/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="I7R-G0-xsg" id="DTR-RT-0nv"/>
@@ -220,80 +220,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3jj-sC-Fav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="934.78260869565224" y="131.91964285714286"/>
-        </scene>
-        <!--Result Alert View Controller-->
-        <scene sceneID="OmE-gI-vLO">
-            <objects>
-                <viewController id="885-Os-wG2" customClass="ResultAlertViewController" customModule="AgoraLiveShop" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qkI-Uw-PyI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Rs-ed-raV">
-                                <rect key="frame" x="40" y="240" width="334" height="166"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tlf-ng-KXm">
-                                        <rect key="frame" x="83" y="23" width="26" height="26"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="26" id="FoY-nm-pmO"/>
-                                            <constraint firstAttribute="width" secondItem="tlf-ng-KXm" secondAttribute="height" id="ZWn-Ss-shk"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Won!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGW-W6-j2P">
-                                        <rect key="frame" x="129" y="25.666666666666686" width="78.666666666666686" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 1000 credit added to your pocket." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42J-6J-SzG">
-                                        <rect key="frame" x="58.333333333333329" y="73.666666666666686" width="217.33333333333337" height="15.666666666666671"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ra7-JZ-GPU">
-                                        <rect key="frame" x="16" y="128" width="302" height="30"/>
-                                        <state key="normal" title="OK"/>
-                                        <connections>
-                                            <action selector="doOkPressed:" destination="885-Os-wG2" eventType="touchUpInside" id="iQy-my-VcR"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="ra7-JZ-GPU" firstAttribute="centerX" secondItem="9Rs-ed-raV" secondAttribute="centerX" id="1ax-dg-Z2x"/>
-                                    <constraint firstItem="tlf-ng-KXm" firstAttribute="leading" secondItem="9Rs-ed-raV" secondAttribute="leading" constant="83" id="8qJ-8z-2Gv"/>
-                                    <constraint firstItem="mGW-W6-j2P" firstAttribute="leading" secondItem="tlf-ng-KXm" secondAttribute="trailing" constant="20" id="DBi-N7-GpS"/>
-                                    <constraint firstItem="42J-6J-SzG" firstAttribute="top" secondItem="mGW-W6-j2P" secondAttribute="bottom" constant="27" id="DHF-UA-2Kd"/>
-                                    <constraint firstItem="tlf-ng-KXm" firstAttribute="top" secondItem="9Rs-ed-raV" secondAttribute="top" constant="23" id="Jmp-sK-1EM"/>
-                                    <constraint firstItem="mGW-W6-j2P" firstAttribute="centerY" secondItem="tlf-ng-KXm" secondAttribute="centerY" id="VBD-rL-6Ay"/>
-                                    <constraint firstItem="42J-6J-SzG" firstAttribute="centerX" secondItem="9Rs-ed-raV" secondAttribute="centerX" id="ZIl-AM-1Sk"/>
-                                    <constraint firstItem="ra7-JZ-GPU" firstAttribute="leading" secondItem="9Rs-ed-raV" secondAttribute="leading" constant="16" id="akG-4V-fbf"/>
-                                    <constraint firstAttribute="height" constant="166" id="f2J-1H-nAQ"/>
-                                    <constraint firstAttribute="bottom" secondItem="ra7-JZ-GPU" secondAttribute="bottom" constant="8" id="px5-YP-JHb"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="eMa-GC-NQA" firstAttribute="trailing" secondItem="9Rs-ed-raV" secondAttribute="trailing" constant="40" id="NWs-Nx-fmA"/>
-                            <constraint firstItem="9Rs-ed-raV" firstAttribute="centerX" secondItem="qkI-Uw-PyI" secondAttribute="centerX" id="glS-ct-hkt"/>
-                            <constraint firstItem="9Rs-ed-raV" firstAttribute="top" secondItem="eMa-GC-NQA" secondAttribute="top" constant="196" id="p7E-Q0-R63"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="eMa-GC-NQA"/>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="tlf-ng-KXm" id="9ep-wu-36T"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GbI-Cb-gYi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="950.72463768115949" y="833.70535714285711"/>
         </scene>
         <!--Hosts Vs View Controller-->
         <scene sceneID="bfb-NY-hjt">
@@ -543,14 +469,14 @@
                                             <action selector="doYesPressed:" destination="XKN-Gg-66M" eventType="touchUpInside" id="DwL-CM-crZ"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YKQ-SI-Lg6">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="YKQ-SI-Lg6">
                                         <rect key="frame" x="41" y="300" width="28" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="28" id="2sp-0u-k7c"/>
                                             <constraint firstAttribute="width" secondItem="YKQ-SI-Lg6" secondAttribute="height" id="uHS-tL-r1W"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bXF-6V-416">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="bXF-6V-416">
                                         <rect key="frame" x="210.66666666666666" y="300" width="28" height="28"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6,312" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndU-wd-g7A">
@@ -650,6 +576,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
+                        <viewLayoutGuide key="safeArea" id="G5K-Ml-S8M"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="f4g-Ah-Wvc" appends="YES" id="fEA-h3-xlr"/>
                         </connections>
@@ -662,7 +589,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="143" y="-95"/>
+            <point key="canvasLocation" x="933" y="-345"/>
         </scene>
         <!--Amount View Controller-->
         <scene sceneID="NDD-aS-X8G">
@@ -763,7 +690,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dTL-3H-y1n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="78" y="834"/>
+            <point key="canvasLocation" x="935" y="834"/>
         </scene>
     </scenes>
     <resources>
@@ -777,6 +704,7 @@
         <image name="head5" width="114" height="114"/>
         <image name="kobe" width="927" height="627"/>
         <image name="nba" width="1125" height="600"/>
+        <image name="person" width="51" height="54"/>
         <image name="vs_gray" width="147" height="195"/>
         <image name="vs_white" width="87" height="114"/>
     </resources>

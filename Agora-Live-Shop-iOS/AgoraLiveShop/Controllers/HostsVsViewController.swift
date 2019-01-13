@@ -9,6 +9,7 @@
 import UIKit
 
 class HostsVsViewController: UIViewController {
+    
     @IBOutlet weak var redView: UIView!
     @IBOutlet weak var blueView: UIView!
     @IBOutlet weak var containerView: UIView!
@@ -16,8 +17,6 @@ class HostsVsViewController: UIViewController {
     
     @IBOutlet weak var leftLabel: UILabel!
     @IBOutlet weak var rightLabel: UILabel!
-    
-    
     
     var leftAmount: Int = 1647 {
         didSet {
@@ -67,7 +66,13 @@ private extension HostsVsViewController {
         rightLabel.text = "\(rightAmount)"
         
         let containerWidth = self.containerView.frame.width
-        let width = CGFloat(leftAmount) / CGFloat(rightAmount + leftAmount) * containerWidth
+        var coefficient = CGFloat(leftAmount) / CGFloat(rightAmount + leftAmount)
+        
+        if coefficient > 1 {
+            coefficient = 1
+        }
+        
+        let width = coefficient * containerWidth
         redWidth.constant = width
     }
 }
