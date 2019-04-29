@@ -1,8 +1,8 @@
-# Agora Live Shop
+# Agora Interactive Sports Fan Engagement Solution
 
 *Read this in other languages: [English](README.md)*
 
-Agora Live Shop 支持以下平台: 
+这个方案支持以下平台: 
 
 - [iOS (观众端)](https://github.com/AgoraIO/Live-Shop-Use-Case/tree/master/Agora-Live-Shop-iOS)
 - [Android (观众端)](https://github.com/AgoraIO/Live-Shop-Use-Case/tree/master/Agora-Live-Shop-Android)
@@ -17,6 +17,7 @@ Agora Live Shop 支持以下平台:
 - Obs集成
 - 双摄支持
 - SEI收发
+- 赛事直播流引入
 
 ## 架构设计
 ![image](https://github.com/AgoraIO/Live-Shop-Use-Case/blob/master/architecture.png)
