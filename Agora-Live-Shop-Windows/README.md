@@ -5,7 +5,7 @@
 This demo is written in **C++**
 
 ## Third party libs included
-* agora sdk 2.3.1 special version(for sei)
+* agora sdk 3.1.2 or later
 * zlib(for generate token)
 * obs 20.1(for capture obs video source and audio)
 * sqlite3 (for store local data)
