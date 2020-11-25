@@ -13,8 +13,6 @@ public:
 
 	void SetMsgReceiver(HWND hWnd = NULL);
 	HWND GetMsgReceiver() {return m_hMainWnd;};
-	void setSEI(const std::string &strSei);
-	void setSEI(std::unordered_map<std::string, std::string>& mapJson);
 
 	virtual void onJoinChannelSuccess(const char* channel, uid_t uid, int elapsed);
 	virtual void onRejoinChannelSuccess(const char* channel, uid_t uid, int elapsed);
@@ -53,14 +51,8 @@ public:
 	virtual void onStopRecordingService(int error);
 	virtual void onRefreshRecordingServiceStatus(int status);
 
-	virtual void onSendSEI(char** info, int* len);
-	virtual void onReceiveSEI(const char* info, int len);
-
 private:
 	HWND		m_hMainWnd;
-	std::string m_strSEI;
-	bool m_bActive;
-	std::unordered_map<std::string, std::string> m_mapTypeToJson;
 };
 //advertise process callback
 class CAgoraVideoSourceEventHandler : public IAgoraVideoSourceEventHandler
@@ -71,3 +63,42 @@ class CAgoraVideoSourceEventHandler : public IAgoraVideoSourceEventHandler
 	virtual void onVideoSourceLeaveChannel() override;
 	virtual void onVideoSourceExit() override;
 };
+
+class CAgoraMetaDataObserver : public IMetadataObserver
+{
+public:
+	void SetMsgReceiver(HWND hWnd) { m_hMsgHanlder = hWnd; }
+	/*
+		get max meta data size of byte.
+	*/
+	virtual int getMaxMetadataSize()override;
+	/*
+		The sender is ready to send MetadataThis callback method
+		is triggered when the SDK is ready to receive and send Metadata.
+		annotations:
+		Make sure that the Metadata size passed in to this method does not
+		exceed the value set in getMaxMetadataSize.
+		parameter:
+		metadata :Metadata that the user wants to send.
+		return:
+		True: send
+		False: don't send
+	*/
+	virtual bool onReadyToSendMetadata(Metadata &metadata)override;
+	/*
+		The receiver has received Metadata.The SDK triggers the callback when it
+		receives Metadata sent by the remote user.
+		parameter:
+		metadata:Received Metadata.
+	*/
+	virtual void onMetadataReceived(const Metadata &metadata)override;
+	void setSEI(const std::string &strSei);
+	void setSEI(std::unordered_map<std::string, std::string>& mapJson);
+private:
+	int m_maxSize = 1024;
+	std::string m_strSEI;
+	HWND m_hMsgHanlder;
+	bool m_bActive;
+	std::unordered_map<std::string, std::string> m_mapTypeToJson;
+};
+

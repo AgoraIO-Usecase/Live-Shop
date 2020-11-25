@@ -362,69 +362,66 @@ void CAGEngineEventHandler::onRefreshRecordingServiceStatus(int status)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_REFREASH_RCDSRV), (WPARAM)lpData, 0);
 }
 
-void CAGEngineEventHandler::setSEI(const std::string &strSei)
+void CAgoraMetaDataObserver::setSEI(const std::string &strSei)
 {
 	m_strSEI = strSei;
 	m_bActive = true;
 }
 
-void CAGEngineEventHandler::setSEI(std::unordered_map<std::string, std::string>& mapJson)
+void CAgoraMetaDataObserver::setSEI(std::unordered_map<std::string, std::string>& mapJson)
 {
 	if (mapJson.size() > 0){
 		m_mapTypeToJson = mapJson;
 	}
 }
 
-void CAGEngineEventHandler::onSendSEI(char** info, int* len)
+
+
+bool CAgoraMetaDataObserver::onReadyToSendMetadata(Metadata & metadata)
 {
-	if (m_mapTypeToJson.size() > 0){
-		if (m_mapTypeToJson.find("quiz") != m_mapTypeToJson.end()){// send question
+	if (m_mapTypeToJson.size() > 0) {
+		if (m_mapTypeToJson.find("quiz") != m_mapTypeToJson.end()) {// send question
 			std::string quiz = m_mapTypeToJson["quiz"];
 			//memset(0, qu);
-			memcpy(*info, quiz.c_str(), quiz.size());
-			*len = m_mapTypeToJson["quiz"].size();
+			memcpy(metadata.buffer, quiz.c_str(), quiz.size());
+			metadata.size = m_mapTypeToJson["quiz"].size();
 			m_mapTypeToJson.erase("quiz");
-		
-			OutputDebugStringA(*info);
+			/*
 			if (m_hMainWnd != NULL)
 				::PostMessage(m_hMainWnd, WM_MSGID(EID_SEND_SEI), 0, 0);
-			
-			return;
+			*/
+			return true;
 		}
-		else if (m_mapTypeToJson.find("prod") != m_mapTypeToJson.end()){//send product
+		else if (m_mapTypeToJson.find("prod") != m_mapTypeToJson.end()) {//send product
 			std::string prod = m_mapTypeToJson["prod"];
-			memcpy(*info, prod.c_str(), prod.size());
-			*len = prod.size();
+			memcpy(metadata.buffer, prod.c_str(), prod.size());
+			metadata.size = prod.size();
 			m_mapTypeToJson.erase("prod");
-
-			OutputDebugStringA(*info);
+			/*
 			if (m_hMainWnd != NULL)
 				::PostMessage(m_hMainWnd, WM_MSGID(EID_SEND_SEI), 0, 0);
-			return;
+			*/
+			return true;
 		}
 	}
-	else if (m_bActive){
-		memcpy(*info, m_strSEI.data(), m_strSEI.size());
-		*len = m_strSEI.size();
+	else if (m_bActive) {
+		memcpy(metadata.buffer, m_strSEI.data(), m_strSEI.size());
+		metadata.size = m_strSEI.size();
+		/*
 		if (m_hMainWnd != NULL)
 			::PostMessage(m_hMainWnd, WM_MSGID(EID_SEND_SEI), 0, 0);
+		*/
 		m_bActive = false;
 	}
-	
-	//*len = m_strSEI.size();
-	//*info = (char*)m_strSEI.data();
-	//if (m_hMainWnd != NULL)
-    //		::PostMessage(m_hMainWnd, WM_MSGID(EID_SEND_SEI), 0, 0);
+	return true;
 }
 
-
-void CAGEngineEventHandler::onReceiveSEI(const char* info, int len)
-{	
+void CAgoraMetaDataObserver::onMetadataReceived(const Metadata & metadata)
+{
 	OutputDebugStringA(__FUNCTION__);
 	OutputDebugStringA("\r\n");
-	if (m_hMainWnd != NULL)
-		::PostMessage(m_hMainWnd, WM_MSGID(EID_RECEIVE_SEI), 0, 0);
 }
+
 void CAgoraVideoSourceEventHandler::onVideoSourceJoinedChannel(agora::rtc::uid_t uid)
 {
 
@@ -441,4 +438,9 @@ void CAgoraVideoSourceEventHandler::onVideoSourceLeaveChannel()
 void CAgoraVideoSourceEventHandler::onVideoSourceExit()
 {
 
+}
+
+int CAgoraMetaDataObserver::getMaxMetadataSize()
+{
+	return m_maxSize;
 }

@@ -169,6 +169,7 @@ public:
 	static BOOL EnableWhiteboardVer(BOOL bEnable);
 	static BOOL EnableWhiteboardFeq(BOOL bEnable);
 	static CAGEngineEventHandler* getEngineEventHandle();
+	static CAgoraMetaDataObserver* getAgoraMetaDataObserver();
 
 	CStringA getDynamicMediaChannelKey(CString channelname);
 protected:
@@ -218,4 +219,5 @@ public:
 	static void CloseAgoraObject();
 
 	static CAGEngineEventHandler m_EngineEventHandler;
+	static CAgoraMetaDataObserver m_metaDataObserver;
 };
