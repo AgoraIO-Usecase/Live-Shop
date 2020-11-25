@@ -9,7 +9,7 @@
 
 //
 import UIKit
-import AgoraRtcEngineKit
+import AgoraRtcKit
 
 @objc enum SeiType: NSInteger {
     case prod, quiz
@@ -40,6 +40,11 @@ class MediaManager: NSObject {
     
     private var agoraKit: AgoraRtcEngineKit!
     
+    // video metadata to be sent later
+    var metadata: Data?
+    // metadata lenght limitation
+    let MAX_META_LENGTH = 1024
+    
 }
 
 extension MediaManager {
@@ -52,6 +57,7 @@ extension MediaManager {
         agoraKit.enableVideo()
         agoraKit.setChannelProfile(channelProfile)
         agoraKit.setClientRole(clientRole)
+        agoraKit.setMediaMetadataDelegate(self, with: .video)
         let code = agoraKit.joinChannel(byToken: nil, channelId: channel, info: nil, uid: 0, joinSuccess: nil)
         if code == 0 {
             setIdleTimerActive(false)
@@ -109,10 +115,44 @@ extension MediaManager: AgoraRtcEngineDelegate {
         self.delegate?.mediaManager?(self, didJoinedOfUid: uid)
     }
     
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didReceiveSEI sei: String) {
-        let data = sei.data(using: String.Encoding.utf8)
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
+        delegate?.mediaManager?(self, didOfflineOfUid: uid)
+    }
+}
+
+/// AgoraMediaMetadataDelegate and AgoraMediaMetadataDataSource
+extension MediaManager : AgoraMediaMetadataDelegate, AgoraMediaMetadataDataSource {
+    func metadataMaxSize() -> Int {
+        // the data to send should not exceed this size
+        return MAX_META_LENGTH
+    }
+    
+    /// Callback when the SDK is ready to send metadata.
+    /// You need to specify the metadata in the return value of this method.
+    /// Ensure that the size of the metadata that you specify in this callback does not exceed the value set in the metadataMaxSize callback.
+    /// @param timestamp The timestamp (ms) of the current metadata.
+    /// @return The metadata that you want to send in the format of Data
+    func readyToSendMetadata(atTimestamp timestamp: TimeInterval) -> Data? {
+        guard let metadata = self.metadata else {return nil}
+        
+        // clear self.metadata to nil after any success send to avoid redundancy
+        self.metadata = nil
+        
+        if(metadata.count > MAX_META_LENGTH) {
+            //if data exceeding limit, return nil to not send anything
+            return nil
+        }
+        self.metadata = nil
+        return metadata
+    }
+    
+    /// Callback when the local user receives the metadata.
+    /// @param data The received metadata.
+    /// @param uid The ID of the user who sends the metadata.
+    /// @param timestamp The timestamp (ms) of the received metadata.
+    func receiveMetadata(_ d: Data, fromUser uid: Int, atTimestamp timestamp: TimeInterval) {
         do {
-            let jsonData: NSDictionary = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! NSDictionary
+            let jsonData: NSDictionary = try JSONSerialization.jsonObject(with: d, options: .mutableContainers) as! NSDictionary
             print(jsonData)
             if jsonData["type"] as! String == "prod" {
                 let prodData = jsonData["product"] as! NSDictionary
@@ -127,9 +167,6 @@ extension MediaManager: AgoraRtcEngineDelegate {
         }
     }
     
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
-        delegate?.mediaManager?(self, didOfflineOfUid: uid)
-    }
 }
 
 private extension MediaManager {

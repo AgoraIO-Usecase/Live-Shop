@@ -2,12 +2,14 @@
 
 #include <atlcoll.h>
 #include <IAgoraRtcEngine.h>
+#include <map>
 
 #include "AGEngineEventHandler.h"
 
 // #define ENABLE_CODEC	1
 
 using namespace agora::rtc;
+using namespace std;
 
 #define AG_ENGFLAG_ENNETTEST	0x00000001
 #define AG_ENGFLAG_ECHOTEST		0x00000002
@@ -36,6 +38,8 @@ class CAgoraObject
 {
 public:
 	~CAgoraObject(void);
+	
+	std::map<CString, FRAME_RATE> m_mapFrameRate;
 
 	static CString LoadAppID();
 

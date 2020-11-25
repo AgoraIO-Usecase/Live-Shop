@@ -43,7 +43,6 @@ using namespace std;
 
 #include <IAgoraRtcEngine.h>
 #include <IAgoraMediaEngine.h>
-#include <IAgoraRtcEngine2.h>
 
 #pragma comment(lib, "agora_rtc_sdk.lib")
 #pragma comment(lib,"libcrypto.lib")

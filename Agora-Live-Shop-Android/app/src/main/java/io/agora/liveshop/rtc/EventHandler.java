@@ -1,8 +1,13 @@
 package io.agora.liveshop.rtc;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
+import io.agora.rtc.IMetadataObserver;
 import io.agora.rtc.IRtcEngineEventHandler;
 
 /**
@@ -10,7 +15,76 @@ import io.agora.rtc.IRtcEngineEventHandler;
  * map of IEventCallback instances.
  */
 public class EventHandler extends IRtcEngineEventHandler {
+
+    public static final String TAG = EventHandler.class.getSimpleName();
+
+    /**
+     * Maximum length of meta data
+     */
+    private int MAX_META_SIZE = 1024;
+    /**
+     * Meta data to be sent
+     */
+    private byte[] metadata;
     private ConcurrentHashMap<Object, IEventCallback> mCallbacks = new ConcurrentHashMap<>();
+
+    /**
+     * By implementing this interface, metadata can be sent and received with video frames.
+     */
+    private final IMetadataObserver iMetadataObserver = new IMetadataObserver()
+    {
+        /**Returns the maximum data size of Metadata*/
+        @Override
+        public int getMaxMetadataSize()
+        {
+            return MAX_META_SIZE;
+        }
+
+        /**Occurs when the SDK is ready to receive and send metadata.
+         * You need to specify the metadata in the return value of this callback.
+         * @param timeStampMs The timestamp (ms) of the current metadata.
+         * @return The metadata that you want to send in the format of byte[]. Ensure that you set the return value.
+         * PS: Ensure that the size of the metadata does not exceed the value set in the getMaxMetadataSize callback.*/
+        @Override
+        public byte[] onReadyToSendMetadata(long timeStampMs)
+        {
+            /**Check if the metadata is empty.*/
+            if (metadata == null)
+            {
+                return null;
+            }
+            Log.i(TAG, "There is metadata to send!");
+            /**Recycle metadata objects.*/
+            byte[] toBeSend = metadata;
+            metadata = null;
+            if (toBeSend.length > MAX_META_SIZE)
+            {
+                Log.e(TAG, String.format("Metadata exceeding max length %d!", MAX_META_SIZE));
+                return null;
+            }
+            String data = new String(toBeSend, Charset.forName("UTF-8"));
+            Iterator<IEventCallback> iterable = mCallbacks.values().iterator();
+            if (iterable.hasNext()) {
+                toBeSend = iterable.next().onSendSEI();
+            }
+            Log.i(TAG, String.format("Metadata sent successfully! The content is %s", data));
+            return toBeSend;
+        }
+
+        /**Occurs when the local user receives the metadata.
+         * @param buffer The received metadata.
+         * @param uid The ID of the user who sent the metadata.
+         * @param timeStampMs The timestamp (ms) of the received metadata.*/
+        @Override
+        public void onMetadataReceived(byte[] buffer, int uid, long timeStampMs)
+        {
+            String data = new String(buffer, Charset.forName("UTF-8"));
+            for (IEventCallback callback : mCallbacks.values()) {
+                callback.onReceiveSEI(data);
+            }
+            Log.i(TAG, "onMetadataReceived:" + data);
+        }
+    };
 
     public void addCallback(IEventCallback callback) {
         if (!mCallbacks.contains(callback)) {
@@ -248,23 +322,5 @@ public class EventHandler extends IRtcEngineEventHandler {
     @Override
     public void onClientRoleChanged(int oldRole, int newRole) {
         super.onClientRoleChanged(oldRole, newRole);
-    }
-
-    @Override
-    public void onReceiveSEI(String info) {
-        for (IEventCallback callback : mCallbacks.values()) {
-            callback.onReceiveSEI(info);
-        }
-    }
-
-    @Override
-    public byte[] onSendSEI() {
-        byte[] result = null;
-        Iterator<IEventCallback> iterable = mCallbacks.values().iterator();
-        if (iterable.hasNext()) {
-            result = iterable.next().onSendSEI();
-        }
-
-        return result;
     }
 }

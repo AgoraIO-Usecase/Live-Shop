@@ -3,7 +3,7 @@
 
 <resources>
     <string name="app_name">AgoraLiveShop</string>
-    <string name="agora_app_id">"319294c67d174c878cc7922551e6e773"</string>
+    <string name="agora_app_id"></string>
 
     <!-- Home -->
     <string name="bottom_btn_shop_text">Shop</string>
