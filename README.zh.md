@@ -10,7 +10,7 @@ Agora Live Shop 支持以下平台:
 
 ## 介绍
 
-本Demo基于 v2.3.1 SDK (**如果你想使用SEI功能, 你需要使用[2.3.1 SEI特殊版](https://github.com/AgoraIO/Live-Shop-Use-Case/releases), SEI功能目前不在主板中提供**), 本Demo演示了电商直播中几个比较常用的功能.
+本Demo基于 v3.1.x 主版本SDK
 
 这个Demo演示了以下功能:
 

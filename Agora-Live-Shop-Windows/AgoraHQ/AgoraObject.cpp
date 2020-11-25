@@ -34,6 +34,14 @@ CAgoraObject::CAgoraObject(void)
 
 	m_nCanvasWidth = 640;
 	m_nCanvasHeight = 480;
+
+	m_mapFrameRate.insert(std::make_pair(_T("FRAME_RATE_FPS_1"), FRAME_RATE_FPS_1));
+	m_mapFrameRate.insert(std::make_pair(_T("FRAME_RATE_FPS_7"), FRAME_RATE_FPS_7));
+	m_mapFrameRate.insert(std::make_pair(_T("FRAME_RATE_FPS_10"), FRAME_RATE_FPS_10));
+	m_mapFrameRate.insert(std::make_pair(_T("FRAME_RATE_FPS_15"), FRAME_RATE_FPS_15));
+	m_mapFrameRate.insert(std::make_pair(_T("FRAME_RATE_FPS_24"), FRAME_RATE_FPS_24));
+	m_mapFrameRate.insert(std::make_pair(_T("FRAME_RATE_FPS_30"), FRAME_RATE_FPS_30));
+	m_mapFrameRate.insert(std::make_pair(_T("FRAME_RATE_FPS_60"), FRAME_RATE_FPS_60));
 }
 
 CAgoraObject::~CAgoraObject(void)
@@ -248,8 +256,15 @@ BOOL CAgoraObject::SetVideoProfile2(int nWidth, int nHeight, int nFrameRate, int
 
 BOOL CAgoraObject::SetVideoProfileEx(int nWidth, int nHeight, int nFrameRate, int nBitRate)
 {
-	IRtcEngine2 *lpRtcEngineEx = (IRtcEngine2 *)m_lpAgoraEngine;
-	int nRet = lpRtcEngineEx->setVideoProfileEx(nWidth, nHeight, nFrameRate, nBitRate);
+	IRtcEngine *lpRtcEngineEx = (IRtcEngine *)m_lpAgoraEngine;
+	VideoEncoderConfiguration config;
+	config.dimensions.height = nHeight;
+	config.dimensions.width = nWidth;
+	CString str;
+	str.Format(_T("FRAME_RATE_FPS_%d"), nFrameRate);
+	config.frameRate = m_mapFrameRate[str];
+	config.bitrate = nBitRate;
+	int nRet = lpRtcEngineEx->setVideoEncoderConfiguration(config);
 
 	return nRet == 0 ? TRUE : FALSE;
 }
@@ -820,6 +835,7 @@ BOOL CAgoraObject::GetSEIInfoByIndex(int nIndex, LPSEI_INFO lpSEIInfo)
 
 BOOL CAgoraObject::EnableSEIPush(BOOL bEnable, COLORREF crBack)
 {
+	/*
 	CStringA	strBackColor;
 	VideoCompositingLayout layout;
 	int	nRet = 0;
@@ -866,6 +882,8 @@ BOOL CAgoraObject::EnableSEIPush(BOOL bEnable, COLORREF crBack)
 	delete[] lpRegion;
 
 	return nRet == 0 ? TRUE : FALSE;
+	*/
+	return FALSE;
 }
 
 BOOL CAgoraObject::EnableH264Compatible()

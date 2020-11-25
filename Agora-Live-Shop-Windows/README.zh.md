@@ -4,7 +4,7 @@
 
 使用到的库：
 
-* agora sdk 2.3.1 special version(for sei)
+* agora sdk 3.1.x and later
 * zlib(for generate token)
 * obs 20.1(for capture obs video source and audio)
 * sqlite3 (for store local data)
@@ -73,17 +73,6 @@ SDK的集成可以参考[官网文档](https://docs.agora.io/cn/?_ga=2.119862408
 关于token的详细文档说明请参考：
 [官网token文档](https://docs.agora.io/cn/Interactive%20Broadcast/token?platform=All%20Platforms)
 
-### 使用SEI发送信息
-
-* 该版本sdk是基于2.3.1的[特殊版本sdk](https://github.com/AgoraIO/Live-Shop-Use-Case/releases/download/release%2F1.0/Agora_Native_SDK_for_Windows.x86._v2.3.1_sei_FULL_20181024_1132.1.zip)，主要是为了提供SEI发送题库和产品信息
-* 添加了两个回调函数
-
-    * onSendSEI： 导播端目前只用到onSendSEI
-    * onReceiveSEI
-  
-    **注意**onSendSEI的info只有1024个字节，所以发送的消息长度注意控制。
-
-* [zlib下载地址](http://gnuwin32.sourceforge.net/packages/zlib.htm)
 
 ### 使用liobs(obs studio)库
 
