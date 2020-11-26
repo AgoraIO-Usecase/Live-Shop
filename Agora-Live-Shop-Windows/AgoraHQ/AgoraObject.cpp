@@ -7,6 +7,7 @@
 CAgoraObject *CAgoraObject::m_lpAgoraObject = NULL;
 IRtcEngine	*CAgoraObject::m_lpAgoraEngine = NULL;
 CAGEngineEventHandler CAgoraObject::m_EngineEventHandler;
+CAgoraMetaDataObserver CAgoraObject::m_metaDataObserver;
 CString   CAgoraObject::m_strAppID;
 
 CAgoraObject::CAgoraObject(void)
@@ -1108,4 +1109,9 @@ CStringA CAgoraObject::getDynamicMediaChannelKey(CString channelname)
 CAGEngineEventHandler* CAgoraObject::getEngineEventHandle()
 {
 	return &m_EngineEventHandler;
+}
+
+CAgoraMetaDataObserver* CAgoraObject::getAgoraMetaDataObserver()
+{
+	return &m_metaDataObserver;
 }

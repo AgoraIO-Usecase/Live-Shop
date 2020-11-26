@@ -6,6 +6,8 @@ import io.agora.liveshop.R;
 import io.agora.rtc.Constants;
 import io.agora.rtc.RtcEngine;
 
+import static io.agora.rtc.IMetadataObserver.VIDEO_METADATA;
+
 public class RtcEngineManager {
     private Context mContext;
     private RtcEngine mRtcEngine;
@@ -49,6 +51,7 @@ public class RtcEngineManager {
         // client.
         mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         mRtcEngine.setClientRole(Constants.CLIENT_ROLE_AUDIENCE);
+        mRtcEngine.registerMediaMetadataObserver(mEventHandler.getiMetadataObserver(),  VIDEO_METADATA);
 
         mRtcEngine.enableVideo();
     }

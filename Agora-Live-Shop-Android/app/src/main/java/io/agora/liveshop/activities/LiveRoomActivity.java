@@ -37,7 +37,7 @@ import io.agora.rtc.video.VideoCanvas;
 
 public class LiveRoomActivity extends BaseActivity implements View.OnClickListener {
     // For this sample, the broadcaster id is hard-coded as 1
-    private static final int BROADCASTER_UID = 1;
+    private static final int BROADCASTER_UID = 10000;
 
     private static final int MSG_SEND = 1;
     private static final int MSG_FIRST_FRAME_DECODED = 2;
@@ -105,7 +105,7 @@ public class LiveRoomActivity extends BaseActivity implements View.OnClickListen
             // remote videos ignored (product video will be initialized when receiving the
             // product SEI info in the onReceiveSEI callback).
             // For simplicity, we use hard-coded id for the broadcaster.
-            if (uid == BROADCASTER_UID && !mBroadcasterRemoteViewInitialized) {
+            if (!mBroadcasterRemoteViewInitialized) {
                 Message.obtain(mHandler, MSG_FIRST_FRAME_DECODED, uid, elapsed).sendToTarget();
                 mBroadcasterRemoteViewInitialized = true;
             }

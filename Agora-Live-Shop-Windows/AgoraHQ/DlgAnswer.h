@@ -91,6 +91,7 @@ private:
 	CDlgAnswerResultStatics m_DlgResult;
 	int m_nQuestionId;
 	CAGEngineEventHandler* m_pAgEngineEventHandle;
+	CAgoraMetaDataObserver* m_metaDataObserver;
 
 	CFileIO m_fileSigLog;
 

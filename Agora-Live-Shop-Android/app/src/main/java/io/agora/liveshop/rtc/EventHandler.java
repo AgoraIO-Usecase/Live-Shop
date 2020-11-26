@@ -28,6 +28,10 @@ public class EventHandler extends IRtcEngineEventHandler {
     private byte[] metadata;
     private ConcurrentHashMap<Object, IEventCallback> mCallbacks = new ConcurrentHashMap<>();
 
+    public IMetadataObserver getiMetadataObserver() {
+        return iMetadataObserver;
+    }
+
     /**
      * By implementing this interface, metadata can be sent and received with video frames.
      */

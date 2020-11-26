@@ -90,6 +90,7 @@ void CDlgAnswer::initCtrl()
 	m_ckAnswerD.ShowWindow(SW_HIDE);
 	
 	m_pAgEngineEventHandle = CAgoraObject::getEngineEventHandle();
+	m_metaDataObserver = CAgoraObject::getAgoraMetaDataObserver();
 	m_trlQuestion.SetWindowTextW(_T("Click the Join Channel button on the left to send the video to the Audience!"));//(_T("Welcome To AgoraHQ . Join a Channel to Start !"));
 
 }
@@ -172,7 +173,7 @@ void CDlgAnswer::OnBnClickedButtonGetquestion()
 		bool bFind = getQuestionsModule()->getQuestions(question);
 		std::string quesJson = getQuestionsModule()->getCurrentQuestionJson();
 		if (!quesJson.empty())
-			m_pAgEngineEventHandle->setSEI(quesJson); 
+			m_metaDataObserver->setSEI(quesJson);
 
 		tagQuestionAnswer answer;
 		answer.questionId = getQuestionsModule()->getCurrentIndex();
@@ -451,7 +452,7 @@ void CDlgAnswer::OnBnClickedButtonSendproduct()
 		getProductAdModule()->next();
 		std::string advertiseJson = getProductAdModule()->getCurrentProductJson();
 		if (!advertiseJson.empty())
-		    m_pAgEngineEventHandle->setSEI(advertiseJson);
+			m_metaDataObserver->setSEI(advertiseJson);
 		{
 			m_trlQuestion.SetWindowText(_T(""));
 			m_ckAnswerA.ShowWindow(SW_HIDE);

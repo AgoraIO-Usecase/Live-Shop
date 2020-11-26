@@ -444,6 +444,8 @@ void CAgoraHQDlg::JoinChannel_Agora()
 	}
 
 	m_lpRtcEngine->startPreview();	
+
+	m_lpAgoraObject->GetEngine()->registerMediaMetadataObserver(CAgoraObject::getAgoraMetaDataObserver(), IMetadataObserver::VIDEO_METADATA);
 	
 	std::string strAppCertificateEnable = gHQConfig.getAppCertEnable();
 	//advertise
@@ -538,7 +540,6 @@ void CAgoraHQDlg::initAgoraMediaRtc()
 
 	m_lpRtcEngine = CAgoraObject::GetEngine();
 	ASSERT(m_lpRtcEngine);
-
 	CString strSdkLogFilePath = s2cs(getMediaSdkLogPath());
 	m_lpAgoraObject->SetLogFilePath(strSdkLogFilePath);
 	m_lpAgoraObject->EnableVideo(); 

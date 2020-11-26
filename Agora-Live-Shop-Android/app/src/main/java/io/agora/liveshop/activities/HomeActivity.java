@@ -10,7 +10,7 @@ import android.widget.TextView;
 import io.agora.liveshop.R;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
-    private static final String DEFAULT_ROOM = "hh12345";
+    private static final String DEFAULT_ROOM = "xia1";
 
     @Override
     public void onCreate(Bundle bundle) {
