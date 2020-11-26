@@ -4,7 +4,7 @@
 
 使用到的库：
 
-* agora sdk 3.1.x and later
+* agora sdk 3.1.2 or later
 * zlib(for generate token)
 * obs 20.1(for capture obs video source and audio)
 * sqlite3 (for store local data)

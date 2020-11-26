@@ -11,7 +11,6 @@
 		0F276A8F2167796400691F9C /* ProductDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F276A8E2167796400691F9C /* ProductDisplayView.swift */; };
 		0F276A912167797500691F9C /* ProductDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F276A902167797500691F9C /* ProductDisplayView.xib */; };
 		0F308515216C67E5002A1D28 /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F308514216C67E5002A1D28 /* MediaManager.swift */; };
-		0F308518216C6881002A1D28 /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F308517216C6881002A1D28 /* AgoraRtcEngineKit.framework */; };
 		0F30851A216C689A002A1D28 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F308519216C689A002A1D28 /* VideoToolbox.framework */; };
 		0F30851C216C68A0002A1D28 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F30851B216C68A0002A1D28 /* AudioToolbox.framework */; };
 		0F30851E216C68A4002A1D28 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F30851D216C68A4002A1D28 /* Accelerate.framework */; };
@@ -44,7 +43,6 @@
 		0F276A8E2167796400691F9C /* ProductDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDisplayView.swift; sourceTree = "<group>"; };
 		0F276A902167797500691F9C /* ProductDisplayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDisplayView.xib; sourceTree = "<group>"; };
 		0F308514216C67E5002A1D28 /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
-		0F308517216C6881002A1D28 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		0F308519216C689A002A1D28 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		0F30851B216C68A0002A1D28 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0F30851D216C68A4002A1D28 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -74,6 +72,9 @@
 		0F7354AA2160BC7B008D4DF7 /* LiveRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRoomViewController.swift; sourceTree = "<group>"; };
 		0FE46921216B0D3800DCBF82 /* QuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		0FE46922216B0D3800DCBF82 /* QuestionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionView.xib; sourceTree = "<group>"; };
+		8F28E344A1315B3CFDB7112A /* Pods_AgoraLiveShop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgoraLiveShop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFBF02CA0F373C1B1B8CD0FD /* Pods-AgoraLiveShop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgoraLiveShop.debug.xcconfig"; path = "Target Support Files/Pods-AgoraLiveShop/Pods-AgoraLiveShop.debug.xcconfig"; sourceTree = "<group>"; };
+		F8CF4EDC16AE44121B386727 /* Pods-AgoraLiveShop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgoraLiveShop.release.xcconfig"; path = "Target Support Files/Pods-AgoraLiveShop/Pods-AgoraLiveShop.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +92,6 @@
 				0F30851E216C68A4002A1D28 /* Accelerate.framework in Frameworks */,
 				0F30851C216C68A0002A1D28 /* AudioToolbox.framework in Frameworks */,
 				0F30851A216C689A002A1D28 /* VideoToolbox.framework in Frameworks */,
-				0F308518216C6881002A1D28 /* AgoraRtcEngineKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,7 +134,7 @@
 				0F30851D216C68A4002A1D28 /* Accelerate.framework */,
 				0F30851B216C68A0002A1D28 /* AudioToolbox.framework */,
 				0F308519216C689A002A1D28 /* VideoToolbox.framework */,
-				0F308517216C6881002A1D28 /* AgoraRtcEngineKit.framework */,
+				8F28E344A1315B3CFDB7112A /* Pods_AgoraLiveShop.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -155,6 +155,7 @@
 				0F7354942160A24F008D4DF7 /* AgoraLiveShop */,
 				0F7354932160A24F008D4DF7 /* Products */,
 				0F308516216C6880002A1D28 /* Frameworks */,
+				E18762989245F1C7A9525940 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -194,6 +195,15 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		E18762989245F1C7A9525940 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CFBF02CA0F373C1B1B8CD0FD /* Pods-AgoraLiveShop.debug.xcconfig */,
+				F8CF4EDC16AE44121B386727 /* Pods-AgoraLiveShop.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -201,9 +211,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0F7354A42160A252008D4DF7 /* Build configuration list for PBXNativeTarget "AgoraLiveShop" */;
 			buildPhases = (
+				66E6FB6433346D6C37105F19 /* [CP] Check Pods Manifest.lock */,
 				0F73548E2160A24F008D4DF7 /* Sources */,
 				0F73548F2160A24F008D4DF7 /* Frameworks */,
 				0F7354902160A24F008D4DF7 /* Resources */,
+				924026B1674E3CF17FD249AC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -227,7 +239,7 @@
 					0F7354912160A24F008D4DF7 = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1000;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -263,6 +275,49 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		66E6FB6433346D6C37105F19 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AgoraLiveShop-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		924026B1674E3CF17FD249AC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AgoraLiveShop/Pods-AgoraLiveShop-frameworks.sh",
+				"${PODS_ROOT}/AgoraRtcEngine_iOS/AgoraRtcKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AgoraRtcKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AgoraLiveShop/Pods-AgoraLiveShop-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0F73548E2160A24F008D4DF7 /* Sources */ = {
@@ -425,12 +480,13 @@
 		};
 		0F7354A52160A252008D4DF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFBF02CA0F373C1B1B8CD0FD /* Pods-AgoraLiveShop.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 48TB6ZZL5S;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MNN7K75D99;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -439,9 +495,9 @@
 				INFOPLIST_FILE = AgoraLiveShop/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.agora.AgoraLiveShop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ning.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = AgoraIODev2018;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "AgoraLiveShop/AgoraLiveShop-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -451,12 +507,13 @@
 		};
 		0F7354A62160A252008D4DF7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8CF4EDC16AE44121B386727 /* Pods-AgoraLiveShop.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MNN7K75D99;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -465,7 +522,7 @@
 				INFOPLIST_FILE = AgoraLiveShop/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.agora.AgoraLiveShop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ning.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "AgoraLiveShop/AgoraLiveShop-Bridging-Header.h";
