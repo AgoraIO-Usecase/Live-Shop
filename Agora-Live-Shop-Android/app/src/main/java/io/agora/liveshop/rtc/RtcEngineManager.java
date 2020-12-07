@@ -3,10 +3,10 @@ package io.agora.liveshop.rtc;
 import android.content.Context;
 
 import io.agora.liveshop.R;
-import io.agora.rtc.Constants;
-import io.agora.rtc.RtcEngine;
+import io.agora.rtc2.Constants;
+import io.agora.rtc2.RtcEngine;
 
-import static io.agora.rtc.IMetadataObserver.VIDEO_METADATA;
+import static io.agora.rtc2.IMetadataObserver.VIDEO_METADATA;
 
 public class RtcEngineManager {
     private Context mContext;

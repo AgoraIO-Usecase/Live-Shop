@@ -96,16 +96,15 @@ bool AgoraVideoSource::initialize()
   
     m_rtcEngine->disableAudio();
 	m_rtcEngine->enableVideo();
-    agora::rtc::RtcEngineParameters rep(m_rtcEngine.get());
    // rep.enableLocalVideo(false);
-    rep.muteAllRemoteVideoStreams(true);
-    rep.muteAllRemoteAudioStreams(true);
+	m_rtcEngine->muteAllRemoteVideoStreams(true);
+	m_rtcEngine->muteAllRemoteAudioStreams(true);
     m_ipc->sendMessage(AGORA_IPC_SOURCE_READY, nullptr, 0);
     m_initialized = true;
 	
 	cameraManager.Create(m_rtcEngine.get());
 
-	m_rtcEngine->setChannelProfile(agora::rtc::CHANNEL_PROFILE_LIVE_BROADCASTING);
+	m_rtcEngine->setChannelProfile(agora::CHANNEL_PROFILE_LIVE_BROADCASTING);
 	m_rtcEngine->setClientRole(agora::rtc::CLIENT_ROLE_BROADCASTER);
     return true;
 }
@@ -124,7 +123,7 @@ int AgoraVideoSource::startPreview(HWND view)
 
         agora::rtc::VideoCanvas canvas;
         canvas.uid = 0;
-        canvas.renderMode = agora::rtc::RENDER_MODE_FIT;
+        canvas.renderMode = agora::media::base::RENDER_MODE_FIT;
 		canvas.view = view;
        // canvas.view = m_renderFactory.get();
         m_rtcEngine->setupLocalVideo(canvas);
@@ -193,19 +192,21 @@ void AgoraVideoSource::onMessage(unsigned int msg, char* payload, unsigned int l
             LOG_LEAVE;
             return;
         }
-        agora::rtc::RtcEngineParameters rep(m_rtcEngine.get());
-        rep.enableLocalVideo(true);
+		m_rtcEngine->enableLocalVideo(true);
         CaptureScreenCmd *cmd = (CaptureScreenCmd*)payload;
-        LOG_INFO("Start screen share, top : %d, left : %d, bottom :%d, right :%d\n", cmd->rect.top, cmd->rect.left, cmd->rect.bottom, cmd->rect.right);
-		if(m_rtcEngine->startScreenCapture(cmd->windowid, cmd->captureFreq, &cmd->rect, 0) != 0){
+		agora::rtc::ScreenCaptureParameters scp;
+		scp.frameRate = 15;
+		scp.bitrate = 0;
+		scp.dimensions.width = cmd->rect.width;
+		scp.dimensions.height = cmd->rect.height;
+		if(m_rtcEngine->startScreenCaptureByWindowId(cmd->windowid, cmd->rect, scp)){
             LOG_ERROR("start screen capture failed.");
-            rep.enableLocalVideo(false);
+			m_rtcEngine->enableLocalVideo(false);
         }
     }
     else if (msg == AGORA_IPC_STOP_CAPTURE_SCREEN){
-        agora::rtc::RtcEngineParameters rep(m_rtcEngine.get());
         m_rtcEngine->stopScreenCapture();
-        rep.enableLocalVideo(false);
+		m_rtcEngine->enableLocalVideo(false);
     }
 	else if (msg == AGORA_IPC_SET_CAMERA_ID){
 		//agora::rtc::RtcEngineParameters rep(m_rtcEngine.get());
@@ -229,9 +230,7 @@ void AgoraVideoSource::onMessage(unsigned int msg, char* payload, unsigned int l
         if (payload) {
             ChannelProfileCmd *cmd = (ChannelProfileCmd*)payload;
             m_rtcEngine->setChannelProfile(cmd->profile);
-            if (cmd->profile == agora::rtc::CHANNEL_PROFILE_LIVE_BROADCASTING){
-                m_rtcEngine->setClientRole(agora::rtc::CLIENT_ROLE_BROADCASTER);
-            }
+            m_rtcEngine->setClientRole(agora::rtc::CLIENT_ROLE_BROADCASTER);
         }
     }
     else if (msg == AGORA_IPC_SET_VIDEO_RPOFILE){
@@ -250,7 +249,7 @@ void AgoraVideoSource::onMessage(unsigned int msg, char* payload, unsigned int l
 		}
 		else {
 			this->m_videoProfile = (agora::rtc::VIDEO_PROFILE_TYPE)cmd->profile;
-			m_rtcEngine->setVideoProfile(cmd->profile, cmd->swapWidthAndHeight);
+			//m_rtcEngine->setVideoProfile(cmd->profile, cmd->swapWidthAndHeight);
 		}
     }
     else if (msg == AGORA_IPC_LEAVE_CHANNEL) {
@@ -261,23 +260,20 @@ void AgoraVideoSource::onMessage(unsigned int msg, char* payload, unsigned int l
         this->exit(false);
     }
     else if (msg == AGORA_IPC_ENABLE_WEB_SDK_INTEROPERABILITY) {
-        agora::rtc::RtcEngineParameters rep(m_rtcEngine.get());
-        rep.enableWebSdkInteroperability((bool)*payload);
+		m_rtcEngine->enableWebSdkInteroperability((bool)*payload);
     }
     else if (msg == AGORA_IPC_ENABLE_DUAL_STREAM_MODE) {
-        agora::rtc::RtcEngineParameters rep(m_rtcEngine.get());
-        rep.enableDualStreamMode((bool)*payload);
+		m_rtcEngine->enableDualStreamMode((bool)*payload);
     }
     else if (msg == AGORA_IPC_SET_LOGFILE) {
-        agora::rtc::RtcEngineParameters rep(m_rtcEngine.get());
-        rep.setLogFile((char*)payload);
+		m_rtcEngine->setLogFile((char*)payload);
     }
     else if (msg == AGORA_IPC_SET_PARAMETER) {
         if (len != sizeof(SetParameterCmd))
             return;
         SetParameterCmd *cmd = (SetParameterCmd*)payload;
-        agora::rtc::AParameter rep(m_rtcEngine.get());
-        rep->setParameters(cmd->parameters);
+		agora::base::AParameter apm(*m_rtcEngine);
+		apm->setParameters(cmd->parameters);
     }
     //LOG_LEAVE;
 }

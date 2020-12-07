@@ -15,7 +15,7 @@ CExtendAudioFrameObserver::~CExtendAudioFrameObserver()
 
 bool CExtendAudioFrameObserver::onRecordAudioFrame(AudioFrame& audioFrame)
 {
-	SIZE_T nSize = audioFrame.channels*audioFrame.samples * 2;
+	SIZE_T nSize = audioFrame.channels*audioFrame.samplesPerSec * 2;
 	unsigned int datalen = 0;
 	pCircleBuffer->readBuffer(this->pPlayerData, nSize, &datalen);
 	if (nSize > 0 && datalen > 0)

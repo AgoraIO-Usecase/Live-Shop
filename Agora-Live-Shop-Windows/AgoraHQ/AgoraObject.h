@@ -159,7 +159,7 @@ public:
 	void GetSelfResolution(int *nWidth, int *nHeight);
 
 	BOOL EnableExtendAudioCapture(BOOL bEnable, IAudioFrameObserver* lpAudioFrameObserver);
-	BOOL EnableExtendVideoCapture(BOOL bEnable, IVideoFrameObserver* lpVideoFrameObserver);
+	BOOL EnableExtendVideoCapture(BOOL bEnable);
 	BOOL SetAudioProfile(int nSampleRate, int nChannels, int nSamplesPerCall);
 
 	static IRtcEngine *GetEngine();

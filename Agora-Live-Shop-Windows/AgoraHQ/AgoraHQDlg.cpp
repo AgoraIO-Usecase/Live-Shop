@@ -344,7 +344,7 @@ void CAgoraHQDlg::OnClose()
 {
 	//CAgoraSignalInstance::getSignalInstance()->ReleaseInstance();
 	if (agoraOutputHandler->AgoraActive()){
-		m_lpAgoraObject->EnableExtendVideoCapture(FALSE, NULL);
+		m_lpAgoraObject->EnableExtendVideoCapture(FALSE);
 		agoraOutputHandler->StopAgora();
 	}
 	if (m_lpAgoraObject){
@@ -430,7 +430,7 @@ void CAgoraHQDlg::JoinChannel_Agora()
 	m_lpAgoraObject->SetAppCert(s2cs(strAppcertificatId));
 
 	VideoCanvas vc;
-	vc.renderMode = RENDER_MODE_FIT;
+	vc.renderMode = agora::media::base::RENDER_MODE_FIT;
 	vc.uid = m_uId;
 	vc.view = m_ctlShowPic.GetSafeHwnd();
 	m_lpRtcEngine->setupLocalVideo(vc);
@@ -438,15 +438,12 @@ void CAgoraHQDlg::JoinChannel_Agora()
 	if (m_pDlgConfig){
 
 		int strVideoIndex = m_pDlgConfig->getVideoIndex();
-		m_lpAgoraObject->GetEngine()->setVideoProfile((VIDEO_PROFILE_TYPE)strVideoIndex, FALSE);
+		//m_lpAgoraObject->GetEngine()->setVideoProfile((VIDEO_PROFILE_TYPE)strVideoIndex, FALSE);
 
 		int videoSourceProfile = m_pDlgConfig->getVideoSourceProfile();
 	}
 
-	m_lpRtcEngine->startPreview();	
-
-	m_lpAgoraObject->GetEngine()->registerMediaMetadataObserver(CAgoraObject::getAgoraMetaDataObserver(), IMetadataObserver::VIDEO_METADATA);
-	
+	m_lpRtcEngine->startPreview();
 	std::string strAppCertificateEnable = gHQConfig.getAppCertEnable();
 	//advertise
 	m_advertiseUid = str2int(gHQConfig.getAdvertiseUid());
@@ -549,6 +546,7 @@ void CAgoraHQDlg::initAgoraMediaRtc()
 	m_lpAgoraObject->EnableLocalMirrorImage(FALSE);
 	m_lpAgoraObject->EnableLoopBack(TRUE);
 	m_btnJoinChannel.EnableWindow(TRUE);
+	m_lpRtcEngine->registerMediaMetadataObserver(CAgoraObject::getAgoraMetaDataObserver(), IMetadataObserver::VIDEO_METADATA);
 }
 
 void CAgoraHQDlg::uninitAgoraMediaRtc()
@@ -707,7 +705,7 @@ LRESULT CAgoraHQDlg::onFirstRemoteVideoDecoded(WPARAM wParam, LPARAM lParam)
 		if (lpData->uid == m_nInviteRemote){
 
 			VideoCanvas vcRemote;
-			vcRemote.renderMode = RENDER_MODE_HIDDEN;
+			vcRemote.renderMode = agora::media::base::RENDER_MODE_HIDDEN;
 			vcRemote.uid = lpData->uid;
 			vcRemote.view = m_ctlRemoteWnd;
 
@@ -786,7 +784,7 @@ LRESULT CAgoraHQDlg::onUserMuteVideo(WPARAM wParam, LPARAM lParam)
 			if (m_mapRemoteView.end() != it){
 
 				VideoCanvas vcRemote;
-				vcRemote.renderMode = RENDER_MODE_HIDDEN;
+				vcRemote.renderMode = agora::media::base::RENDER_MODE_HIDDEN;
 				vcRemote.uid = lpData->uid;
 				vcRemote.view = nullptr;
 				if (m_lpRtcEngine){
@@ -808,7 +806,7 @@ LRESULT CAgoraHQDlg::onUserMuteVideo(WPARAM wParam, LPARAM lParam)
 			if (m_nInviteRemote == lpData->uid){
 
 				VideoCanvas vcRemote;
-				vcRemote.renderMode = RENDER_MODE_HIDDEN;
+				vcRemote.renderMode = agora::media::base::RENDER_MODE_HIDDEN;
 				vcRemote.uid = lpData->uid;
 				vcRemote.view = m_ctlRemoteWnd;
 
@@ -2632,7 +2630,7 @@ void CAgoraHQDlg::JoinChannel_OBS()
 	config_set_default_uint(basicConfig, "SimpleOutput", "VBitrate", obs_videoBitrate);//2500
 
 	CAgoraObject::GetAgoraObject()->SetVideoProfileEx(obs_output_x, obs_output_y, obs_fps, obs_videoBitrate);
-	CAgoraObject::GetAgoraObject()->EnableExtendVideoCapture(TRUE, &m_exCapVideoFrameObserver);
+	CAgoraObject::GetAgoraObject()->EnableExtendVideoCapture(TRUE);
 	BITMAPINFOHEADER bmi = { 0 };
 	bmi.biHeight = obs_output_y;
 	bmi.biWidth = obs_output_x;
@@ -2666,7 +2664,7 @@ void CAgoraHQDlg::LeaveChannel_OBS()
 		ResetVideo();
 	}
 
-	CAgoraObject::GetAgoraObject()->EnableExtendVideoCapture(FALSE, &m_exCapVideoFrameObserver);
+	CAgoraObject::GetAgoraObject()->EnableExtendVideoCapture(FALSE);
 	m_pDlgAnswer->leaveChannel();
 	m_lpAgoraObject->LeaveCahnnel();
 }

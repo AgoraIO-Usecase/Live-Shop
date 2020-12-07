@@ -13,9 +13,9 @@ import java.util.Map;
 
 import io.agora.liveshop.R;
 import io.agora.liveshop.data.Product;
-import io.agora.rtc.Constants;
-import io.agora.rtc.RtcEngine;
-import io.agora.rtc.video.VideoCanvas;
+import io.agora.rtc2.Constants;
+import io.agora.rtc2.RtcEngine;
+import io.agora.rtc2.video.VideoCanvas;
 
 public class ProductDialog implements View.OnClickListener {
     private static final int DOUBLE_CLICK_THRESHOLD = 400;

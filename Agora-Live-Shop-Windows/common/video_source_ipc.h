@@ -85,7 +85,7 @@ struct CaptureScreenCmd
 	HWND windowid;
 //   agora::rtc::IRtcEngine::WindowIDType windowid;
     int captureFreq;
-    agora::rtc::Rect rect;
+    agora::rtc::Rectangle rect;
     int bitrate;
     CaptureScreenCmd()
         : windowid(0)
@@ -141,10 +141,10 @@ struct VideoProfileCmd
  */
 struct ChannelProfileCmd
 {
-	agora::rtc::CHANNEL_PROFILE_TYPE profile;
+	agora::CHANNEL_PROFILE_TYPE profile;
 	//char permissionKey[MAX_PERMISSION_KEY];
 	ChannelProfileCmd()
-		: profile(agora::rtc::CHANNEL_PROFILE_LIVE_BROADCASTING)
+		: profile(agora::CHANNEL_PROFILE_LIVE_BROADCASTING)
       //  , permissionKey{ 0 }
     {
 	}
@@ -175,11 +175,11 @@ public:
 struct LocalVideoCmd
 {
 	HWND view;
-	agora::rtc::RENDER_MODE_TYPE renderMode;
+	agora::media::base::RENDER_MODE_TYPE renderMode;
 public:
 	LocalVideoCmd()
 		: view(NULL)
-		, renderMode(agora::rtc::RENDER_MODE_FIT)
+		, renderMode(agora::media::base::RENDER_MODE_FIT)
 	{}
 };
 

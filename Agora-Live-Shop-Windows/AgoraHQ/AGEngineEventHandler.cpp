@@ -362,17 +362,10 @@ void CAGEngineEventHandler::onRefreshRecordingServiceStatus(int status)
 		::PostMessage(m_hMainWnd, WM_MSGID(EID_REFREASH_RCDSRV), (WPARAM)lpData, 0);
 }
 
-void CAgoraMetaDataObserver::setSEI(const std::string &strSei)
+void CAgoraMetaDataObserver::SetSendSEI(std::string utf8Msg)
 {
-	m_strSEI = strSei;
+	m_strSEI = utf8Msg;
 	m_bActive = true;
-}
-
-void CAgoraMetaDataObserver::setSEI(std::unordered_map<std::string, std::string>& mapJson)
-{
-	if (mapJson.size() > 0){
-		m_mapTypeToJson = mapJson;
-	}
 }
 
 
@@ -407,10 +400,8 @@ bool CAgoraMetaDataObserver::onReadyToSendMetadata(Metadata & metadata)
 	else if (m_bActive) {
 		memcpy(metadata.buffer, m_strSEI.data(), m_strSEI.size());
 		metadata.size = m_strSEI.size();
-		/*
 		if (m_hMainWnd != NULL)
 			::PostMessage(m_hMainWnd, WM_MSGID(EID_SEND_SEI), 0, 0);
-		*/
 		m_bActive = false;
 	}
 	return true;
@@ -420,6 +411,13 @@ void CAgoraMetaDataObserver::onMetadataReceived(const Metadata & metadata)
 {
 	OutputDebugStringA(__FUNCTION__);
 	OutputDebugStringA("\r\n");
+}
+
+void CAgoraMetaDataObserver::SetMaxMetadataSize(int maxSize)
+{
+	if (maxSize > 1024)
+		maxSize = 1024;
+	m_maxSize = maxSize;
 }
 
 void CAgoraVideoSourceEventHandler::onVideoSourceJoinedChannel(agora::rtc::uid_t uid)

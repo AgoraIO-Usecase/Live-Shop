@@ -216,7 +216,8 @@ public:
 	void          ClearSceneData();
 	void          AddScene(OBSSource source);
 	void SetCurrentScene(obs_scene_t *scene, bool force = false,
-		bool direct = false);
+		bool direct = false);
+
 	void SetCurrentScene(OBSSource scene, bool force = false,
 		bool direct = false);
 
@@ -308,8 +309,6 @@ private:
 
 	static void obsVideoCallback(uint8_t* data, void* param);
 	static void obsAudioCallback(struct encoder_frame* data, int planes, void* param);
-
-	CExtendVideoFrameObserver	m_exCapVideoFrameObserver;
 
 	CString source_tile = _T("Source Name");
 	CString source_info = _T("Please input the name of source");

@@ -31,9 +31,9 @@ import io.agora.liveshop.rtc.RtcEngineManager;
 import io.agora.liveshop.widgets.MessageContainer;
 import io.agora.liveshop.widgets.ProductDialog;
 import io.agora.liveshop.widgets.QuizDialog;
-import io.agora.rtc.IRtcEngineEventHandler;
-import io.agora.rtc.RtcEngine;
-import io.agora.rtc.video.VideoCanvas;
+import io.agora.rtc2.IRtcEngineEventHandler;
+import io.agora.rtc2.RtcEngine;
+import io.agora.rtc2.video.VideoCanvas;
 
 public class LiveRoomActivity extends BaseActivity implements View.OnClickListener {
     // For this sample, the broadcaster id is hard-coded as 1
@@ -91,6 +91,7 @@ public class LiveRoomActivity extends BaseActivity implements View.OnClickListen
         public void onAudioVolumeIndication(IRtcEngineEventHandler.AudioVolumeInfo[] speakers, int totalVolume) {
 
         }
+
 
         @Override
         public void onFirstRemoteVideoFrame(int uid, int width, int height, int elapsed) {

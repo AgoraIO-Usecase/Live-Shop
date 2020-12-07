@@ -4,6 +4,45 @@ using namespace agora::rtc;
 #include "agora_video_source.h"
 #include <unordered_map>
 
+class CAgoraMetaDataObserver : public IMetadataObserver
+{
+public:
+	void SetMsgReceiver(HWND hWnd) { m_hMainWnd = hWnd; }
+	/*
+		get max meta data size of byte.
+	*/
+	virtual int getMaxMetadataSize()override;
+	/*
+		The sender is ready to send MetadataThis callback method
+		is triggered when the SDK is ready to receive and send Metadata.
+		annotations:
+		Make sure that the Metadata size passed in to this method does not
+		exceed the value set in getMaxMetadataSize.
+		parameter:
+		metadata :Metadata that the user wants to send.
+		return:
+		True: send
+		False: don't send
+	*/
+	virtual bool onReadyToSendMetadata(Metadata &metadata)override;
+	/*
+		The receiver has received Metadata.The SDK triggers the callback when it
+		receives Metadata sent by the remote user.
+		parameter:
+		metadata:Received Metadata.
+	*/
+	virtual void onMetadataReceived(const Metadata &metadata)override;
+	//set max meta data size.
+	void SetMaxMetadataSize(int maxSize);
+	//set send string.
+	void SetSendSEI(std::string utf8Msg);
+private:
+	bool m_bActive;
+	std::unordered_map<std::string, std::string> m_mapTypeToJson;
+	int m_maxSize = 1024;
+	std::string m_strSEI;
+	HWND m_hMainWnd;
+};
 class CAGEngineEventHandler :
 	public IRtcEngineEventHandler
 {
@@ -62,43 +101,5 @@ class CAgoraVideoSourceEventHandler : public IAgoraVideoSourceEventHandler
 	virtual void onVideoSourceRequestNewToken() override;
 	virtual void onVideoSourceLeaveChannel() override;
 	virtual void onVideoSourceExit() override;
-};
-
-class CAgoraMetaDataObserver : public IMetadataObserver
-{
-public:
-	void SetMsgReceiver(HWND hWnd) { m_hMsgHanlder = hWnd; }
-	/*
-		get max meta data size of byte.
-	*/
-	virtual int getMaxMetadataSize()override;
-	/*
-		The sender is ready to send MetadataThis callback method
-		is triggered when the SDK is ready to receive and send Metadata.
-		annotations:
-		Make sure that the Metadata size passed in to this method does not
-		exceed the value set in getMaxMetadataSize.
-		parameter:
-		metadata :Metadata that the user wants to send.
-		return:
-		True: send
-		False: don't send
-	*/
-	virtual bool onReadyToSendMetadata(Metadata &metadata)override;
-	/*
-		The receiver has received Metadata.The SDK triggers the callback when it
-		receives Metadata sent by the remote user.
-		parameter:
-		metadata:Received Metadata.
-	*/
-	virtual void onMetadataReceived(const Metadata &metadata)override;
-	void setSEI(const std::string &strSei);
-	void setSEI(std::unordered_map<std::string, std::string>& mapJson);
-private:
-	int m_maxSize = 1024;
-	std::string m_strSEI;
-	HWND m_hMsgHanlder;
-	bool m_bActive;
-	std::unordered_map<std::string, std::string> m_mapTypeToJson;
 };
 

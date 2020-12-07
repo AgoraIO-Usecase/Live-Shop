@@ -1,14 +1,14 @@
 package io.agora.liveshop.rtc;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
-import io.agora.rtc.IMetadataObserver;
-import io.agora.rtc.IRtcEngineEventHandler;
+import io.agora.rtc2.IMetadataObserver;
+import io.agora.rtc2.IRtcEngineEventHandler;
+
 
 /**
  * Default global event handler for RTC engine, managing a
@@ -191,11 +191,6 @@ public class EventHandler extends IRtcEngineEventHandler {
     }
 
     @Override
-    public void onUserMuteAudio(int uid, boolean muted) {
-        super.onUserMuteAudio(uid, muted);
-    }
-
-    @Override
     public void onUserMuteVideo(int uid, boolean muted) {
         super.onUserMuteVideo(uid, muted);
     }
@@ -301,16 +296,6 @@ public class EventHandler extends IRtcEngineEventHandler {
     @Override
     public void onAudioRouteChanged(int routing) {
         super.onAudioRouteChanged(routing);
-    }
-
-    @Override
-    public void onFirstLocalAudioFrame(int elapsed) {
-        super.onFirstLocalAudioFrame(elapsed);
-    }
-
-    @Override
-    public void onFirstRemoteAudioFrame(int uid, int elapsed) {
-        super.onFirstRemoteAudioFrame(uid, elapsed);
     }
 
     @Override

@@ -11,7 +11,7 @@ import io.agora.liveshop.rtc.RtcEngineManager;
 import io.agora.liveshop.utils.PermissionUtil;
 
 public abstract class BaseActivity extends AppCompatActivity {
-    protected static final String EXTRA_KEY_CHANNEL = "channel";
+    protected static final String EXTRA_KEY_CHANNEL = "liveshopdemo";
 
     @Override
     public void onCreate(Bundle bundle) {

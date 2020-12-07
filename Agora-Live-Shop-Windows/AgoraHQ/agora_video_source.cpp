@@ -50,11 +50,11 @@ namespace agora{
             virtual int leave() override;
             virtual int release() override;
             virtual int renewVideoSourceToken(const char* token) override;
-            virtual int setVideoSourceChannelProfile(agora::rtc::CHANNEL_PROFILE_TYPE profile, const char* permissionKey) override;
+            virtual int setVideoSourceChannelProfile(agora::CHANNEL_PROFILE_TYPE profile, const char* permissionKey) override;
             virtual int setVideoSourceVideoProfile(agora::rtc::VIDEO_PROFILE_TYPE profile, bool swapWidthAndHeight) override;
             virtual void onMessage(unsigned int msg, char* payload, unsigned int len) override;
-            virtual int captureScreen(agora::rtc::WindowIDType id, int captureFreq, agora::rtc::Rect* rect, int bitrate) override;
-            virtual int updateScreenCapture(agora::rtc::Rect* rect) override;
+            //virtual int captureScreen(agora::rtc::WindowIDType id, int captureFreq, agora::rtc::Rectangle* rect, int bitrate) override;
+            //virtual int updateScreenCapture(agora::rtc::Rectangle* rect) override;
             virtual int stopCaptureScreen() override;
             virtual int startPreview() override;
             virtual int stopPreview() override;
@@ -220,7 +220,7 @@ namespace agora{
         int AgoraVideoSourceSink::startPreview()
         {
 			std::unique_ptr<LocalVideoCmd> cmd(new LocalVideoCmd());
-			cmd->renderMode = agora::rtc::RENDER_MODE_FIT;
+			cmd->renderMode = agora::media::base::RENDER_MODE_FIT;
 			cmd->view = m_VideoSourceView;
 			return m_ipcMsg->sendMessage(AGORA_IPC_START_VS_PREVIEW, (char*)cmd.get(), sizeof(LocalVideoCmd)) ? ok : api_status_generic_error;
         }
@@ -329,7 +329,7 @@ namespace agora{
 			return error;
         }
         
-        int AgoraVideoSourceSink::setVideoSourceChannelProfile(agora::rtc::CHANNEL_PROFILE_TYPE profile, const char* permissionKey)
+        int AgoraVideoSourceSink::setVideoSourceChannelProfile(agora::CHANNEL_PROFILE_TYPE profile, const char* permissionKey)
         {
             if (m_initialized){
                 std::unique_ptr<ChannelProfileCmd> cmd(new ChannelProfileCmd());
@@ -385,31 +385,6 @@ namespace agora{
             else if (msg == AGORA_IPC_STOP_VS_PREVIEW_COMPLETE) {
                 m_ipcReceiver.reset();
             }
-        }
-
-        int AgoraVideoSourceSink::captureScreen(agora::rtc::WindowIDType id, int captureFreq, agora::rtc::Rect* rect, int bitrate)
-        {
-            if (m_initialized && m_peerJoined){
-                CaptureScreenCmd cmd;
-                cmd.windowid = id;
-                cmd.captureFreq = captureFreq;
-                if (rect){
-                    cmd.rect = *rect;
-                }
-                cmd.bitrate = bitrate;
-                return m_ipcMsg->sendMessage(AGORA_IPC_CAPTURE_SCREEN, (char*)&cmd, sizeof(cmd)) ? ok : api_status_generic_error;
-            }
-			return error;
-        }
-
-        int AgoraVideoSourceSink::updateScreenCapture(agora::rtc::Rect* rect)
-        {
-            if (!rect)
-                return api_status_invalid_args;
-            if (m_initialized && m_peerJoined){
-                return m_ipcMsg->sendMessage(AGORA_IPC_UPDATE_CAPTURE_SCREEN, (char*)rect, sizeof(*rect)) ? ok : api_status_generic_error;
-            }
-			return error;
         }
 
         int AgoraVideoSourceSink::stopCaptureScreen()

@@ -173,7 +173,7 @@ void CDlgAnswer::OnBnClickedButtonGetquestion()
 		bool bFind = getQuestionsModule()->getQuestions(question);
 		std::string quesJson = getQuestionsModule()->getCurrentQuestionJson();
 		if (!quesJson.empty())
-			m_metaDataObserver->setSEI(quesJson);
+			m_metaDataObserver->SetSendSEI(quesJson);
 
 		tagQuestionAnswer answer;
 		answer.questionId = getQuestionsModule()->getCurrentIndex();
@@ -452,7 +452,7 @@ void CDlgAnswer::OnBnClickedButtonSendproduct()
 		getProductAdModule()->next();
 		std::string advertiseJson = getProductAdModule()->getCurrentProductJson();
 		if (!advertiseJson.empty())
-			m_metaDataObserver->setSEI(advertiseJson);
+			m_metaDataObserver->SetSendSEI(advertiseJson);
 		{
 			m_trlQuestion.SetWindowText(_T(""));
 			m_ckAnswerA.ShowWindow(SW_HIDE);

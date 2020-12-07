@@ -32,7 +32,7 @@ bool CExtendVideoFrameObserver::onCaptureVideoFrame(VideoFrame& videoFrame)
 	memcpy_s(videoFrame.vBuffer, videoFrame.height*videoFrame.width / 4, m_lpV, videoFrame.height*videoFrame.width / 4);
 	videoFrame.vStride = videoFrame.width/2;
 
-	videoFrame.type = FRAME_TYPE_YUV420;
+	videoFrame.type = agora::media::base::VIDEO_PIXEL_RGBA;
 	videoFrame.rotation = 0;
 
 // 	fwrite(m_lpU, 1, videoFrame.height*videoFrame.width/4, fp);

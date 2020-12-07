@@ -1,6 +1,7 @@
 package io.agora.liveshop.rtc;
 
-import io.agora.rtc.IRtcEngineEventHandler;
+
+import io.agora.rtc2.IRtcEngineEventHandler;
 
 /**
  * A list of event handler callbacks which are needed for this

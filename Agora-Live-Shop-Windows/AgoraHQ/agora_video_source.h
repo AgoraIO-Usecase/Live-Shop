@@ -12,6 +12,7 @@
 #define AGORA_VIDEO_SOURCE_SINK_H
 
 #include "IAgoraRtcEngine.h"
+#include "AgoraBase.h"
 #include <string>
 
 namespace agora{
@@ -95,13 +96,13 @@ namespace agora{
              * @param rect : the shared area
              * @param bitrate : bitrate of video
              */
-			virtual int captureScreen(agora::rtc::WindowIDType id, int captureFreq, agora::rtc::Rect* rect, int bitrate) = 0;
+			//virtual int captureScreen(agora::rtc::WindowIDType id, int captureFreq, agora::rtc::Rectangle* rect, int bitrate) = 0;
 
             /**
              * To update shared window area
              * @param rect : updated area
              */
-			virtual int updateScreenCapture(agora::rtc::Rect* rect) = 0;
+			//virtual int updateScreenCapture(agora::rtc::Rectangle* rect) = 0;
 
             /**
              * To stop screen share
@@ -118,7 +119,7 @@ namespace agora{
              * To set video source channel profile
              * @param profile : video source's channel profile
              */
-			virtual int setVideoSourceChannelProfile(agora::rtc::CHANNEL_PROFILE_TYPE profile, const char* permissionKey) = 0;
+			virtual int setVideoSourceChannelProfile(agora::CHANNEL_PROFILE_TYPE profile, const char* permissionKey) = 0;
 
             /**
              * To set video source's video profile

@@ -224,7 +224,6 @@ BOOL CAgoraObject::SetLogFilePath(LPCTSTR lpLogPath)
 	CHAR szLogPathTrans[MAX_PATH];
 
 	int ret = 0;
-	RtcEngineParameters rep(*m_lpAgoraEngine);
 
 	if (::GetFileAttributes(lpLogPath) == INVALID_FILE_ATTRIBUTES) {
 		::GetModuleFileNameA(NULL, szLogPathA, MAX_PATH);
@@ -241,7 +240,7 @@ BOOL CAgoraObject::SetLogFilePath(LPCTSTR lpLogPath)
 
 	CAGResourceVisitor::TransWinPathA(szLogPathA, szLogPathTrans, MAX_PATH);
 
-	ret = rep.setLogFile(szLogPathTrans);
+	ret = m_lpAgoraEngine->setLogFile(szLogPathTrans);
 
 	return ret == 0 ? TRUE : FALSE;
 }
@@ -272,7 +271,7 @@ BOOL CAgoraObject::SetVideoProfileEx(int nWidth, int nHeight, int nFrameRate, in
 
 BOOL CAgoraObject::KeepPrerotation(bool bRotate)
 {
-	AParameter apm(m_lpAgoraEngine);
+	agora::base::AParameter apm(*m_lpAgoraEngine);
 	int nRet = 0;
 	if (bRotate)
 		nRet = apm->setParameters("{\"che.video.keep_prerotation\":true}");
@@ -359,21 +358,17 @@ BOOL CAgoraObject::EnableScreenCapture(HWND hWnd, int nCapFPS, LPCRECT lpCapRect
 	ASSERT(m_lpAgoraEngine != NULL);
 
 	int ret = 0;
-	RtcEngineParameters rep(*m_lpAgoraEngine);
 
-	Rect rcCap;
+	agora::rtc::Rectangle rcCap;
 
 	if (bEnable) {
-		if (lpCapRect == NULL)
-			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, NULL, nBitrate);
-		else {
-			rcCap.left = lpCapRect->left;
-			rcCap.right = lpCapRect->right;
-			rcCap.top = lpCapRect->top;
-			rcCap.bottom = lpCapRect->bottom;
 
-			ret = m_lpAgoraEngine->startScreenCapture(hWnd, nCapFPS, &rcCap, nBitrate);
-		}
+		agora::rtc::ScreenCaptureParameters scp;
+		scp.frameRate = 15;
+		scp.bitrate = nBitrate;
+		scp.dimensions.width = rcCap.width;
+		scp.dimensions.height = rcCap.height;
+		ret = m_lpAgoraEngine->startScreenCaptureByWindowId(hWnd, rcCap, scp);
 	}
 	else
 		ret = m_lpAgoraEngine->stopScreenCapture();
@@ -393,9 +388,7 @@ BOOL CAgoraObject::MuteLocalAudio(BOOL bMuted)
 {
 	ASSERT(m_lpAgoraEngine != NULL);
 
-	RtcEngineParameters rep(*m_lpAgoraEngine);
-
-	int ret = rep.muteLocalAudioStream((bool)bMuted);
+	int ret = m_lpAgoraEngine->muteLocalAudioStream((bool)bMuted);
 	if (ret == 0)
 		m_bLocalAudioMuted = bMuted;
 
@@ -411,9 +404,7 @@ BOOL CAgoraObject::MuteAllRemoteAudio(BOOL bMuted)
 {
 	ASSERT(m_lpAgoraEngine != NULL);
 
-	RtcEngineParameters rep(*m_lpAgoraEngine);
-
-	int ret = rep.muteAllRemoteAudioStreams((bool)bMuted);
+	int ret = m_lpAgoraEngine->muteAllRemoteAudioStreams((bool)bMuted);
 	if (ret == 0)
 		m_bAllRemoteAudioMuted = bMuted;
 
@@ -429,9 +420,7 @@ BOOL CAgoraObject::MuteLocalVideo(BOOL bMuted)
 {
 	ASSERT(m_lpAgoraEngine != NULL);
 
-	RtcEngineParameters rep(*m_lpAgoraEngine);
-
-	int ret = rep.muteLocalVideoStream((bool)bMuted);
+	int ret = m_lpAgoraEngine->muteLocalVideoStream((bool)bMuted);
 	if (ret == 0)
 		m_bLocalVideoMuted = bMuted;
 
@@ -447,9 +436,7 @@ BOOL CAgoraObject::MuteAllRemoteVideo(BOOL bMuted)
 {
 	ASSERT(m_lpAgoraEngine != NULL);
 
-	RtcEngineParameters rep(*m_lpAgoraEngine);
-
-	int ret = rep.muteAllRemoteVideoStreams((bool)bMuted);
+	int ret = m_lpAgoraEngine->muteAllRemoteVideoStreams((bool)bMuted);
 	if (ret == 0)
 		m_bAllRemoteVideoMuted = bMuted;
 
@@ -465,9 +452,7 @@ BOOL CAgoraObject::MuteRemoteAudio(uid_t uid, BOOL bMuted)
 {
 	ASSERT(m_lpAgoraEngine != NULL);
 
-	RtcEngineParameters rep(*m_lpAgoraEngine);
-
-	int ret = rep.muteRemoteAudioStream(uid, (bool)bMuted);
+	int ret = m_lpAgoraEngine->muteRemoteAudioStream(uid, (bool)bMuted);
 	return ret == 0 ? TRUE : FALSE;
 }
 
@@ -475,9 +460,7 @@ BOOL CAgoraObject::MuteRemoteVideo(uid_t uid, BOOL bMuted)
 {
 	ASSERT(m_lpAgoraEngine != NULL);
 
-	RtcEngineParameters rep(*m_lpAgoraEngine);
-
-	int ret = rep.muteRemoteVideoStream(uid, (bool)bMuted);
+	int ret = m_lpAgoraEngine->muteRemoteVideoStream(uid, (bool)bMuted);
 	return ret == 0 ? TRUE : FALSE;
 }
 
@@ -485,7 +468,7 @@ BOOL CAgoraObject::EnableLoopBack(BOOL bEnable)
 {
 	int nRet = 0;
 
-	AParameter apm(*m_lpAgoraEngine);
+	agora::base::AParameter apm(*m_lpAgoraEngine);
 
 	if (bEnable)
 		nRet = apm->setParameters("{\"che.audio.loopback.recording\":true}");
@@ -507,12 +490,12 @@ BOOL CAgoraObject::SetChannelProfile(BOOL bBroadcastMode)
 	int nRet = 0;
 
 	if (!bBroadcastMode){
-		m_nChannelProfile = CHANNEL_PROFILE_COMMUNICATION;
-		nRet = m_lpAgoraEngine->setChannelProfile(CHANNEL_PROFILE_COMMUNICATION);
+		m_nChannelProfile = agora::CHANNEL_PROFILE_COMMUNICATION;
+		nRet = m_lpAgoraEngine->setChannelProfile(agora::CHANNEL_PROFILE_COMMUNICATION);
 	}
 	else {
-		m_nChannelProfile = CHANNEL_PROFILE_LIVE_BROADCASTING;
-		nRet = m_lpAgoraEngine->setChannelProfile(CHANNEL_PROFILE_LIVE_BROADCASTING);
+		m_nChannelProfile = agora::CHANNEL_PROFILE_LIVE_BROADCASTING;
+		nRet = m_lpAgoraEngine->setChannelProfile(agora::CHANNEL_PROFILE_LIVE_BROADCASTING);
 	}
 
 	return nRet == 0 ? TRUE : FALSE;
@@ -520,7 +503,7 @@ BOOL CAgoraObject::SetChannelProfile(BOOL bBroadcastMode)
 
 BOOL CAgoraObject::IsBroadcastMode()
 {
-	return m_nChannelProfile == CHANNEL_PROFILE_LIVE_BROADCASTING ? TRUE : FALSE;
+	return m_nChannelProfile == agora::CHANNEL_PROFILE_LIVE_BROADCASTING ? TRUE : FALSE;
 }
 
 void CAgoraObject::SetWantedRole(CLIENT_ROLE_TYPE role)
@@ -542,19 +525,17 @@ BOOL CAgoraObject::EnableAudioRecording(BOOL bEnable, LPCTSTR lpFilePath)
 {
 	int ret = 0;
 
-	RtcEngineParameters rep(*m_lpAgoraEngine);
-
 	if (bEnable) {
 #ifdef UNICODE
 		CHAR szFilePath[MAX_PATH];
 		::WideCharToMultiByte(CP_ACP, 0, lpFilePath, -1, szFilePath, MAX_PATH, NULL, NULL);
-		ret = rep.startAudioRecording(szFilePath, AUDIO_RECORDING_QUALITY_HIGH);
+		ret = m_lpAgoraEngine->startAudioRecording(szFilePath, AUDIO_RECORDING_QUALITY_HIGH);
 #else
-		ret = rep.startAudioRecording(lpFilePath);
+		ret = m_lpAgoraEngine->startAudioRecording(lpFilePath);
 #endif
 	}
 	else
-		ret = rep.stopAudioRecording();
+		ret = m_lpAgoraEngine->stopAudioRecording();
 
 	return ret == 0 ? TRUE : FALSE;
 }
@@ -564,10 +545,16 @@ BOOL CAgoraObject::EnableLastmileTest(BOOL bEnable)
 {
 	int ret = 0;
 
-	if (bEnable)
-		ret = m_lpAgoraEngine->enableLastmileTest();
+	if (bEnable) {
+		LastmileProbeConfig config;
+		config.probeUplink = true;
+		config.probeDownlink = true;
+		config.expectedUplinkBitrate = 100000;
+		config.expectedDownlinkBitrate = 100000;
+		ret = m_lpAgoraEngine->startLastmileProbeTest(config);
+	}
 	else
-		ret = m_lpAgoraEngine->disableLastmileTest();
+		ret = m_lpAgoraEngine->stopLastmileProbeTest();
 
 	return ret == 0 ? TRUE : FALSE;
 }
@@ -581,7 +568,7 @@ BOOL CAgoraObject::LocalVideoPreview(HWND hVideoWnd, BOOL bPreviewOn)
 
 		vc.uid = 0;
 		vc.view = hVideoWnd;
-		vc.renderMode = RENDER_MODE_TYPE::RENDER_MODE_FIT;
+		vc.renderMode = agora::media::base::RENDER_MODE_FIT;
 
 		m_lpAgoraEngine->setupLocalVideo(vc);
 		nRet = m_lpAgoraEngine->startPreview();
@@ -595,17 +582,16 @@ BOOL CAgoraObject::LocalVideoPreview(HWND hVideoWnd, BOOL bPreviewOn)
 BOOL CAgoraObject::SetLogFilter(UINT logFilterType, LPCTSTR lpLogPath)
 {
 	int nRet = 0;
-	RtcEngineParameters rep(*m_lpAgoraEngine);
 
-	nRet = rep.setLogFilter(logFilterType);
+	nRet = m_lpAgoraEngine->setLogFilter(logFilterType);
 
     if (lpLogPath != NULL) {
 #ifdef UNICODE
         CHAR szFilePath[MAX_PATH];
         ::WideCharToMultiByte(CP_ACP, 0, lpLogPath, -1, szFilePath, MAX_PATH, NULL, NULL);
-        nRet |= rep.setLogFile(szFilePath);
+        nRet |= m_lpAgoraEngine->setLogFile(szFilePath);
 #else
-        nRet |= rep.setLogFile(lpLogPath);
+        nRet |= m_lpAgoraEngine->setLogFile(lpLogPath);
 #endif
     }
 
@@ -644,7 +630,7 @@ BOOL CAgoraObject::EnableLocalRender(BOOL bEnable)
 {
 	int nRet = 0;
 
-	AParameter apm(*m_lpAgoraEngine);
+	agora::base::AParameter apm(*m_lpAgoraEngine);
 
 	if (bEnable)
 		nRet = apm->setParameters("{\"che.video.local.render\":true}");
@@ -656,9 +642,7 @@ BOOL CAgoraObject::EnableLocalRender(BOOL bEnable)
 
 BOOL CAgoraObject::EnableWebSdkInteroperability(BOOL bEnable)
 {
-	RtcEngineParameters rep(*m_lpAgoraEngine);
-
-	int	nRet = rep.enableWebSdkInteroperability(bEnable);
+	int	nRet = m_lpAgoraEngine->enableWebSdkInteroperability(bEnable);
 
 	return nRet == 0 ? TRUE : FALSE;
 }
@@ -693,13 +677,6 @@ BOOL CAgoraObject::SendChatMessage(int nStreamID, LPCTSTR lpChatMessage)
 BOOL CAgoraObject::SetHighQualityAudioPreferences(BOOL bFullBand, BOOL bStereo, BOOL bFullBitrate)
 {
 	int nRet = 0;
-	RtcEngineParameters rep(*m_lpAgoraEngine);
-
-	nRet = rep.setHighQualityAudioParameters(bFullBand, bStereo, bFullBitrate);
-
-	m_bFullBand = bFullBand;
-	m_bStereo = bStereo;
-	m_bFullBitrate = bFullBitrate;
 
 	return nRet == 0 ? TRUE : FALSE;
 }
@@ -707,14 +684,14 @@ BOOL CAgoraObject::SetHighQualityAudioPreferences(BOOL bFullBand, BOOL bStereo, 
 BOOL CAgoraObject::StartAudioMixing(LPCTSTR lpMusicPath, BOOL bLoopback, BOOL bReplace, int nCycle)
 {
 	int nRet = 0;
-	RtcEngineParameters rep(*m_lpAgoraEngine);
+	
 
 #ifdef UNICODE
 	CHAR szFilePath[MAX_PATH];
 	::WideCharToMultiByte(CP_UTF8, 0, lpMusicPath, -1, szFilePath, MAX_PATH, NULL, NULL);
-	nRet = rep.startAudioMixing(szFilePath, bLoopback, bReplace, nCycle);
+	nRet = m_lpAgoraEngine->startAudioMixing(szFilePath, bLoopback, bReplace, nCycle);
 #else
-	nRet = rep.startAudioMixing(lpMusicPath, bLoopback, bReplace, nCycle);
+	nRet = m_lpAgoraEngine->startAudioMixing(lpMusicPath, bLoopback, bReplace, nCycle);
 #endif
 
 	return nRet == 0 ? TRUE : FALSE;
@@ -723,9 +700,9 @@ BOOL CAgoraObject::StartAudioMixing(LPCTSTR lpMusicPath, BOOL bLoopback, BOOL bR
 BOOL CAgoraObject::StopAudioMixing()
 {
 	int nRet = 0;
-	RtcEngineParameters rep(*m_lpAgoraEngine);
+	
 
-	nRet = rep.stopAudioMixing();
+	nRet = m_lpAgoraEngine->stopAudioMixing();
 
 	return nRet == 0 ? TRUE : FALSE;
 }
@@ -733,9 +710,9 @@ BOOL CAgoraObject::StopAudioMixing()
 BOOL CAgoraObject::PauseAudioMixing()
 {
 	int nRet = 0;
-	RtcEngineParameters rep(*m_lpAgoraEngine);
+	
 
-	nRet = rep.pauseAudioMixing();
+	nRet = m_lpAgoraEngine->pauseAudioMixing();
 
 	return nRet == 0 ? TRUE : FALSE;
 }
@@ -743,9 +720,9 @@ BOOL CAgoraObject::PauseAudioMixing()
 BOOL CAgoraObject::ResumeAudioMixing()
 {
 	int nRet = 0;
-	RtcEngineParameters rep(*m_lpAgoraEngine);
+	
 
-	nRet = rep.resumeAudioMixing();
+	nRet = m_lpAgoraEngine->resumeAudioMixing();
 
 	return nRet == 0 ? TRUE : FALSE;
 }
@@ -755,7 +732,7 @@ BOOL CAgoraObject::EnableInEarMonitoring(BOOL bEnable)
 {
 	int nRet = m_lpAgoraEngineEx->enable
 
-	nRet = rep.enablee
+	nRet = m_lpAgoraEngine->enablee
 
 	return nRet == 0 ? TRUE : FALSE;
 }
@@ -889,7 +866,7 @@ BOOL CAgoraObject::EnableSEIPush(BOOL bEnable, COLORREF crBack)
 
 BOOL CAgoraObject::EnableH264Compatible()
 {
-	AParameter apm(*m_lpAgoraEngine);
+	agora::base::AParameter apm(*m_lpAgoraEngine);
 
 	int nRet = apm->setParameters("{\"che.video.h264_profile\":66}");
 
@@ -899,11 +876,11 @@ BOOL CAgoraObject::EnableH264Compatible()
 BOOL CAgoraObject::AdjustVolume(int nRcdVol, int nPlaybackVol, int nMixVol)
 {
 	int nRet = 0;
-	RtcEngineParameters rep(*m_lpAgoraEngine);
+	
 
-	nRet &= rep.adjustRecordingSignalVolume(nRcdVol);
-	nRet &= rep.adjustPlaybackSignalVolume(nPlaybackVol);
-	nRet &= rep.adjustAudioMixingVolume(nMixVol);
+	nRet &= m_lpAgoraEngine->adjustRecordingSignalVolume(nRcdVol);
+	nRet &= m_lpAgoraEngine->adjustPlaybackSignalVolume(nPlaybackVol);
+	nRet &= m_lpAgoraEngine->adjustAudioMixingVolume(nMixVol);
 
 	return nRet == 0 ? TRUE : FALSE;
 }
@@ -917,16 +894,16 @@ void CAgoraObject::GetVolume(int *nRcdVol, int *nPlaybackVol, int *nMixVol)
 
 int CAgoraObject::GetAudioMixingPos()
 {
-	RtcEngineParameters rep(*m_lpAgoraEngine);
+	
 
-	return rep.getAudioMixingCurrentPosition();
+	return m_lpAgoraEngine->getAudioMixingCurrentPosition();
 }
 
 int CAgoraObject::GetAudioMixingDuration()
 {
-	RtcEngineParameters rep(*m_lpAgoraEngine);
+	
 
-	return rep.getAudioMixingDuration();
+	return m_lpAgoraEngine->getAudioMixingDuration();
 }
 
 
@@ -1018,7 +995,7 @@ CString CAgoraObject::LoadAppID()
 BOOL CAgoraObject::EnableExtendAudioCapture(BOOL bEnable, IAudioFrameObserver* lpAudioFrameObserver)
 {
 	agora::util::AutoPtr<agora::media::IMediaEngine> mediaEngine;
-	mediaEngine.queryInterface(m_lpAgoraEngine, agora::AGORA_IID_MEDIA_ENGINE);
+	mediaEngine.queryInterface(m_lpAgoraEngine, agora::rtc::AGORA_IID_MEDIA_ENGINE);
 
 	int nRet = 0;
 
@@ -1033,21 +1010,16 @@ BOOL CAgoraObject::EnableExtendAudioCapture(BOOL bEnable, IAudioFrameObserver* l
 	return nRet == 0 ? TRUE : FALSE;
 }
 
-BOOL CAgoraObject::EnableExtendVideoCapture(BOOL bEnable, IVideoFrameObserver* lpVideoFrameObserver)
+BOOL CAgoraObject::EnableExtendVideoCapture(BOOL bEnable)
 {
 	agora::util::AutoPtr<agora::media::IMediaEngine> mediaEngine;
-	mediaEngine.queryInterface(m_lpAgoraEngine, agora::AGORA_IID_MEDIA_ENGINE);
+	mediaEngine.queryInterface(m_lpAgoraEngine, agora::rtc::AGORA_IID_MEDIA_ENGINE);
 
 	int nRet = 0;
-	AParameter apm(*m_lpAgoraEngine);
+	agora::base::AParameter apm(*m_lpAgoraEngine);
 
 	if (mediaEngine.get() == NULL)
 		return FALSE;
-
-	if (bEnable && lpVideoFrameObserver != NULL) {
-		apm->setParameters("{\"che.video.local.camera_index\":1024}");
-		nRet = mediaEngine->registerVideoFrameObserver(lpVideoFrameObserver);
-	}
 	else {
 		nRet = mediaEngine->registerVideoFrameObserver(NULL);
 		apm->setParameters("{\"che.video.local.camera_index\":0}");
@@ -1058,8 +1030,7 @@ BOOL CAgoraObject::EnableExtendVideoCapture(BOOL bEnable, IVideoFrameObserver* l
 
 BOOL CAgoraObject::SetAudioProfile(int nSampleRate, int nChannels, int nSamplesPerCall)
 {
-	RtcEngineParameters rep(m_lpAgoraEngine);
-	int ret = rep.setRecordingAudioFrameParameters(nSampleRate, nChannels, RAW_AUDIO_FRAME_OP_MODE_READ_WRITE, nSamplesPerCall);
+	int ret = m_lpAgoraEngine->setRecordingAudioFrameParameters(nSampleRate, nChannels, RAW_AUDIO_FRAME_OP_MODE_READ_WRITE, nSamplesPerCall);
 	return ret == 0 ? true : false;
 }
 
@@ -1067,7 +1038,7 @@ BOOL CAgoraObject::EnableLocalMirrorImage(BOOL bMirrorLocal)
 {
 	int nRet = 0;
 
-	AParameter apm(*m_lpAgoraEngine);
+	agora::base::AParameter apm(*m_lpAgoraEngine);
 
 	if (bMirrorLocal)
 		nRet = apm->setParameters("{\"che.video.localViewMirrorSetting\":\"forceMirror\"}");
