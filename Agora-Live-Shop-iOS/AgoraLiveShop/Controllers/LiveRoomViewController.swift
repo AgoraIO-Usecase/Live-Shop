@@ -71,7 +71,7 @@ extension LiveRoomViewController {
     func loadMedia() {
         mediaManager = MediaManager.shared()
         mediaManager.delegate = self
-        let code = mediaManager.joinMediaChannel("hh12345")
+        let code = mediaManager.joinMediaChannel("liveshopdemo")
         if code == 0 {
             print("Join media channel success")
         } else {

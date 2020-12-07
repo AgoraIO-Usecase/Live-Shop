@@ -6,5 +6,5 @@ target 'AgoraLiveShop' do
   use_frameworks!
 
   # Pods for AgoraLiveShop
-  pod 'AgoraRtcEngine_iOS', '~> 3.1.2'
+  # pod 'AgoraRtcEngine_iOS', '~> 3.1.2'
 end

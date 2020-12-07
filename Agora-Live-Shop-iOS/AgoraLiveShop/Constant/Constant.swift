@@ -34,5 +34,5 @@ let selectedColor = UIColor(hex: 0x56C4F8, alpha: 1)
 
 let buttonColor = UIColor(hex: 0xE9E9EC, alpha: 1)
 
-let winHostUid: UInt = 1
+let winHostUid: UInt = 10000
 

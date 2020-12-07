@@ -36,7 +36,29 @@
 		0F7354AB2160BC7B008D4DF7 /* LiveRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7354AA2160BC7B008D4DF7 /* LiveRoomViewController.swift */; };
 		0FE46923216B0D3800DCBF82 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE46921216B0D3800DCBF82 /* QuestionView.swift */; };
 		0FE46924216B0D3800DCBF82 /* QuestionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE46922216B0D3800DCBF82 /* QuestionView.xib */; };
+		8B5278E1257E2BAB005B5E90 /* AgoraRtcCryptoLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B11588B257A6AB8006A4B48 /* AgoraRtcCryptoLoader.framework */; };
+		8B5278E2257E2BAB005B5E90 /* AgoraRtcCryptoLoader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8B11588B257A6AB8006A4B48 /* AgoraRtcCryptoLoader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8B5278E4257E2BAC005B5E90 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B11588A257A6AB8006A4B48 /* AgoraRtcKit.framework */; };
+		8B5278E5257E2BAD005B5E90 /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8B11588A257A6AB8006A4B48 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8B5278E6257E2BAF005B5E90 /* AgoraRtcKit2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B11588C257A6AB8006A4B48 /* AgoraRtcKit2.framework */; };
+		8B5278E7257E2BAF005B5E90 /* AgoraRtcKit2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8B11588C257A6AB8006A4B48 /* AgoraRtcKit2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8B5278E3257E2BAB005B5E90 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8B5278E5257E2BAD005B5E90 /* AgoraRtcKit.framework in Embed Frameworks */,
+				8B5278E7257E2BAF005B5E90 /* AgoraRtcKit2.framework in Embed Frameworks */,
+				8B5278E2257E2BAB005B5E90 /* AgoraRtcCryptoLoader.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0F0D7CFF21801BD300DCBADC /* AlertUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
@@ -72,6 +94,9 @@
 		0F7354AA2160BC7B008D4DF7 /* LiveRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRoomViewController.swift; sourceTree = "<group>"; };
 		0FE46921216B0D3800DCBF82 /* QuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		0FE46922216B0D3800DCBF82 /* QuestionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionView.xib; sourceTree = "<group>"; };
+		8B11588A257A6AB8006A4B48 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit.framework; path = AgoraLiveShop/AgoraRtcKit.framework; sourceTree = "<group>"; };
+		8B11588B257A6AB8006A4B48 /* AgoraRtcCryptoLoader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcCryptoLoader.framework; path = AgoraLiveShop/AgoraRtcCryptoLoader.framework; sourceTree = "<group>"; };
+		8B11588C257A6AB8006A4B48 /* AgoraRtcKit2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit2.framework; path = AgoraLiveShop/AgoraRtcKit2.framework; sourceTree = "<group>"; };
 		8F28E344A1315B3CFDB7112A /* Pods_AgoraLiveShop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgoraLiveShop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFBF02CA0F373C1B1B8CD0FD /* Pods-AgoraLiveShop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgoraLiveShop.debug.xcconfig"; path = "Target Support Files/Pods-AgoraLiveShop/Pods-AgoraLiveShop.debug.xcconfig"; sourceTree = "<group>"; };
 		F8CF4EDC16AE44121B386727 /* Pods-AgoraLiveShop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgoraLiveShop.release.xcconfig"; path = "Target Support Files/Pods-AgoraLiveShop/Pods-AgoraLiveShop.release.xcconfig"; sourceTree = "<group>"; };
@@ -82,7 +107,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B5278E6257E2BAF005B5E90 /* AgoraRtcKit2.framework in Frameworks */,
+				8B5278E4257E2BAC005B5E90 /* AgoraRtcKit.framework in Frameworks */,
 				0F30852C216C68E5002A1D28 /* libresolv.tbd in Frameworks */,
+				8B5278E1257E2BAB005B5E90 /* AgoraRtcCryptoLoader.framework in Frameworks */,
 				0F30852A216C68DD002A1D28 /* libc++.tbd in Frameworks */,
 				0F308528216C68D4002A1D28 /* SystemConfiguration.framework in Frameworks */,
 				0F308523216C68CE002A1D28 /* CoreTelephony.framework in Frameworks */,
@@ -124,6 +152,9 @@
 		0F308516216C6880002A1D28 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8B11588B257A6AB8006A4B48 /* AgoraRtcCryptoLoader.framework */,
+				8B11588A257A6AB8006A4B48 /* AgoraRtcKit.framework */,
+				8B11588C257A6AB8006A4B48 /* AgoraRtcKit2.framework */,
 				0F30852B216C68E5002A1D28 /* libresolv.tbd */,
 				0F308529216C68DD002A1D28 /* libc++.tbd */,
 				0F308527216C68D4002A1D28 /* SystemConfiguration.framework */,
@@ -215,7 +246,7 @@
 				0F73548E2160A24F008D4DF7 /* Sources */,
 				0F73548F2160A24F008D4DF7 /* Frameworks */,
 				0F7354902160A24F008D4DF7 /* Resources */,
-				924026B1674E3CF17FD249AC /* [CP] Embed Pods Frameworks */,
+				8B5278E3257E2BAB005B5E90 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -297,24 +328,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		924026B1674E3CF17FD249AC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AgoraLiveShop/Pods-AgoraLiveShop-frameworks.sh",
-				"${PODS_ROOT}/AgoraRtcEngine_iOS/AgoraRtcKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AgoraRtcKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AgoraLiveShop/Pods-AgoraLiveShop-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -491,6 +504,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/AgoraLiveShop",
 				);
 				INFOPLIST_FILE = AgoraLiveShop/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -518,6 +532,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/AgoraLiveShop",
 				);
 				INFOPLIST_FILE = AgoraLiveShop/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
